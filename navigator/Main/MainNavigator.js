@@ -133,19 +133,6 @@ export default function MainNavigator() {
     }, []);
 
     const registerForPushNotificationsAsync = async () => {
-        let token;
-
-        if (Device.isDevice) {
-            token = (
-                await Notifications.getExpoPushTokenAsync({
-                    projectId: "0d74eebd-b11d-421e-bce6-587423f34de3",
-                })
-            ).data;
-            console.log(token);
-        } else {
-            alert("Must use physical device for Push Notifications");
-        }
-
         if (Platform.OS === "android") {
             Notifications.setNotificationChannelAsync("default", {
                 name: "default",
@@ -154,6 +141,14 @@ export default function MainNavigator() {
                 lightColor: color.main,
                 lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
             });
+        }
+
+        let token;
+        if (Device.isDevice) {
+            token = (await Notifications.getDevicePushTokenAsync()).data;
+            console.log(token);
+        } else {
+            alert("Must use physical device for Push Notifications");
         }
 
         return token;

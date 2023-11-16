@@ -18,7 +18,8 @@
                 "PAYMENT_APP_ID": "641080ba755e27001c692292"
             },
             "android": {
-                "buildType": "apk"
+                "buildType": "apk",
+                "serviceAccountKeyPath": "./tidy-orbit-405310-2a177c47ef69.json"
             }
         }
     }
