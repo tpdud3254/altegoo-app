@@ -33,7 +33,6 @@ export default {
                 {
                     isAndroidBackgroundLocationEnabled: true,
                 },
-                "@notifee/react-native",
             ],
         ],
     },
