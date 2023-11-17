@@ -145,8 +145,8 @@ export default function MainNavigator() {
 
         let token;
         if (Device.isDevice) {
-            token = (await Notifications.getDevicePushTokenAsync()).data;
-            console.log(token);
+            token = (await Notifications.getExpoPushTokenAsync()).data;
+            console.log("push token : ", token);
         } else {
             alert("Must use physical device for Push Notifications");
         }
