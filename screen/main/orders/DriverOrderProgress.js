@@ -513,7 +513,7 @@ function DriverOrderProgress({ navigation, route }) {
                                             ? "예약이 완료되었습니다."
                                             : null}
                                         {status === 2
-                                            ? "작업이 시작될 시간입니다.\n현장에 도착하셨나요?"
+                                            ? "작업이 시작될 시간입니다.\n안전한 작업 부탁 드립니다."
                                             : null}
                                         {status === 3
                                             ? "현재 작업이 진행중입니다."
@@ -527,9 +527,9 @@ function DriverOrderProgress({ navigation, route }) {
                                                 marginTop: 10,
                                             }}
                                         >
-                                            작업이 시작하기 전까지 예약을 취소할
-                                            수 있습니다.
-                                            {"\n"}신중히 생각해주세요.
+                                            작업 시간을 꼭 확인해 주세요{"\n"}
+                                            작업 24시간 내에는 취소가
+                                            어렵습니다.
                                         </RegularText>
                                     ) : null}
                                     {status === 2 ? (
@@ -540,9 +540,8 @@ function DriverOrderProgress({ navigation, route }) {
                                                 marginTop: 10,
                                             }}
                                         >
-                                            작업시작 버튼을 반드시 눌러주세요.
-                                            {"\n"}
-                                            고객에게 작업 시작을 알립니다.
+                                            작업을 시작하기 전에{"\n"}작업 시작
+                                            버튼을 꼭 눌러 주세요
                                         </RegularText>
                                     ) : null}
                                     {status === 3 ? (
@@ -687,8 +686,8 @@ function DriverOrderProgress({ navigation, route }) {
                                             lineHeight: 23,
                                         }}
                                     >
-                                        고객과 문제가 있나요?{"\n"}아래 카톡
-                                        상담 버튼을 눌러주세요.
+                                        고객과 문제가 있나요?{"\n"}아래 버튼을
+                                        눌러 문의를 남겨주세요
                                     </RegularText>
                                 </View>
                             </Items>
@@ -696,7 +695,7 @@ function DriverOrderProgress({ navigation, route }) {
                     ) : (
                         <>
                             <Items style={shadowProps}>
-                                <MediumText>오더 내역</MediumText>
+                                <MediumText>작업 정보</MediumText>
                                 <Wrapper>
                                     <Row>
                                         <Item

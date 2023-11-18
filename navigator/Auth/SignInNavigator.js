@@ -48,7 +48,7 @@ export default function SignInNavigator() {
                 name="SetPassword"
                 component={SetPassword}
                 options={{
-                    title: "비밀번호 찾기",
+                    title: "비밀번호 재설정",
                 }}
             />
             <Stack.Screen

@@ -82,7 +82,7 @@ function EnterPassword() {
                     <TextInput
                         type="password"
                         title="비밀번호 입력"
-                        placeholder="비밀번호 (8자리 이상)"
+                        placeholder="비밀번호 (8자 이상)"
                         returnKeyType="next"
                         value={watch("password")}
                         onChangeText={(text) => setValue("password", text)}
@@ -98,7 +98,7 @@ function EnterPassword() {
                             marginTop: 8,
                         }}
                     >
-                        영문, 숫자를 포함한 8자 이상의 문자를 입력하세요.
+                        영문, 숫자 포함 8자 이상
                     </RegularText>
                 </InputWrapper>
                 <InputWrapper>
@@ -106,7 +106,7 @@ function EnterPassword() {
                         ref={verifyPasswordRef}
                         type="password"
                         title="비밀번호 확인"
-                        placeholder="비밀번호 (8자리 이상)"
+                        placeholder="비밀번호 (8자 이상)"
                         returnKeyType="done"
                         value={watch("verifyPassword")}
                         onChangeText={(text) =>

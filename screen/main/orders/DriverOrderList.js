@@ -346,13 +346,13 @@ function DriverOrderList({ navigation }) {
                         <HeaderTabText selected={menu === 1}>
                             {menu === 1 ? (
                                 <BoldText style={{ color: color.main }}>
-                                    나의 작업
+                                    작업 내역
                                 </BoldText>
                             ) : (
                                 <RegularText
                                     style={{ color: color["page-grey-text"] }}
                                 >
-                                    나의 작업
+                                    작업 내역
                                 </RegularText>
                             )}
                         </HeaderTabText>
@@ -361,13 +361,13 @@ function DriverOrderList({ navigation }) {
                         <HeaderTabText selected={menu === 2}>
                             {menu === 2 ? (
                                 <BoldText style={{ color: color.main }}>
-                                    나의 오더
+                                    등록 내역
                                 </BoldText>
                             ) : (
                                 <RegularText
                                     style={{ color: color["page-grey-text"] }}
                                 >
-                                    나의 오더
+                                    등록 내역
                                 </RegularText>
                             )}
                         </HeaderTabText>

@@ -168,7 +168,7 @@ function RecommendedMember() {
                 <Wrapper>
                     <TextInput
                         title="추천인 연락처"
-                        placeholder="추천할 회원님의 연락처를 입력하세요."
+                        placeholder="전화번호를 입력하세요"
                         keyboardType="number-pad"
                         returnKeyType="done"
                         value={
@@ -190,7 +190,7 @@ function RecommendedMember() {
                             marginTop: 8,
                         }}
                     >
-                        - 제외하고 번호만 입력하세요
+                        숫자만 입력하세요.
                     </RegularText>
                 </Wrapper>
                 {show ? (
@@ -199,7 +199,7 @@ function RecommendedMember() {
                             <RegularText
                                 style={{ width: "100%", textAlign: "center" }}
                             >
-                                입력하신 번호를 가진 회원님이 없습니다.
+                                해당 번호가 없습니다.
                             </RegularText>
                         ) : (
                             <>
@@ -251,11 +251,20 @@ function RecommendedMember() {
                             style={{
                                 fontSize: 16,
                                 marginLeft: 5,
+                                marginTop: -3,
                                 color: color["page-color-text"],
                             }}
                         >
-                            추천할 회원이 없으면 자동으로 알테구의 계정이{"\n"}
-                            추천인으로 등록됩니다.
+                            추천인이 없어도 회원 가입이 가능합니다.{"\n"}
+                            <RegularText
+                                style={{
+                                    fontSize: 14,
+                                    marginLeft: 5,
+                                    color: color["page-grey-text"],
+                                }}
+                            >
+                                추천인 미입력 시 알테구로 자동 등록 됩니다.
+                            </RegularText>
                         </RegularText>
                     </Info>
                 </Wrapper>

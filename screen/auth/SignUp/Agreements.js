@@ -14,9 +14,9 @@ import { LAYOUT_PADDING_X } from "../../../component/layout/Layout";
 const termsTexts = [
     "만 14세 이상입니다.",
     "서비스 이용약관",
-    "개인정보 수집 및 이용 동의",
-    "위치 서비스 이용 동의",
-    "이벤트 및 할인 혜택 안내 동의",
+    "개인정보 수집 및 이용",
+    "위치기반서비스 이용약관",
+    "이벤트 및 혜택 안내 동의",
 ];
 
 const Container = styled.View`
@@ -174,16 +174,6 @@ function Agreements() {
                             전체 동의합니다.
                         </MediumText>
                     </AllCheckWrapper>
-                    <RegularText
-                        style={{
-                            color: color["page-grey-text"],
-                            textAlign: "center",
-                            fontSize: 16,
-                            marginTop: -8,
-                        }}
-                    >
-                        서비스 이용을 위해 아래 약관에 모두 동의합니다.
-                    </RegularText>
                 </AllAgree>
                 <HorizontalDivider
                     thickness={1}
@@ -231,7 +221,7 @@ function Agreements() {
                                             textDecorationLine: "underline",
                                         }}
                                     >
-                                        내용보기
+                                        보기
                                     </RegularText>
                                 </TouchableOpacity>
                             )}

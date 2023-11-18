@@ -93,14 +93,14 @@ export default function SignUpNavigator() {
                 name="BusinessLicense"
                 component={BusinessLicense}
                 options={{
-                    title: "사업자 등록증 첨부",
+                    title: "사업자등록증 첨부",
                 }}
             />
             <Stack.Screen
                 name="RegisterVehicle"
                 component={RegisterVehicle}
                 options={{
-                    title: "내 차 등록",
+                    title: "차량 정보 등록",
                 }}
             />
             <Stack.Screen

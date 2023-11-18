@@ -228,12 +228,13 @@ function Home({ navigation, route }) {
     };
     const goToPoint = () => {
         navigation.navigate("SettingNavigator", { screen: "PointMain" });
-        // navigation.navigate("MainNavigator", {
-        //     screen: "Welcome",
-        //     // params: {
-        //     //     orderId: 1295,
-        //     //     dateTime: "2023-10-21T15:06:00.856Z",
-        //     // },
+
+        // navigation.navigate("Welcome", {
+        // screen: "Welcome",
+        // params: {
+        //     orderId: 1295,
+        //     dateTime: "2023-10-21T15:06:00.856Z",
+        // },
         // });
     };
 
@@ -490,7 +491,7 @@ function Home({ navigation, route }) {
                                         maxWidth: "65%",
                                     }}
                                 >
-                                    최근 등록한 작업
+                                    최근 등록 작업
                                 </MediumText>
                                 <SelectFilter
                                     data={PERIOD}
@@ -505,7 +506,7 @@ function Home({ navigation, route }) {
                                             color: color["page-bluegrey-text"],
                                         }}
                                     >
-                                        최근 등록한 작업이 없습니다.
+                                        최근 등록된 작업이 없습니다.
                                     </RegularText>
                                 </NoOrder>
                             ) : (

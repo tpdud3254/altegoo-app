@@ -9,7 +9,6 @@ import RegularText from "../../../component/text/RegularText";
 import MediumText from "../../../component/text/MediumText";
 import { Image, ScrollView, useWindowDimensions } from "react-native";
 import { Popup } from "../../../component/Popup";
-import BoldText from "../../../component/text/BoldText";
 
 const Container = styled.View`
     justify-content: space-between;
@@ -107,17 +106,6 @@ function BusinessLicense() {
         setInfo(newInfo);
     };
 
-    const PointText = ({ children }) => (
-        <BoldText
-            style={{
-                fontSize: 19,
-                color: color["page-color-text"],
-                textDecorationLine: "underline",
-            }}
-        >
-            {children}
-        </BoldText>
-    );
     return (
         <AuthLayout
             bottomButtonProps={{
@@ -161,8 +149,7 @@ function BusinessLicense() {
                                 lineHeight: 24,
                             }}
                         >
-                            위 카메라 아이콘을 터치하여{"\n"}사업자 등록증을
-                            촬영하거나 사진첩에서{"\n"}불러와주세요.
+                            촬영을 시작합니다.
                         </MediumText>
                     </Wrapper>
                     <SkipButton onPress={showPopup}>
@@ -187,16 +174,14 @@ function BusinessLicense() {
                     <RegularText
                         style={{
                             fontSize: 19,
-                            lineHeight: 30,
+                            lineHeight: 20,
                             textAlign: "center",
                         }}
                     >
-                        사업자 등록증은{"\n"}
-                        <PointText>작업 등록</PointText>및{" "}
-                        <PointText>작업 승인</PointText>을{"\n"}
-                        위해서 반드시 필요합니다.{"\n"}
-                        {"\n"}준비가 되는대로{"\n"}첨부해주시면 검토 후{"\n"}
-                        승인해드립니다.
+                        사업자등록증은{"\n"}정산을 위해{"\n"}반드시 필요합니다.
+                        {"\n"}
+                        {"\n"}정확하고 투명한{"\n"}알테구 서비스를{"\n"}이용해
+                        보세요.
                     </RegularText>
                 </PopupContainer>
             </Popup>

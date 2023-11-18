@@ -204,7 +204,7 @@ function RecommandedUser({ route, navigation }) {
                     <Tabs>
                         <Tab selected={menu === 1} onPress={() => setMenu(1)}>
                             <TabTitle
-                                title="날 추천한 회원"
+                                title="날 추천한 기사"
                                 num={driverList.length}
                             />
                         </Tab>

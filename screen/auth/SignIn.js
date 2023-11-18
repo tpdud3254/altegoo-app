@@ -113,7 +113,7 @@ function SignIn() {
                 <InputWrapper>
                     <TextInput
                         title="휴대폰 번호"
-                        placeholder="- 제외하고 번호만 입력해주세요."
+                        placeholder="숫자만 입력하세요"
                         returnKeyType="next"
                         keyboardType="number-pad"
                         value={watch("phone")}

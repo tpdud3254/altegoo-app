@@ -457,8 +457,29 @@ function OrderProgress({ navigation, route }) {
                                         marginTop: 10,
                                     }}
                                 >
-                                    매칭이 완료될 때까지 시간이 걸릴 수
-                                    있습니다.
+                                    작업이 예약되면 알림을 보내 드립니다.
+                                </RegularText>
+                            ) : null}
+                            {status === 2 ? (
+                                <RegularText
+                                    style={{
+                                        color: color["page-grey-text"],
+                                        fontSize: 15,
+                                        marginTop: 10,
+                                    }}
+                                >
+                                    작업 예약 현황을 확인해 주세요.
+                                </RegularText>
+                            ) : null}
+                            {status === 3 ? (
+                                <RegularText
+                                    style={{
+                                        color: color["page-grey-text"],
+                                        fontSize: 15,
+                                        marginTop: 10,
+                                    }}
+                                >
+                                    안전하고 신속한 작업을 약속드립니다.
                                 </RegularText>
                             ) : null}
                         </Box>
@@ -531,8 +552,8 @@ function OrderProgress({ navigation, route }) {
                                         lineHeight: 23,
                                     }}
                                 >
-                                    작업에 문제가 있나요?{"\n"}아래 고객센터
-                                    버튼을 눌러주세요.
+                                    작업에 문제가 있나요?{"\n"}아래 버튼을 눌러
+                                    문의를 남겨주세요
                                 </RegularText>
                             </View>
                         </Items>
@@ -597,7 +618,7 @@ function OrderProgress({ navigation, route }) {
                     ) : null}
 
                     <Items style={shadowProps}>
-                        <MediumText>오더 내역</MediumText>
+                        <MediumText>작업 내역</MediumText>
                         <Wrapper>
                             <Row>
                                 <Item

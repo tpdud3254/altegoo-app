@@ -207,7 +207,7 @@ const CheckOrderPrice = ({ navigation }) => {
         >
             <Item>
                 <RegularText style={{ marginBottom: 13 }}>
-                    알테구 이용비 결제
+                    알테구 작업 비용 결제
                 </RegularText>
                 <RegularText
                     style={{
@@ -338,7 +338,7 @@ const CheckOrderPrice = ({ navigation }) => {
                             textAlign: "right",
                         }}
                     >
-                        알테구 이용비
+                        알테구 작업 비용
                     </RegularText>
                     <RegularText
                         style={{
@@ -350,6 +350,38 @@ const CheckOrderPrice = ({ navigation }) => {
                         }}
                     >
                         {numberWithComma(watch("orderPrice", "0"))}
+                        <RegularText
+                            style={{
+                                fontSize: 14,
+                            }}
+                        >
+                            {" "}
+                            AP
+                        </RegularText>
+                    </RegularText>
+                </Row>
+                <Row>
+                    <RegularText
+                        style={{
+                            fontSize: 15,
+                            marginBottom: 8,
+                            maxWidth: "50%",
+                            marginRight: 10,
+                            textAlign: "right",
+                        }}
+                    >
+                        부가세(10%)
+                    </RegularText>
+                    <RegularText
+                        style={{
+                            fontSize: 16,
+                            marginBottom: 8,
+                            // width: "25%",
+                            maxWidth: "50%",
+                            textAlign: "right",
+                        }}
+                    >
+                        {numberWithComma(watch("tax", "0"))}
                         <RegularText
                             style={{
                                 fontSize: 14,
@@ -415,7 +447,10 @@ const CheckOrderPrice = ({ navigation }) => {
                             maxWidth: windowWidth * 0.7,
                         }}
                     >
-                        {numberWithComma(watch("totalPrice", "0"))}
+                        {numberWithComma(
+                            Number(watch("totalPrice", "0")) +
+                                Number(watch("tax", "0"))
+                        )}
                         <BoldText style={{ fontSize: 16, color: color.main }}>
                             {" "}
                             AP

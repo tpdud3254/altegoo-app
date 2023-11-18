@@ -178,7 +178,7 @@ function RegistCompleted({ navigation, route }) {
                         >
                             {userCount}명
                         </BoldText>
-                        의 기사님께{"\n"}작업 알림이 전송되었습니다.
+                        의 기사님께{"\n"}작업 요청 알림이 전송되었습니다.
                     </RegularText>
                     <View
                         style={{

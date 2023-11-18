@@ -188,7 +188,7 @@ function SearchAddress({ route, navigation }) {
 
     const ItemTitle = ({ title }) => {
         return (
-            <RegularText style={{ fontSize: 20, marginBottom: 15 }}>
+            <RegularText style={{ fontSize: 19, marginBottom: 15 }}>
                 {title}
             </RegularText>
         );
@@ -209,7 +209,7 @@ function SearchAddress({ route, navigation }) {
                 {registInfo.direction === DIRECTION[2] ? (
                     <>
                         <Item>
-                            <ItemTitle title="1. ‘내림’ 주소 입력하기" />
+                            <ItemTitle title="1. ‘내림’ 주소를 입력하세요." />
                             <Wrapper>
                                 <TouchableOpacity
                                     onPress={() => searchAddress(0)}
@@ -282,8 +282,8 @@ function SearchAddress({ route, navigation }) {
                         <ItemTitle
                             title={
                                 registInfo.vehicleType === "스카이차"
-                                    ? "1. 주소 입력하기"
-                                    : `1. ‘${registInfo.direction}’ 주소 입력하기`
+                                    ? "1. ‘내림’ 주소를 입력하세요."
+                                    : `1. ‘${registInfo.direction}’ 주소를 입력하세요.`
                             }
                         />
                         <Wrapper>
@@ -297,7 +297,7 @@ function SearchAddress({ route, navigation }) {
                                         route?.params?.selectAddress1
                                             ?.address ||
                                         (registInfo.vehicleType === "스카이차"
-                                            ? "주소 입력"
+                                            ? "내림 주소 입력"
                                             : `${registInfo.direction} 주소 입력`)
                                     }
                                     textStyle={{

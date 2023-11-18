@@ -94,12 +94,13 @@ function CompanyInfomation() {
                         onSelect={(index) =>
                             setValue("workCategory", index + 1)
                         }
+                        placeholder="사업 종류를 선택하세요"
                     />
                 </ItemWrapper>
                 <ItemWrapper>
                     <TextInput
                         title="상호명"
-                        placeholder="상호명을 입력해주세요."
+                        placeholder="상호명을 입력해주세요"
                         returnKeyType="next"
                         value={watch("companyName")}
                         onChangeText={(text) => setValue("companyName", text)}
@@ -112,8 +113,8 @@ function CompanyInfomation() {
                 <ItemWrapper>
                     <TextInput
                         ref={companyPersonNameRef}
-                        title="담당자명 (선택)"
-                        placeholder="담당자명을 입력해주세요"
+                        title="대표자명 (선택)"
+                        placeholder="대표자명을 입력해주세요"
                         returnKeyType="done"
                         value={watch("companyPersonName")}
                         onChangeText={(text) =>

@@ -342,7 +342,7 @@ function RegistOrder({ navigation }) {
                 <RegularText>지난 오더 불러오기</RegularText>
             </LastOrder> */}
             <Item>
-                <ItemTitle title="1. 어떤 작업이 필요한가요?" />
+                <ItemTitle title="1. 작업 종류를 선택하세요." />
                 <Wrapper>
                     <Row>
                         {VEHICLE.map((value, index) => (
@@ -370,7 +370,7 @@ function RegistOrder({ navigation }) {
             {vehicleType === 1 ? (
                 <>
                     <Item>
-                        <ItemTitle title="2. 올리시나요, 내리시나요?" />
+                        <ItemTitle title="2. 작업 형태를 선택하세요." />
                         <Wrapper>
                             {DIRECTION.map((value, index) => (
                                 <View
@@ -427,7 +427,7 @@ function RegistOrder({ navigation }) {
                         </Wrapper>
                     </Item>
                     <Item>
-                        <ItemTitle title="3. 작업의 물량 혹은 시간은 어떻게 되나요?" />
+                        <ItemTitle title="3. 작업 물량 또는 시간을 선택하세요." />
                         <Wrapper>
                             <Row>
                                 <SelectBox
@@ -470,7 +470,7 @@ function RegistOrder({ navigation }) {
                         </Wrapper>
                     </Item>
                     <Item bottomSpace="40">
-                        <ItemTitle title="4. 작업의 높이는 어떻게 되나요?" />
+                        <ItemTitle title="4. 작업 높이를 선택하세요." />
                         {direction !== 3 ? (
                             <Wrapper>
                                 <SelectBox
@@ -532,7 +532,7 @@ function RegistOrder({ navigation }) {
             ) : (
                 <>
                     <Item>
-                        <ItemTitle title="2. 작업의 톤 수는 어떻게 되나요?" />
+                        <ItemTitle title="2. 작업 톤 수를 선택하세요" />
                         <Wrapper>
                             <SelectBox
                                 placeholder="톤 수 선택"
@@ -548,7 +548,7 @@ function RegistOrder({ navigation }) {
                         </Wrapper>
                     </Item>
                     <Item>
-                        <ItemTitle title="3. 작업 시간은 어느정도 예상하시나요?" />
+                        <ItemTitle title="3. 작업 시간을 선택하세요." />
                         <Wrapper>
                             <Row>
                                 <SelectBox

@@ -138,14 +138,14 @@ function PointMain({ navigation }) {
         <Layout>
             <Header>
                 <LightText style={{ marginBottom: 3 }}>
-                    쌓일 수록 행복해지는
+                    사람과 사람을 연결하는
                 </LightText>
                 <BoldText>알테구 포인트</BoldText>
             </Header>
             <Box>
                 <View style={{ alignItems: "center" }}>
                     <RegularText style={{ fontSize: 15, marginBottom: 10 }}>
-                        보유한 출금 가능한 포인트
+                        보유 포인트
                     </RegularText>
                     <Row>
                         <Image

@@ -46,7 +46,7 @@ export default function RegistNavigator() {
             <Stack.Screen
                 name={REGIST_NAV[0]}
                 component={RegistOrder}
-                options={{ headerTitle: "오더 등록" }}
+                options={{ headerTitle: "작업 등록" }}
             />
             <Stack.Screen
                 name={REGIST_NAV[1]}
@@ -61,7 +61,7 @@ export default function RegistNavigator() {
             <Stack.Screen
                 name={REGIST_NAV[3]}
                 component={AddOtherData}
-                options={{ headerTitle: "추가 정보 입력" }}
+                options={{ headerTitle: "작업 정보 보기" }}
             />
             <Stack.Screen
                 name={REGIST_NAV[4]}

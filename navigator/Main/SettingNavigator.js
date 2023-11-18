@@ -75,7 +75,7 @@ export default function SettingNavigator() {
             <Stack.Screen
                 name="RegistPointAccount"
                 component={RegistPointAccount}
-                options={{ title: "계좌등록" }}
+                options={{ title: "계좌 등록" }}
             />
             <Stack.Screen
                 name="RecommandedUser"

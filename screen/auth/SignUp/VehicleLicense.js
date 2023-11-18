@@ -162,8 +162,7 @@ function VehicleLicense() {
                                 lineHeight: 24,
                             }}
                         >
-                            위 카메라 아이콘을 터치하여{"\n"}사업자 등록증을
-                            촬영하거나 사진첩에서{"\n"}불러와주세요.
+                            촬영을 시작합니다.
                         </MediumText>
                     </Wrapper>
                     <SkipButton onPress={showPopup}>
@@ -192,12 +191,8 @@ function VehicleLicense() {
                             textAlign: "center",
                         }}
                     >
-                        화물자동차{"\n"}운송사업 허가증은{"\n"}
-                        <PointText>작업 등록</PointText>및{" "}
-                        <PointText>작업 승인</PointText>을{"\n"}
-                        위해서 반드시 필요합니다.{"\n"}
-                        {"\n"}준비가 되는대로{"\n"}첨부해주시면 검토 후{"\n"}
-                        승인해드립니다.
+                        화물자동차{"\n"}운송사업허가증은{"\n"}작업을 위해{"\n"}
+                        반드시 필요합니다.
                     </RegularText>
                 </PopupContainer>
             </Popup>

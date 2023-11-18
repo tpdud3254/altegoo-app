@@ -346,13 +346,13 @@ function SelectDateTime({ navigation }) {
         >
             <OptionScroll data={optionData} />
             <Item>
-                <ItemTitle title="1. 원하시는 날짜를 선택해주세요." />
+                <ItemTitle title="1. 작업 날짜를 선택하세요." />
                 <Wrapper>
                     <SelectButton option="date" />
                 </Wrapper>
             </Item>
             <Item>
-                <ItemTitle title="2. 원하시는 시간을 선택해주세요." />
+                <ItemTitle title="2. 작업 시간을 선택하세요." />
                 <Wrapper>
                     <SelectButton option="time" />
                 </Wrapper>

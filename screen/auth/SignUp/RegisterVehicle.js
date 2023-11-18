@@ -19,6 +19,7 @@ import {
 } from "../../../utils";
 import axios from "axios";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
+import { Popup } from "../../../component/Popup";
 
 const Container = styled.View`
     justify-content: space-between;
@@ -38,11 +39,18 @@ const SkipButton = styled.TouchableOpacity`
     align-items: center;
 `;
 
+const PopupContainer = styled.View`
+    width: 200px;
+    height: 230px;
+    justify-content: center;
+`;
+
 const vehicleType = ["사다리차", "스카이차"];
 
 function RegisterVehicle({ route }) {
     const navigation = useNavigation();
     const { height: windowHeight } = useWindowDimensions();
+    const [popupVisible, setPopupVisible] = useState(false);
     const { info, setInfo } = useContext(UserContext);
     const { register, setValue, watch, getValues, handleSubmit } = useForm();
 
@@ -87,6 +95,14 @@ function RegisterVehicle({ route }) {
             setValidation(false);
         }
     }, [getValues()]);
+
+    const showPopup = () => {
+        setPopupVisible(true);
+    };
+
+    const hidePopup = () => {
+        setPopupVisible(false);
+    };
 
     const getVehicleFloor = async () => {
         try {
@@ -253,7 +269,7 @@ function RegisterVehicle({ route }) {
                         <ScrollView>
                             <Wrapper>
                                 <Item>
-                                    <Title>차량 종류를 선택하세요.</Title>
+                                    <Title>차량 종류</Title>
                                     <RadioContainer>
                                         {vehicleType.map((value, index) => (
                                             <Radio
@@ -335,9 +351,7 @@ function RegisterVehicle({ route }) {
                                 </Item>
                             </Wrapper>
                             {settingMode ? null : (
-                                <SkipButton
-                                    onPress={() => onNext({ skip: true })}
-                                >
+                                <SkipButton onPress={showPopup}>
                                     <RegularText
                                         style={{
                                             fontSize: 16,
@@ -351,6 +365,25 @@ function RegisterVehicle({ route }) {
                             )}
                         </ScrollView>
                     </Container>
+                    <Popup
+                        visible={popupVisible}
+                        onTouchOutside={hidePopup}
+                        onClick={() => onNext({ skip: true })}
+                    >
+                        <PopupContainer>
+                            <RegularText
+                                style={{
+                                    fontSize: 19,
+                                    lineHeight: 20,
+                                    textAlign: "center",
+                                }}
+                            >
+                                차량 번호가 있어야{"\n"}작업이 가능합니다.{"\n"}
+                                {"\n"}정확한 정보 입력 후에{"\n"}알테구 서비스를
+                                {"\n"}이용해 보세요.
+                            </RegularText>
+                        </PopupContainer>
+                    </Popup>
                 </AuthLayout>
             )}
         </>
