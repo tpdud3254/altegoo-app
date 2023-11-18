@@ -43,7 +43,6 @@ export default {
             foregroundImage: "./assets/app_icon.png",
             backgroundColor: "#FFFFFF",
         },
-        googleServicesFile: "./google-services.json",
     },
     web: {
         favicon: "./assets/favicon.png",
