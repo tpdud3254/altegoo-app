@@ -26,6 +26,12 @@ export default {
         },
         android: {
             package: "com.gng.altegoo",
+            googleServicesFile: "./google-services.json",
+            config: {
+                googleSignIn: {
+                    apiKey: "AIzaSyBQ3Cu1W2RAYuFXogaGR3cIR849LbqbO5g",
+                },
+            },
         },
         plugins: [
             [
@@ -38,6 +44,12 @@ export default {
     },
     android: {
         package: "com.gng.altegoo",
+        googleServicesFile: "./google-services.json",
+        config: {
+            googleSignIn: {
+                apiKey: "AIzaSyBQ3Cu1W2RAYuFXogaGR3cIR849LbqbO5g",
+            },
+        },
         versionCode: 1,
         adaptiveIcon: {
             foregroundImage: "./assets/app_icon.png",
