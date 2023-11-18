@@ -1,31 +1,36 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-    Linking,
-    Platform,
-    ActivityIndicator,
-    Alert,
-    View,
-    SafeAreaView,
-} from "react-native";
-import styled from "styled-components/native";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, View, SafeAreaView, BackHandler } from "react-native";
 import { WebView } from "react-native-webview";
-// import WebView from "react-native-webview-bootpay";
-import UserContext from "../../context/UserContext";
-import { PAYMENT_APP_ID } from "@env";
-import { PAYMENT_SERVER, REGIST_NAV, SERVER, VALID } from "../../constant";
+import { PAYMENT_SERVER, SERVER, VALID } from "../../constant";
 import axios from "axios";
-
-import { getAsyncStorageToken, showError } from "../../utils";
-import RegistContext from "../../context/RegistContext";
+import { getAsyncStorageToken, showMessage } from "../../utils";
 
 function Charge({ navigation, route }) {
     const webViewRef = useRef();
     const [progress, setProgress] = useState(0.0);
 
-    const { registInfo } = useContext(RegistContext);
-    const { info } = useContext(UserContext);
+    console.log("charge : ", route?.params?.data);
 
-    console.log(route?.params?.data);
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", goBack);
+
+        return () => {
+            BackHandler.removeEventListener("hardwareBackPress");
+        };
+    }, []);
+
+    useEffect(() => {
+        //TEST: 테스트 코드
+        setTimeout(async () => {
+            await setPoint();
+        }, 2000);
+    }, []);
+
+    const goBack = () => {
+        navigation.goBack();
+        return true;
+    };
+
     const sendMessage = (data) => {
         webViewRef.current.postMessage(data);
     };
@@ -51,10 +56,10 @@ function Charge({ navigation, route }) {
                     navigation.goBack();
                     break;
                 case "issued":
-                    await setPoint(parsed);
+                    await setPoint();
                     break;
                 case "done":
-                    await setPoint(parsed);
+                    await setPoint();
                     break;
                 case "confirm":
                     // navigation.navigate("ReservationConfirm", {
@@ -66,14 +71,23 @@ function Charge({ navigation, route }) {
             console.log("e!!");
         }
     };
-    //EJECT: eject 후 적용 (결제)
-    const setPoint = async (parsed) => {
+    //TODO: 가상계좌 제외
+
+    const setPoint = async () => {
         try {
-            const response = await axios.patch(SERVER + "/admin/points", {
-                pointId: route?.params?.data?.pointId,
-                points:
-                    route?.params?.data?.curPoint + route?.params?.data?.price,
-            });
+            const response = await axios.patch(
+                SERVER + "/points/charge",
+                {
+                    pointId: route?.params?.data?.pointId,
+                    curPoint: route?.params?.data?.curPoint,
+                    point: route?.params?.data?.price,
+                },
+                {
+                    headers: {
+                        auth: await getAsyncStorageToken(),
+                    },
+                }
+            );
 
             const {
                 data: {
@@ -85,20 +99,14 @@ function Charge({ navigation, route }) {
             console.log(points);
 
             if (result === VALID) {
-                // navigation.navigate("TabsNavigator", {
-                //   screen: "SettingNavigator",
-                //   params: {
-                //     screen: "PointNavigator",
-                //     params: {
-                //       screen: "PointMain",
-                //     },
-                //   },
-                // });
+                showMessage("포인트 충전이 완료되었습니다.");
+                navigation.goBack();
             } else console.log(msg);
         } catch (error) {
             console.log(error);
         }
     };
+
     useEffect(() => {
         if (progress === 1) {
             sendMessage(
@@ -119,7 +127,6 @@ function Charge({ navigation, route }) {
                         ref={webViewRef}
                         containerStyle={{ width: 400, height: 700 }}
                         source={{
-                            // uri: "https://master.d1p7wg3e032x9j.amplifyapp.com/payment",
                             uri: PAYMENT_SERVER,
                         }}
                         javaScriptEnabled={true}

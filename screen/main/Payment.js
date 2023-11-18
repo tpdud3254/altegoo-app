@@ -1,23 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-    Linking,
-    Platform,
-    ActivityIndicator,
     Alert,
     View,
     SafeAreaView,
     useWindowDimensions,
     BackHandler,
 } from "react-native";
-import styled from "styled-components/native";
 import { WebView } from "react-native-webview";
-// import WebView from "react-native-webview-bootpay";
 import UserContext from "../../context/UserContext";
-import { PAYMENT_APP_ID } from "@env";
 import { PAYMENT_SERVER, REGIST_NAV, SERVER, VALID } from "../../constant";
 import axios from "axios";
 
-import { getAsyncStorageToken, showError, showMessage } from "../../utils";
+import { getAsyncStorageToken, showMessage } from "../../utils";
 import RegistContext from "../../context/RegistContext";
 
 function Payment({ navigation, route }) {
@@ -39,7 +33,7 @@ function Payment({ navigation, route }) {
     }, []);
 
     useEffect(() => {
-        //TODO: 테스트 코드
+        //TEST: 테스트 코드
         setTimeout(async () => {
             await registWork();
         }, 2000);
@@ -91,7 +85,6 @@ function Payment({ navigation, route }) {
             console.log("e!!");
         }
     };
-    //EJECT: eject 후 적용 (결제)
     //TODO: 가상계좌 제외
 
     const registWork = async (data) => {
@@ -159,39 +152,6 @@ function Payment({ navigation, route }) {
                     dateTime: order.dateTime,
                 });
                 return;
-                //포인트 차감
-                //EJECT: 포인트 내역도 남기기
-
-                if (route?.params?.data?.curPoint > 0) {
-                    try {
-                        const response = await axios.patch(
-                            SERVER + "/admin/points",
-                            {
-                                pointId: route?.params?.data?.pointId,
-                                points: 0,
-                            }
-                        );
-
-                        const {
-                            data: {
-                                data: { points },
-                                result,
-                            },
-                        } = response;
-
-                        console.log(points);
-
-                        if (result === VALID) {
-                            navigation.navigate(REGIST_NAV[6]);
-                        } else console.log(msg);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                } else {
-                    navigation.navigate(REGIST_NAV[8], {
-                        paymentData: order,
-                    });
-                }
             } else {
                 const {
                     data: { msg },
@@ -203,6 +163,7 @@ function Payment({ navigation, route }) {
             console.log("error : ", error);
         }
     };
+
     useEffect(() => {
         if (progress === 1) {
             sendMessage(
@@ -228,7 +189,6 @@ function Payment({ navigation, route }) {
                         ref={webViewRef}
                         containerStyle={{ width: windowWidth, height: 700 }}
                         source={{
-                            // uri: "https://master.d1p7wg3e032x9j.amplifyapp.com/payment",
                             uri: PAYMENT_SERVER,
                         }}
                         javaScriptEnabled={true}
