@@ -61,7 +61,6 @@ function Payment({ navigation, route }) {
             switch (parsed.handle) {
                 case "error":
                     Alert.alert("결제 오류입니다. 다시 시도해주세요.");
-                    //EJECT: 안됨 / eject 후 적용 (결제)
                     navigation.navigate(REGIST_NAV[4]);
                     // navigation.goBack();
                     break;

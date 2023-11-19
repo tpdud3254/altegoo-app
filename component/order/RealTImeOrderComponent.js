@@ -28,7 +28,6 @@ const ItemContainer = styled.TouchableOpacity`
         props.emergency ? color["box-color-background"] : color.lightblue}; */
     background-color: ${(props) =>
         props.emergency ? "#FFC19B50" : color.lightblue};
-    /* NEXT: 사다리차, 스카이차 색 구분되게 수정 */
     padding: 15px;
     border-radius: 16px;
     /* border: ${(props) => (props.emergency ? 1 : 0)}px solid #eb1d36; */

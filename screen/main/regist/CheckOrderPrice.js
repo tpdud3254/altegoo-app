@@ -180,7 +180,7 @@ const CheckOrderPrice = ({ navigation }) => {
         setRegistInfo({ ...prevInfo, ...sendData });
 
         console.log("info : ", info);
-        //EJECT: 결제
+
         const paymentData = {
             application_id: PAYMENT_APP_ID,
             price: finalPrice,

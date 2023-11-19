@@ -57,8 +57,6 @@ function createSocket() {
             setTimeout(() => createSocket(), 1000);
         }
     };
-
-    //BUG: 서버 쪽 연결 끊기고 다시 연결 되었을 때 여러개 연결되는거 fix (tts메세지에 인덱스를 붙여서 해당 인덱스가 이미 실행되었으면 실행안하게?)
 }
 
 const createSocketOnBackground = () => {
