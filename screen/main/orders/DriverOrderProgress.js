@@ -560,7 +560,6 @@ function DriverOrderProgress({ navigation, route }) {
                                 </Box>
                             )}
                             {status === 1 ? (
-                                // BUG: 예약취소하고 실시간 오더로 갈 시 버튼 업데이트 안되는 문제
                                 <Button
                                     onPress={() => setCancelOrder(order.id)}
                                     type="accent"
