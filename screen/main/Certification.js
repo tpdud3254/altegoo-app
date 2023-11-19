@@ -3,6 +3,9 @@ import { View, SafeAreaView, useWindowDimensions } from "react-native";
 import { WebView } from "react-native-webview";
 import { LAYOUT_PADDING_X } from "../../component/layout/Layout";
 import { CommonActions } from "@react-navigation/native";
+import { SERVER, VALID } from "../../constant";
+import { showErrorMessage } from "../../utils";
+import axios from "axios";
 
 function Certification({ navigation }) {
     const webViewRef = useRef();
@@ -55,8 +58,31 @@ function Certification({ navigation }) {
         console.log("progress : ", progress);
     }, [progress]);
 
-    const goToPage = (data) => {
-        //TODO: 가입 하지 않은 회원일 경우 뒤로가기
+    const goToPage = async (data) => {
+        try {
+            const response = await axios.get(SERVER + "/users/search", {
+                params: {
+                    phone: data.phone,
+                },
+            });
+
+            const {
+                data: { result },
+            } = response;
+
+            console.log(response);
+            if (result !== VALID) {
+                showErrorMessage("존재하지 않는 사용자입니다.");
+                navigation.goBack();
+                return;
+            }
+        } catch (error) {
+            console.log(error);
+            showErrorMessage("회원정보를 찾을 수 없습니다.");
+            navigation.goBack();
+            return;
+        }
+
         navigation.dispatch(
             CommonActions.reset({
                 index: 1,
