@@ -1076,13 +1076,10 @@ function DriverOrderProgress({ navigation, route }) {
                                                 marginLeft: 12,
                                             }}
                                         >
-                                            {
-                                                numberWithComma(
-                                                    order.finalPrice -
-                                                        order.orderPoint
-                                                )
-                                                //TODO: 어떤정보가 보여야되는지 확실히
-                                            }
+                                            {numberWithComma(
+                                                order.finalPrice -
+                                                    order.orderPoint
+                                            )}
                                             <BoldText
                                                 style={{
                                                     fontSize: 13,

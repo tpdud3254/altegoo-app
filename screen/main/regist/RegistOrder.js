@@ -112,7 +112,6 @@ function RegistOrder({ navigation }) {
         }
     }, [vehicleType, floor, time]);
 
-    //TODO: 예상 운임 협의인 경우 고객센터로 문의하라고 팝업창 띄워주고 진행 X
     useEffect(() => {
         //유효성 검사
         const check = {

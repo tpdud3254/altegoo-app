@@ -104,6 +104,7 @@ function RealTimeOrder({ navigation }) {
 
         const focusSubscription = navigation.addListener("focus", () => {
             refresh();
+            //DEVELOP: 왔다갔다 할때마다 리프레시 안되게,, 임시 방편임
         });
 
         return () => {

@@ -695,7 +695,6 @@ function OrderDetails({ navigation, route }) {
                             value={
                                 <RegularText>
                                     {numberWithComma(order.registPoint)}{" "}
-                                    {/*  //TODO: 어떤정보가 보여야되는지 확실히 */}
                                     <RegularText
                                         style={{
                                             fontSize: 14,

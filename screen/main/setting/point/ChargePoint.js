@@ -70,7 +70,7 @@ function ChargePoint({ route, navigation }) {
             <MediumText style={{ fontSize: 14 }}>{children}</MediumText>
         </Row>
     );
-    //TODO: 포인트 충전 기능
+    //NEXT: 포인트 충전 기능
     return (
         <Layout scroll={true}>
             <Container>

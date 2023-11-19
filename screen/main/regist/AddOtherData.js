@@ -73,7 +73,6 @@ const NormalButton = styled.TouchableOpacity`
     height: 60px;
 `;
 
-//TODO: price정책정리
 function AddOtherData({ navigation }) {
     const { info } = useContext(UserContext);
     const { registInfo, setRegistInfo } = useContext(RegistContext);

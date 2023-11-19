@@ -435,7 +435,6 @@ function Home({ navigation, route }) {
 
                     {info.userTypeId === 2 && acceptOrders.length > 0
                         ? acceptOrders.map((order, index) => {
-                              //TODO: 예약된 작업 한꺼번에 진행중 작업ㅎ ㅏㄴ꺼번에
                               if (
                                   order.orderStatusId !== 2 &&
                                   order.orderStatusId !== 3 &&

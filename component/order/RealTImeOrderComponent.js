@@ -454,16 +454,12 @@ export const Order = {
                                                 fontSize: 15,
                                             }}
                                         >
-                                            {
-                                                " " +
-                                                    numberWithComma(
-                                                        order.price +
-                                                            order.emergencyPrice -
-                                                            order.orderPoint ||
-                                                            0
-                                                    )
-                                                //TODO: 어떤정보가 보여야되는지 확실히
-                                            }
+                                            {" " +
+                                                numberWithComma(
+                                                    order.price +
+                                                        order.emergencyPrice -
+                                                        order.orderPoint || 0
+                                                )}
                                             <BoldText
                                                 style={{
                                                     fontSize: 12,

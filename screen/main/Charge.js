@@ -71,7 +71,6 @@ function Charge({ navigation, route }) {
             console.log("e!!");
         }
     };
-    //TODO: 가상계좌 제외
 
     const setPoint = async () => {
         try {

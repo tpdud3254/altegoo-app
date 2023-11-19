@@ -84,7 +84,6 @@ function Payment({ navigation, route }) {
             console.log("e!!");
         }
     };
-    //TODO: 가상계좌 제외
 
     const registWork = async (data) => {
         console.log("parsed payment data : ", data);
