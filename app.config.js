@@ -32,6 +32,13 @@ export default {
                     apiKey: "AIzaSyBQ3Cu1W2RAYuFXogaGR3cIR849LbqbO5g",
                 },
             },
+            permissions: [
+                "android.permission.ACCESS_BACKGROUND_LOCATION",
+                "android.permission.ACCESS_COARSE_LOCATION",
+                "android.permission.ACCESS_FINE_LOCATION",
+                "android.permission.FOREGROUND_SERVICE",
+                "android.permission.RECEIVE_BOOT_COMPLETED",
+            ],
         },
         plugins: [
             [
