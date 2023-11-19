@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { AppState, Image, View } from "react-native";
+import { Alert, AppState, Image, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import Toast from "react-native-toast-message";
@@ -9,7 +9,7 @@ import { toastConfig } from "./component/Toast";
 import { UserProvider } from "./context/UserContext";
 import { StatusBar } from "expo-status-bar";
 import { RegistProvider } from "./context/RegistContext";
-import { checkPosition, speech } from "./utils";
+import { checkPosition, showMessage, speech } from "./utils";
 import { Asset } from "expo-asset";
 import * as Device from "expo-device";
 import * as Location from "expo-location";
@@ -197,6 +197,12 @@ export default function App() {
     }
 
     const requestPermissions = async () => {
+        if (locationGranted && !pushGranted) {
+            Alert.alert(
+                "알림 허용",
+                "설정 > 애플리케이션 > 알테구에서 알림을 허용해주세요!"
+            );
+        }
         console.log(
             "[location] foreground granted : ",
             foreground.granted,

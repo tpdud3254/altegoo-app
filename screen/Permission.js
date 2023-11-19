@@ -185,7 +185,7 @@ function Permission({ onPress }) {
                                         marginTop: 10,
                                     }}
                                 >
-                                    [설정 {">"} 애플리케이션 {">"}
+                                    [설정 {">"} 애플리케이션 {"> "}
                                     알테구]
                                 </BoldText>
                                 에서 알림과 위치 설정을 변경해주세요.
