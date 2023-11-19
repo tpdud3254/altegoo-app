@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, SafeAreaView, useWindowDimensions } from "react-native";
+import {
+    View,
+    SafeAreaView,
+    useWindowDimensions,
+    Platform,
+} from "react-native";
 import { WebView } from "react-native-webview";
 import { LAYOUT_PADDING_X } from "../../component/layout/Layout";
 import { CommonActions } from "@react-navigation/native";
@@ -41,7 +46,7 @@ function Certification({ navigation }) {
                     break;
             }
         } catch (e) {
-            console.log(e);
+            console.log("receiveMessage :", e);
             navigation.goBack();
         }
     };
@@ -96,6 +101,45 @@ function Certification({ navigation }) {
             })
         );
     };
+    const onShouldStartLoadWithRequest = (event) => {
+        console.log("event : ", event);
+        if (
+            event.url.startsWith("http://") ||
+            event.url.startsWith("https://") ||
+            event.url.startsWith("about:blank")
+        ) {
+            return true;
+        }
+
+        if (Platform.OS === "android") {
+            if (event.url.includes("intent")) {
+                var SendIntentAndroid = require("react-native-send-intent");
+
+                SendIntentAndroid.openAppWithUri(event.url)
+                    .then((isOpened) => {
+                        console.log(isOpened);
+                        if (!isOpened) {
+                            alert(
+                                "앱 실행에 실패했습니다. 설치가 되어있지 않은 경우 설치하기 버튼을 눌러주세요."
+                            );
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+
+            return false;
+        } else {
+            Linking.openURL(event.url).catch((err) => {
+                alert(
+                    "앱 실행에 실패했습니다. 설치가 되어있지 않은 경우 설치하기 버튼을 눌러주세요."
+                );
+            });
+            return false;
+        }
+    };
+
     return (
         <View
             style={{
@@ -125,6 +169,9 @@ function Certification({ navigation }) {
                         onLoadProgress={(event) => {
                             setProgress(event.nativeEvent.progress);
                         }}
+                        onShouldStartLoadWithRequest={(event) =>
+                            onShouldStartLoadWithRequest(event)
+                        }
                     />
                 </View>
             </SafeAreaView>
