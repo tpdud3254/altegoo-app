@@ -60,7 +60,7 @@ function Welcome() {
     const { height: windowHeight } = useWindowDimensions();
 
     useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", onNextStep); //BUG: 뒤로가기 안됨
+        BackHandler.addEventListener("hardwareBackPress", onNextStep);
 
         return () => {
             BackHandler.removeEventListener("hardwareBackPress");

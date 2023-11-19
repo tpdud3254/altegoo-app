@@ -50,7 +50,7 @@ function RegistCompleted({ navigation, route }) {
     const [dateTime, setDateTime] = useState("");
 
     useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", () => goToHome()); //BUG: 뒤로가기 안됨
+        BackHandler.addEventListener("hardwareBackPress", () => goToHome());
 
         const orderDateTime = new Date(route?.params?.dateTime);
         const date = GetDate(orderDateTime);
