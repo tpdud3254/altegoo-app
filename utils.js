@@ -887,6 +887,8 @@ export const GoToOrderPage = (info, order) => {
             if (order.orderStatusId === 1) {
                 //작업 요청 상태일 경우
                 return "OrderDetails";
+            } else if (order.orderStatusId === 6) {
+                return "OrderDetails";
             } else {
                 //나머지 상태일 경우
                 if (order.acceptUser === info.id) {

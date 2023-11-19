@@ -15,7 +15,7 @@ import * as Notifications from "expo-notifications";
 import { Image, Platform } from "react-native";
 import { AndroidNotificationVisibility } from "expo-notifications";
 import { color } from "../../styles";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 import OrderProgress from "../../screen/main/orders/OrderProgress";
 import RegistNavigator from "./RegistNavigator";
@@ -83,7 +83,6 @@ export default function MainNavigator() {
                 );
             });
 
-        //TODO: 나중에 푸시 처리하기
         responseListener.current =
             Notifications.addNotificationResponseReceivedListener(
                 (response) => {
@@ -96,19 +95,51 @@ export default function MainNavigator() {
                         const pushData =
                             response.notification.request.content.data;
 
-                        if (pushData.screen === "NoticeDetail") {
-                            //NEXT: 공지 추가
-                            console.log(pushData.noticeId);
-                            // navigation.navigate("NoticeDetail");
-                        } else if (pushData.screen === "Home") {
-                            navigation.navigate("TabsNavigator");
-                            //TODO: 리프레쉬
+                        if (pushData.screen === "DriverOrderProgress") {
+                            navigation.dispatch(
+                                CommonActions.reset({
+                                    index: 1,
+                                    routes: [
+                                        { name: "TabsNavigator" },
+                                        {
+                                            name: "DriverOrderProgress",
+                                            params: {
+                                                orderId: pushData.orderId,
+                                            },
+                                        },
+                                    ],
+                                })
+                            );
                         } else if (pushData.screen === "OrderProgress") {
-                            navigation.navigate(pushData.screen, {
-                                orderData: pushData.order,
-                            });
-                        } else {
-                            navigation.navigate("TabsNavigator");
+                            navigation.dispatch(
+                                CommonActions.reset({
+                                    index: 1,
+                                    routes: [
+                                        { name: "TabsNavigator" },
+                                        {
+                                            name: "OrderProgress",
+                                            params: {
+                                                orderId: pushData.orderId,
+                                            },
+                                        },
+                                    ],
+                                })
+                            );
+                        } else if (pushData.screen === "OrderDetails") {
+                            navigation.dispatch(
+                                CommonActions.reset({
+                                    index: 1,
+                                    routes: [
+                                        { name: "TabsNavigator" },
+                                        {
+                                            name: "OrderDetails",
+                                            params: {
+                                                orderId: pushData.orderId,
+                                            },
+                                        },
+                                    ],
+                                })
+                            );
                         }
                     }
                 }
