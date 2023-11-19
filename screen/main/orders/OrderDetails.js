@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Image, View } from "react-native";
+import { Image, View, Linking } from "react-native";
 import styled from "styled-components/native";
 import RegularText from "../../../component/text/RegularText";
 import MediumText from "../../../component/text/MediumText";
@@ -623,7 +623,14 @@ function OrderDetails({ navigation, route }) {
                                     title="고객 연락처"
                                     value={GetPhoneNumberWithDash(order.phone)}
                                     button={
-                                        <ItemButton>
+                                        <ItemButton
+                                            onPress={() =>
+                                                Linking.openURL(
+                                                    "tel:" +
+                                                        order.phone.toString()
+                                                )
+                                            }
+                                        >
                                             <Image
                                                 source={require(`../../../assets/images/icons/icon_phone.png`)}
                                                 style={{
@@ -644,7 +651,16 @@ function OrderDetails({ navigation, route }) {
                                             : "없음"
                                     }
                                     button={
-                                        <ItemButton>
+                                        <ItemButton
+                                            onPress={() =>
+                                                order.directPhone
+                                                    ? Linking.openURL(
+                                                          "tel:" +
+                                                              order.directPhone.toString()
+                                                      )
+                                                    : undefined
+                                            }
+                                        >
                                             <Image
                                                 source={require(`../../../assets/images/icons/icon_phone.png`)}
                                                 style={{

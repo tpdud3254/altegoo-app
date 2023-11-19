@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, Linking, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
@@ -374,7 +374,7 @@ function DriverOrderProgress({ navigation, route }) {
                 {title}
             </RegularText>
             {onClick ? (
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onClick}>
                     <RegularText
                         style={{
                             color: color.main,
@@ -955,7 +955,12 @@ function DriverOrderProgress({ navigation, route }) {
                                                 order.phone
                                             )}
                                             center={true}
-                                            onClick={() => console.log("click")}
+                                            onClick={() =>
+                                                Linking.openURL(
+                                                    "tel:" +
+                                                        order.phone.toString()
+                                                )
+                                            }
                                         />
                                     </Row>
                                     <Line />
@@ -972,7 +977,11 @@ function DriverOrderProgress({ navigation, route }) {
                                             center={true}
                                             onClick={
                                                 order.directPhone
-                                                    ? () => console.log("click")
+                                                    ? () =>
+                                                          Linking.openURL(
+                                                              "tel:" +
+                                                                  order.phone.toString()
+                                                          )
                                                     : null
                                             }
                                         />
