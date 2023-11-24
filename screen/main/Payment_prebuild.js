@@ -171,7 +171,7 @@ function Payment({ navigation, route }) {
 
     const onIssued = (data) => {
         console.log("-- issued", data);
-        registWork();
+        // registWork();
     };
 
     const onConfirm = (data) => {
@@ -179,7 +179,7 @@ function Payment({ navigation, route }) {
         if (bootpay != null && bootpay.current != null)
             bootpay.current.transactionConfirm(data);
 
-        registWork();
+        // registWork();
     };
 
     const onDone = (data) => {
