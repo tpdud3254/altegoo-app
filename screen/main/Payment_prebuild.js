@@ -55,11 +55,13 @@ function Payment({ navigation, route }) {
             emergency: registInfo.emergency || false,
             memo: registInfo.memo || null,
             price: registInfo.price || 0,
-            savePoint: registInfo.savePoint || 0,
-            usePoint: registInfo.usePoint || 0,
             emergencyPrice: registInfo.emergencyPrice || 0,
-            tax: registInfo.tax || 0,
+            usePoint: registInfo.usePoint || 0,
+            orderPrice: registInfo.orderPrice || 0,
             totalPrice: registInfo.totalPrice || 0,
+            tax: registInfo.tax || 0,
+            finalPrice: registInfo.finalPrice || 0,
+            registPoint: registInfo.registPoint || 0,
         };
 
         try {
