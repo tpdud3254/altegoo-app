@@ -125,12 +125,13 @@ const Commission = styled(Total)`
 `;
 
 const ItemButton = styled.TouchableOpacity`
-    border: 1px solid ${color.main};
+    /* border: 1px solid ${color.main}; */
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 44px;
     border-radius: 10px;
+    background-color: #fae100;
 `;
 
 const STEP = [
