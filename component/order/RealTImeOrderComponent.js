@@ -207,6 +207,13 @@ export const Order = {
                 return;
             }
 
+            if (
+                order.vehicleType.substring(0, 3) !== info.vehicle[0].type.type
+            ) {
+                showMessage("내 차량 정보와 다른 종류의 작업입니다.");
+                return;
+            }
+
             try {
                 const response = await axios.patch(
                     SERVER + "/works/order/accept",
