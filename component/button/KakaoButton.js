@@ -23,7 +23,7 @@ function KakaoButton() {
                 style={{
                     width: 170,
                     height: 80,
-                    bottom: 140,
+                    bottom: 120,
                 }}
             >
                 <Image
