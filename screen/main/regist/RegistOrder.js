@@ -531,10 +531,10 @@ function RegistOrder({ navigation }) {
             ) : (
                 <>
                     <Item>
-                        <ItemTitle title="2. 작업 톤 수를 선택하세요" />
+                        <ItemTitle title="2. 작업 높이(톤 수)를 선택하세요" />
                         <Wrapper>
                             <SelectBox
-                                placeholder="톤 수 선택"
+                                placeholder="작업 높이 선택"
                                 data={
                                     vehicleType === 1
                                         ? volume
@@ -554,7 +554,7 @@ function RegistOrder({ navigation }) {
                                     placeholder="시간 선택"
                                     data={
                                         floor
-                                            ? floor <= 6
+                                            ? floor <= 5
                                                 ? SKY_TIME[1]
                                                 : SKY_TIME[0]
                                             : []

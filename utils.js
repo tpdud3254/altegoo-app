@@ -748,43 +748,43 @@ export const GetSkyPrice = (option, time) => {
 
     if (option === 1) {
         if (time === 1) calc = calc + 30;
-        else if (time === 2) calc = calc + 15 + 30;
-        else if (time === 3) calc = calc + 15 * 2 + 30;
+        else if (time === 2) calc = calc + 30;
+        else if (time === 3) calc = calc + 40;
         else if (time === 4) calc = calc + 40;
         else if (time === 5) calc = calc + 60;
         else if (time === 6) return "consultation";
     } else if (option === 2) {
         if (time === 1) calc = calc + 30;
-        else if (time === 2) calc = calc + 15 + 30;
-        else if (time === 3) calc = calc + 15 * 2 + 30;
+        else if (time === 2) calc = calc + 30;
+        else if (time === 3) calc = calc + 40;
         else if (time === 4) calc = calc + 40;
         else if (time === 5) calc = calc + 60;
         else if (time === 6) return "consultation";
     } else if (option === 3) {
         if (time === 1) calc = calc + 30;
-        else if (time === 2) calc = calc + 15 + 30;
-        else if (time === 3) calc = calc + 15 * 2 + 30;
+        else if (time === 2) calc = calc + 30;
+        else if (time === 3) calc = calc + 40;
         else if (time === 4) calc = calc + 40;
         else if (time === 5) calc = calc + 60;
         else if (time === 6) return "consultation";
     } else if (option === 4) {
         if (time === 1) calc = calc + 40;
-        else if (time === 2) calc = calc + 20 + 40;
-        else if (time === 3) calc = calc + 20 * 2 + 40;
+        else if (time === 2) calc = calc + 40;
+        else if (time === 3) calc = calc + 50;
         else if (time === 4) calc = calc + 50;
         else if (time === 5) calc = calc + 70;
         else if (time === 6) return "consultation";
     } else if (option === 5) {
         if (time === 1) calc = calc + 50;
-        else if (time === 2) calc = calc + 25 + 50;
-        else if (time === 3) calc = calc + 25 * 2 + 50;
+        else if (time === 2) calc = calc + 50;
+        else if (time === 3) calc = calc + 70;
         else if (time === 4) calc = calc + 70;
         else if (time === 5) calc = calc + 90;
         else if (time === 6) return "consultation";
     } else if (option === 6) {
-        if (time === 4) calc = calc + 90;
-        else if (time === 5) calc = calc + 120;
-        else if (time === 6) return "consultation";
+        if (time === 1) calc = calc + 90;
+        else if (time === 2) calc = calc + 120;
+        else if (time === 3) return "consultation";
     } else if (option === 7) {
         if (time === 1) calc = calc + 130;
         else if (time === 2) calc = calc + 180;

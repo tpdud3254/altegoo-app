@@ -159,9 +159,14 @@ function SelectBox({
                                                     color: color[
                                                         "page-dark-text"
                                                     ],
+                                                    textAlign: "center",
                                                 }}
                                             >
-                                                {value}
+                                                {value === "물량"
+                                                    ? "물량\n(이삿짐 / 씽크대 / 1톤해당하는 짐)"
+                                                    : value === "시간"
+                                                    ? "시간\n(가구, 에어컨 철거 / 공사현장 등)"
+                                                    : value}
                                             </RegularText>
                                         </Option>
                                         {index < data.length - 1 ? (
