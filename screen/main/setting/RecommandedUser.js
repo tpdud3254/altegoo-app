@@ -204,13 +204,13 @@ function RecommandedUser({ route, navigation }) {
                     <Tabs>
                         <Tab selected={menu === 1} onPress={() => setMenu(1)}>
                             <TabTitle
-                                title="날 추천한 기사"
+                                title="추천 기사"
                                 num={driverList.length}
                             />
                         </Tab>
                         <Tab selected={menu === 2} onPress={() => setMenu(2)}>
                             <TabTitle
-                                title="날 추천한 기업"
+                                title="추천 기업"
                                 num={companyList.length}
                             />
                         </Tab>
@@ -248,7 +248,7 @@ function RecommandedUser({ route, navigation }) {
                     <Item style={shadowProps}>
                         <View style={{ alignItems: "center" }}>
                             <RegularText style={{ marginBottom: 15 }}>
-                                내가 추천한 회원
+                                알테구 추천인 정보
                             </RegularText>
                             {myRecommendUser === "altegoo" ? (
                                 <BoldText>알테구</BoldText>

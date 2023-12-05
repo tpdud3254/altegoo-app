@@ -310,14 +310,14 @@ function Home({ navigation, route }) {
                                         />
                                         <BoldText
                                             style={{
-                                                fontSize: 15,
+                                                fontSize: 18,
                                                 color: "white",
                                             }}
                                         >
                                             {" " + numberWithComma(point || 0)}
                                             <BoldText
                                                 style={{
-                                                    fontSize: 12,
+                                                    fontSize: 14,
                                                     color: "white",
                                                 }}
                                             >
