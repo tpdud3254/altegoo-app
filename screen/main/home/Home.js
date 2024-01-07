@@ -102,6 +102,12 @@ const bannerPath = [
     require(`../../../assets/images/banner/banner_003.png`),
 ];
 
+const bannerLink = [
+    "https://blog.naver.com/altegoo/223315218402",
+    "https://blog.naver.com/altegoo/223315218757",
+    "https://blog.naver.com/altegoo/223315219167",
+];
+
 const PERIOD = ["1주일", "1개월", "3개월"];
 function Home({ navigation, route }) {
     const { width } = useWindowDimensions();
@@ -258,22 +264,24 @@ function Home({ navigation, route }) {
     };
 
     const renderIntro = ({ item }) => (
-        <View
+        <TouchableOpacity
             style={{
                 width: width - LAYOUT_PADDING_X * 2,
                 height: (width - LAYOUT_PADDING_X * 2) / 3,
-                // backgroundColor: "black",
                 alignItems: "center",
                 justifyContent: "center",
                 marginTop: -10,
                 marginBottom: -10,
+            }}
+            onPress={() => {
+                Linking.openURL(bannerLink[bannerIndex]);
             }}
         >
             <Image
                 source={item}
                 style={{ width: "100%", resizeMode: "contain" }}
             />
-        </View>
+        </TouchableOpacity>
     );
     return (
         <>
