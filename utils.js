@@ -468,7 +468,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 3) calc = calc + 8 + 12;
             else if (time === 4) calc = calc + 8 * 2 + 12;
             else if (time === 5) calc = calc + 35;
-            else if (time === 6) calc = calc + 50;
+            else if (time === 6) calc = calc + 60;
         }
     } else if (floor >= 6 && floor <= 7) {
         if (volume === 1) {
@@ -485,7 +485,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 3) calc = calc + 8 + 13;
             else if (time === 4) calc = calc + 8 * 2 + 13;
             else if (time === 5) calc = calc + 35;
-            else if (time === 6) calc = calc + 55;
+            else if (time === 6) calc = calc + 60;
         }
     } else if (floor >= 8 && floor <= 9) {
         if (volume === 1) {
@@ -502,7 +502,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 3) calc = calc + 9 + 14;
             else if (time === 4) calc = calc + 9 * 2 + 14;
             else if (time === 5) calc = calc + 35;
-            else if (time === 6) calc = calc + 55;
+            else if (time === 6) calc = calc + 60;
         }
     } else if (floor >= 10 && floor <= 11) {
         if (volume === 1) {
@@ -518,8 +518,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 15;
             else if (time === 3) calc = calc + 10 + 15;
             else if (time === 4) calc = calc + 10 * 2 + 15;
-            else if (time === 5) calc = calc + 40;
-            else if (time === 6) calc = calc + 55;
+            else if (time === 5) calc = calc + 45;
+            else if (time === 6) calc = calc + 70;
         }
     } else if (floor >= 12 && floor <= 13) {
         if (volume === 1) {
@@ -535,8 +535,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 16;
             else if (time === 3) calc = calc + 10 + 16;
             else if (time === 4) calc = calc + 10 * 2 + 16;
-            else if (time === 5) calc = calc + 40;
-            else if (time === 6) calc = calc + 55;
+            else if (time === 5) calc = calc + 45;
+            else if (time === 6) calc = calc + 70;
         }
     } else if (floor === 14) {
         if (volume === 1) {
@@ -553,7 +553,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 3) calc = calc + 10 + 17;
             else if (time === 4) calc = calc + 10 * 2 + 17;
             else if (time === 5) calc = calc + 45;
-            else if (time === 6) calc = calc + 65;
+            else if (time === 6) calc = calc + 70;
         }
     } else if (floor === 15) {
         if (volume === 1) {
@@ -569,8 +569,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 18;
             else if (time === 3) calc = calc + 11 + 18;
             else if (time === 4) calc = calc + 11 * 2 + 18;
-            else if (time === 5) calc = calc + 45;
-            else if (time === 6) calc = calc + 65;
+            else if (time === 5) calc = calc + 55;
+            else if (time === 6) calc = calc + 80;
         }
     } else if (floor === 16) {
         if (volume === 1) {
@@ -586,8 +586,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 19;
             else if (time === 3) calc = calc + 11 + 19;
             else if (time === 4) calc = calc + 11 * 2 + 19;
-            else if (time === 5) calc = calc + 45;
-            else if (time === 6) calc = calc + 70;
+            else if (time === 5) calc = calc + 55;
+            else if (time === 6) calc = calc + 80;
         }
     } else if (floor === 17) {
         if (volume === 1) {
@@ -603,8 +603,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 20;
             else if (time === 3) calc = calc + 11 + 20;
             else if (time === 4) calc = calc + 11 * 2 + 20;
-            else if (time === 5) calc = calc + 45;
-            else if (time === 6) calc = calc + 70;
+            else if (time === 5) calc = calc + 55;
+            else if (time === 6) calc = calc + 80;
         }
     } else if (floor === 18) {
         if (volume === 1) {
@@ -620,8 +620,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 21;
             else if (time === 3) calc = calc + 12 + 21;
             else if (time === 4) calc = calc + 12 * 2 + 21;
-            else if (time === 5) calc = calc + 55;
-            else if (time === 6) calc = calc + 75;
+            else if (time === 5) calc = calc + 65;
+            else if (time === 6) calc = calc + 90;
         }
     } else if (floor === 19) {
         if (volume === 1) {
@@ -637,8 +637,8 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 23;
             else if (time === 3) calc = calc + 12 + 23;
             else if (time === 4) calc = calc + 12 * 2 + 23;
-            else if (time === 5) calc = calc + 55;
-            else if (time === 6) calc = calc + 75;
+            else if (time === 5) calc = calc + 65;
+            else if (time === 6) calc = calc + 90;
         }
     } else if (floor === 20) {
         if (volume === 1) {
@@ -654,76 +654,78 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (time === 2) calc = calc + 25;
             else if (time === 3) calc = calc + 12 + 25;
             else if (time === 4) calc = calc + 12 * 2 + 25;
-            else if (time === 5) calc = calc + 60;
-            else if (time === 6) calc = calc + 80;
+            else if (time === 5) calc = calc + 65;
+            else if (time === 6) calc = calc + 90;
         }
     } else if (floor === 21) {
         if (volume === 1) {
             //물량
             if (quantity === 1) calc = calc + 28;
             else if (quantity === 2) calc = calc + 31;
-            else if (quantity === 3) calc = calc + 33;
-            else if (quantity === 4) calc = calc + 36;
-            else if (quantity === 5) calc = calc + 39;
+            else if (quantity === 3) calc = calc + 34;
+            else if (quantity === 4) calc = calc + 37;
+            else if (quantity === 5) calc = calc + 40;
         } else if (volume === 2) {
             //시간
             if (time === 1) calc = calc + 28;
             else if (time === 2) calc = calc + 28;
             else if (time === 3) calc = calc + 12 + 28;
             else if (time === 4) calc = calc + 12 * 2 + 28;
-            else if (time === 5) calc = calc + 65;
-            else if (time === 6) calc = calc + 80;
+            else if (time === 5) calc = calc + 70;
+            else if (time === 6) calc = calc + 100;
         }
     } else if (floor === 22) {
         if (volume === 1) {
             //물량
             if (quantity === 1) calc = calc + 31;
             else if (quantity === 2) calc = calc + 34;
-            else if (quantity === 3) calc = calc + 36;
-            else if (quantity === 4) calc = calc + 39;
-            else if (quantity === 5) calc = calc + 42;
+            else if (quantity === 3) calc = calc + 37;
+            else if (quantity === 4) calc = calc + 40;
+            else if (quantity === 5) calc = calc + 43;
         } else if (volume === 2) {
             //시간
             if (time === 1) calc = calc + 31;
             else if (time === 2) calc = calc + 31;
             else if (time === 3) calc = calc + 12 + 31;
             else if (time === 4) calc = calc + 12 * 2 + 31;
-            else if (time === 5) calc = calc + 65;
-            else if (time === 6) calc = calc + 90;
+            else if (time === 5) calc = calc + 70;
+            else if (time === 6) calc = calc + 100;
         }
     } else if (floor === 23) {
         if (volume === 1) {
             //물량
             if (quantity === 1) calc = calc + 34;
             else if (quantity === 2) calc = calc + 37;
-            else if (quantity === 3) calc = calc + 39;
-            else if (quantity === 4) calc = calc + 42;
-            else if (quantity === 5) calc = calc + 45;
+            else if (quantity === 3) calc = calc + 40;
+            else if (quantity === 4) calc = calc + 43;
+            else if (quantity === 5) calc = calc + 46;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 34;
-            else if (time === 2) calc = calc + 34;
-            else if (time === 3) calc = calc + 12 + 34;
-            else if (time === 4) calc = calc + 12 * 2 + 34;
-            else if (time === 5) calc = calc + 70;
-            else if (time === 6) calc = calc + 95;
+            return "consultation";
+            // if (time === 1) calc = calc + 34;
+            // else if (time === 2) calc = calc + 34;
+            // else if (time === 3) calc = calc + 12 + 34;
+            // else if (time === 4) calc = calc + 12 * 2 + 34;
+            // else if (time === 5) calc = calc + 70;
+            // else if (time === 6) calc = calc + 95;
         }
     } else if (floor === 24) {
         if (volume === 1) {
             //물량
             if (quantity === 1) calc = calc + 37;
             else if (quantity === 2) calc = calc + 40;
-            else if (quantity === 3) calc = calc + 42;
-            else if (quantity === 4) calc = calc + 45;
+            else if (quantity === 3) calc = calc + 43;
+            else if (quantity === 4) calc = calc + 46;
             else if (quantity === 5) calc = calc + 49;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 38;
-            else if (time === 2) calc = calc + 38;
-            else if (time === 3) calc = calc + 12 + 38;
-            else if (time === 4) calc = calc + 12 * 2 + 38;
-            else if (time === 5) calc = calc + 75;
-            else if (time === 6) calc = calc + 100;
+            return "consultation";
+            // if (time === 1) calc = calc + 38;
+            // else if (time === 2) calc = calc + 38;
+            // else if (time === 3) calc = calc + 12 + 38;
+            // else if (time === 4) calc = calc + 12 * 2 + 38;
+            // else if (time === 5) calc = calc + 75;
+            // else if (time === 6) calc = calc + 100;
         }
     } else if (floor === 25) {
         if (volume === 1) {
@@ -731,12 +733,13 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             return "consultation";
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 43;
-            else if (time === 2) calc = calc + 43;
-            else if (time === 3) calc = calc + 12 + 43;
-            else if (time === 4) calc = calc + 12 * 2 + 43;
-            else if (time === 5) calc = calc + 80;
-            else if (time === 6) calc = calc + 110;
+            return "consultation";
+            // if (time === 1) calc = calc + 43;
+            // else if (time === 2) calc = calc + 43;
+            // else if (time === 3) calc = calc + 12 + 43;
+            // else if (time === 4) calc = calc + 12 * 2 + 43;
+            // else if (time === 5) calc = calc + 80;
+            // else if (time === 6) calc = calc + 110;
         }
     } else if (floor === 26) return "consultation";
 
