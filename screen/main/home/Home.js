@@ -80,16 +80,26 @@ const NoOrder = styled.View`
     margin-bottom: 10px;
 `;
 
-const bannerData = [
-    {
-        title: "banner1",
-    },
-    {
-        title: "banner2",
-    },
-    {
-        title: "banner3",
-    },
+const Indicators = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 7px;
+    /* margin-bottom: 35px; */
+`;
+
+const Indicator = styled.TouchableOpacity`
+    width: ${(props) => (props.cur ? "10px" : "5px")};
+    height: 5px;
+    background-color: ${(props) => props.color || color.main};
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    margin: 0px 3px 0px 3px;
+`;
+const bannerPath = [
+    require(`../../../assets/images/banner/banner_001.png`),
+    require(`../../../assets/images/banner/banner_002.png`),
+    require(`../../../assets/images/banner/banner_003.png`),
 ];
 
 const PERIOD = ["1주일", "1개월", "3개월"];
@@ -106,6 +116,7 @@ function Home({ navigation, route }) {
     const [period, setPeriod] = useState(1);
 
     const bannerRef = useRef();
+    const [bannerIndex, setBannerIndex] = useState(0);
     const { firstLogin, setFirstLogin } = useContext(LoginContext); //NEXT: 앱 처음 로그인 시 가이드 말풍선 만들기
     const [showGuide, setShowGuide] = useState(false);
 
@@ -250,14 +261,18 @@ function Home({ navigation, route }) {
         <View
             style={{
                 width: width - LAYOUT_PADDING_X * 2,
-                height: 120,
-                backgroundColor: color.lightblue,
+                height: (width - LAYOUT_PADDING_X * 2) / 3,
+                // backgroundColor: "black",
                 alignItems: "center",
                 justifyContent: "center",
-                borderRadius: 12,
+                marginTop: -10,
+                marginBottom: -10,
             }}
         >
-            <BoldText style={{ color: "#0561FC" }}>{item.title}</BoldText>
+            <Image
+                source={item}
+                style={{ width: "100%", resizeMode: "contain" }}
+            />
         </View>
     );
     return (
@@ -352,10 +367,39 @@ function Home({ navigation, route }) {
                                     horizontal
                                     pagingEnabled
                                     showsHorizontalScrollIndicator={false}
-                                    data={bannerData}
+                                    data={bannerPath}
                                     renderItem={renderIntro}
                                     ref={bannerRef}
+                                    onMomentumScrollEnd={(event) => {
+                                        const index = Math.floor(
+                                            Math.floor(
+                                                event.nativeEvent.contentOffset
+                                                    .x
+                                            ) /
+                                                Math.floor(
+                                                    event.nativeEvent
+                                                        .layoutMeasurement.width
+                                                )
+                                        );
+                                        setBannerIndex(index);
+                                    }}
                                 />
+                                <Indicators>
+                                    {bannerPath.map((__, index) => (
+                                        <Indicator
+                                            key={index}
+                                            // onPress={() =>
+                                            //     scrollToIntroImage(index)
+                                            // }
+                                            color={
+                                                bannerIndex === index
+                                                    ? color.btnAccent
+                                                    : color.btnDisable
+                                            }
+                                            cur={bannerIndex === index}
+                                        />
+                                    ))}
+                                </Indicators>
                             </Item>
                         </>
                     )}
