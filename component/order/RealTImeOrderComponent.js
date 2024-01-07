@@ -24,12 +24,13 @@ import { DRIVER, SERVER, VALID } from "../../constant";
 
 const ItemContainer = styled.TouchableOpacity`
     flex-direction: row;
+    justify-content: space-between;
     /* background-color: ${(props) =>
         props.emergency ? color["box-color-background"] : color.lightblue}; */
-    background-color: ${(props) =>
-        props.emergency ? "#FFC19B50" : color.lightblue};
-    padding: 15px;
-    border-radius: 16px;
+    /* background-color: ${(props) =>
+        props.emergency ? "#FFC19B50" : color.lightblue}; */
+    padding: 15px 0px;
+    /* border-radius: 16px; */
     /* border: ${(props) => (props.emergency ? 1 : 0)}px solid #eb1d36; */
     width: 100%;
 `;
@@ -41,16 +42,15 @@ const Icon = styled.View`
     justify-content: center;
     border-radius: 16px;
     width: 60px;
-    margin-right: 15px;
+    margin-right: 10px;
 `;
 const IconImage = styled.Image`
-    width: 10px;
-    height: 16px;
+    width: 52px;
+    height: 52px;
 `;
 
 const Wrapper = styled.View`
     padding-top: 3px;
-    width: 80%;
 `;
 const Row = styled.View`
     flex-direction: row;
@@ -67,15 +67,24 @@ const PointButton = styled.View`
 const Button = styled.TouchableOpacity`
     background-color: ${(props) =>
         props.type === 1
-            ? color.main
+            ? color.lightblue
             : props.type === 3
             ? "white"
             : color.btnDefault};
     align-items: center;
-    padding: 12px;
+    justify-content: center;
+    padding: 10px;
     border-radius: 11px;
     margin-top: 5px;
     border: ${(props) => (props.type === 3 ? 1 : 0)}px solid ${color.main};
+    height: 78px;
+    width: 78px;
+`;
+
+const Line = styled.View`
+    background-color: ${color["image-area-background"]};
+    width: 100%;
+    height: 1px;
 `;
 export const Order = {
     Items: ({ children }) => {
@@ -144,13 +153,13 @@ export const Order = {
         const getButtonText = () => {
             if (order.orderStatusId === 1) {
                 if (order.emergency) {
-                    return "긴급 예약하기";
+                    return "긴급 예약";
                 } else {
                     return "예약하기";
                 }
             } else {
                 if (order.acceptUser === info.id) {
-                    return "예약 취소하기";
+                    return "예약 취소";
                 } else {
                     return "예약 중";
                     //NEXT: 예약대기 우선 삭제
@@ -350,153 +359,124 @@ export const Order = {
         return (
             <>
                 {order !== -1 ? (
-                    <View style={{ marginBottom: 20 }}>
-                        <ItemContainer
-                            onPress={goToOrderProgress}
-                            // emergency={order.emergency} NEXT: 스카이차, 사다리차 색깔구분으로 변경
-                            emergency={order.vehicleType !== "스카이차"}
-                        >
-                            <Icon>
-                                {order.direction === "올림" ? (
-                                    <IconImage
-                                        source={require("../../assets/images/icons/icon_lift_up_ON.png")}
-                                    />
-                                ) : order.direction === "내림" ? (
-                                    <IconImage
-                                        source={require("../../assets/images/icons/icon_lift_down_ON.png")}
-                                    />
-                                ) : (
-                                    <IconImage
-                                        source={require("../../assets/images/icons/icon_lift_both_ON.png")}
-                                    />
-                                )}
-                                <MediumText
-                                    style={{ fontSize: 14, color: color.main }}
-                                >
-                                    {order.vehicleType === "스카이차"
-                                        ? "양사"
-                                        : order.direction}
-                                </MediumText>
-                            </Icon>
-                            <Wrapper>
-                                <Row>
-                                    <BoldText>
-                                        {order.vehicleType === "스카이차"
-                                            ? `${order.vehicleType} / ${order.time} / ${order.floor}`
-                                            : `${order.vehicleType} / ${
-                                                  order.volume === "시간"
-                                                      ? order.time
-                                                      : order.quantity
-                                              } / ${
-                                                  order.direction === "양사"
-                                                      ? order.upFloor
-                                                      : order.floor
-                                              }`}
-                                    </BoldText>
-                                </Row>
-                                <Row>
-                                    <RegularText
-                                        style={{
-                                            fontSize: 15,
-                                        }}
-                                    >
-                                        {order.address1}
-                                    </RegularText>
-                                </Row>
-                                <Row>
-                                    <RegularText style={{ fontSize: 15 }}>
-                                        {`${GetDate(
-                                            order.dateTime,
-                                            "long"
-                                        )} (${GetDayOfWeek(
-                                            order.dateTime
-                                        )}) ${GetTime(order.dateTime)}`}
-                                    </RegularText>
-                                </Row>
-                                <Row>
-                                    <PointButton>
-                                        <Image
-                                            source={require("../../assets/images/icons/icon_point.png")}
-                                            style={{
-                                                width: 27,
-                                                height: 27,
-                                                marginRight: 2,
-                                            }}
-                                        />
-                                        <BoldText
-                                            style={{
-                                                fontSize: 15,
-                                            }}
-                                        >
-                                            {" " +
-                                                numberWithComma(
-                                                    order.price +
-                                                        order.emergencyPrice
-                                                )}
-                                            <BoldText
-                                                style={{
-                                                    fontSize: 12,
-                                                }}
-                                            >
-                                                {" "}
-                                                AP
-                                            </BoldText>
-                                        </BoldText>
-                                    </PointButton>
-                                </Row>
-                                <Row
-                                    style={{
-                                        justisfyContent: "space-between",
-                                    }}
-                                    lastChild={true}
-                                >
-                                    <RegularText
-                                        style={{
-                                            fontSize: 15,
-                                        }}
-                                    >
-                                        수수료 :
-                                        <BoldText
-                                            style={{
-                                                fontSize: 15,
-                                            }}
-                                        >
-                                            {" " +
-                                                numberWithComma(
-                                                    order.price +
-                                                        order.emergencyPrice -
-                                                        order.orderPoint || 0
-                                                )}
-                                            <BoldText
-                                                style={{
-                                                    fontSize: 12,
-                                                }}
-                                            >
-                                                {" "}
-                                                AP
-                                            </BoldText>
-                                        </BoldText>
-                                    </RegularText>
-                                </Row>
-                            </Wrapper>
-                        </ItemContainer>
-                        <Button
-                            onPress={buttonType === 5 ? undefined : showPopup}
-                            type={buttonType}
-                        >
-                            <MediumText
+                    <View style={{ marginBottom: 0 }}>
+                        <Line />
+                        <ItemContainer onPress={goToOrderProgress}>
+                            <View
                                 style={{
-                                    color:
-                                        buttonType === 1
-                                            ? "white"
-                                            : buttonType === 3
-                                            ? color.main
-                                            : color["page-grey-text"],
+                                    flexDirection: "row",
+                                    maxWidth: "70%",
                                 }}
                             >
-                                {getButtonText()}
-                            </MediumText>
-                        </Button>
+                                <Icon>
+                                    {order.vehicleType === "스카이차" ? (
+                                        <IconImage
+                                            source={require("../../assets/images/icons/icon_sky.png")}
+                                        />
+                                    ) : order.direction === "올림" ? (
+                                        <IconImage
+                                            source={require("../../assets/images/icons/icon_ladder_up.png")}
+                                        />
+                                    ) : order.direction === "내림" ? (
+                                        <IconImage
+                                            source={require("../../assets/images/icons/icon_ladder_down.png")}
+                                        />
+                                    ) : (
+                                        <IconImage
+                                            source={require("../../assets/images/icons/icon_ladder_both.png")}
+                                        />
+                                    )}
+                                </Icon>
+                                <Wrapper>
+                                    <Row>
+                                        <PointButton>
+                                            <Image
+                                                source={require("../../assets/images/icons/icon_point.png")}
+                                                style={{
+                                                    width: 27,
+                                                    height: 27,
+                                                    marginRight: 2,
+                                                }}
+                                            />
+                                            <BoldText
+                                                style={{
+                                                    fontSize: 17,
+                                                    color: color.main,
+                                                }}
+                                            >
+                                                {" " +
+                                                    numberWithComma(
+                                                        order.price +
+                                                            order.emergencyPrice
+                                                    )}
+                                                <BoldText
+                                                    style={{
+                                                        fontSize: 14,
+                                                        color: color.main,
+                                                    }}
+                                                >
+                                                    {" "}
+                                                    AP
+                                                </BoldText>
+                                            </BoldText>
+                                        </PointButton>
+                                    </Row>
+                                    <Row>
+                                        <BoldText style={{ maxWidth: "95%" }}>
+                                            {order.vehicleType === "스카이차"
+                                                ? `${order.vehicleType} / ${order.time} / ${order.floor}`
+                                                : `${order.vehicleType} / ${
+                                                      order.volume === "시간"
+                                                          ? order.time
+                                                          : order.quantity
+                                                  } / ${
+                                                      order.direction === "양사"
+                                                          ? order.upFloor
+                                                          : order.floor
+                                                  }`}
+                                        </BoldText>
+                                    </Row>
+                                    <Row>
+                                        <RegularText style={{ fontSize: 15 }}>
+                                            {`${GetDate(
+                                                order.dateTime
+                                            )} (${GetDayOfWeek(
+                                                order.dateTime
+                                            )}) ${GetTime(order.dateTime)}`}
+                                        </RegularText>
+                                    </Row>
+                                    <Row>
+                                        <RegularText
+                                            style={{
+                                                fontSize: 15,
+                                                color: "#ABA9BC",
+                                            }}
+                                        >
+                                            {order.simpleAddress1}
+                                        </RegularText>
+                                    </Row>
+                                </Wrapper>
+                            </View>
+                            <Button
+                                onPress={
+                                    buttonType === 5 ? undefined : showPopup
+                                }
+                                type={buttonType}
+                            >
+                                <MediumText
+                                    style={{
+                                        color:
+                                            buttonType === 1
+                                                ? color.blue
+                                                : buttonType === 3
+                                                ? color.main
+                                                : color["page-grey-text"],
+                                    }}
+                                >
+                                    {getButtonText()}
+                                </MediumText>
+                            </Button>
+                        </ItemContainer>
                         <PopupWithButtons
                             visible={isPopupShown}
                             onTouchOutside={hidePopup}

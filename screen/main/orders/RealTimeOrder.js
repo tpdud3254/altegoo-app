@@ -8,6 +8,7 @@ import {
     GoToOrderPage,
     getAsyncStorageToken,
     getDistance,
+    numberWithComma,
     showError,
 } from "../../../utils";
 import { Image } from "react-native";
@@ -67,6 +68,22 @@ const Shortcut = styled.TouchableOpacity`
     border-radius: 7px;
 `;
 
+const PointButton = styled.TouchableOpacity`
+    background-color: ${color["button-accent-background"]};
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+    padding: 8px 13px;
+    border-radius: 12px;
+    margin-top: -20px;
+    margin-right: 10px;
+`;
+
+const ChargeButton = styled(PointButton)`
+    background-color: ${color.btnDefault};
+    border: 1px solid ${color["image-area-background"]};
+`;
+
 const REGION = [
     "전체 지역",
     "서울",
@@ -86,6 +103,7 @@ function RealTimeOrder({ navigation }) {
     const [orders, setOrders] = useState(-1);
     const [acceptOrder, setAcceptOrder] = useState(-1);
     const [filteredOrders, setFilteredOrders] = useState(-1);
+    const [point, setPoint] = useState(-1);
 
     const [filter, setFilter] = useState(1);
     const [curLatitude, setCurLatitude] = useState(0);
@@ -99,6 +117,7 @@ function RealTimeOrder({ navigation }) {
         setFilteredOrders(-1);
         setFilter(1);
 
+        getPoint();
         getOrders();
         getAcceptOrders();
 
@@ -113,10 +132,10 @@ function RealTimeOrder({ navigation }) {
     }, []);
 
     useEffect(() => {
-        if (CheckLoading({ orders, acceptOrder, filteredOrders })) {
+        if (CheckLoading({ point, orders, acceptOrder, filteredOrders })) {
             setLoading(false);
         }
-    }, [orders, acceptOrder, filteredOrders]);
+    }, [orders, acceptOrder, filteredOrders, point]);
 
     const refresh = () => {
         getCurrentLocation();
@@ -126,6 +145,7 @@ function RealTimeOrder({ navigation }) {
         setFilteredOrders(-1);
         setFilter(1);
 
+        getPoint();
         getOrders();
         getAcceptOrders();
     };
@@ -139,6 +159,30 @@ function RealTimeOrder({ navigation }) {
 
         setCurLatitude(latitude);
         setCurLongitude(longitude);
+    };
+
+    const getPoint = async () => {
+        axios
+            .get(SERVER + "/users/point", {
+                headers: {
+                    auth: await getAsyncStorageToken(),
+                },
+            })
+            .then(({ data }) => {
+                const {
+                    result,
+                    data: { point },
+                } = data;
+                console.log("result: ", result);
+                console.log("point: ", point);
+
+                setPoint(point?.curPoint);
+            })
+            .catch((error) => {
+                setPoint(0);
+                showError(error);
+            })
+            .finally(() => {});
     };
 
     const getOrders = async () => {
@@ -236,6 +280,22 @@ function RealTimeOrder({ navigation }) {
         navigation.navigate(page, { orderId: acceptOrder.id });
     };
 
+    const goToPoint = () => {
+        navigation.navigate("SettingNavigator", { screen: "PointMain" });
+
+        // navigation.navigate("Welcome", {
+        // screen: "Welcome",
+        // params: {
+        //     orderId: 1295,
+        //     dateTime: "2023-10-21T15:06:00.856Z",
+        // },
+        // });
+    };
+
+    const goToPointCharge = () => {
+        navigation.navigate("SettingNavigator", { screen: "ChargePoint" });
+    };
+
     return (
         <>
             {loading ? (
@@ -246,30 +306,55 @@ function RealTimeOrder({ navigation }) {
                         <BoldText
                             style={{
                                 fontSize: 23,
-                                maxWidth: "50%",
                             }}
                         >
-                            {orders && orders !== -1 ? orders.length : "0"}건의
-                            실시간 오더
+                            {orders && orders !== -1 ? orders.length : "0"} 건의
+                            실시간 작업
                         </BoldText>
-                        <Row style={{ maxWidth: "50%" }}>
-                            <Refresh onPress={refresh}>
+                        <Notification />
+                    </ItemRow>
+                    <ItemRow>
+                        <Row>
+                            <PointButton onPress={goToPoint}>
+                                <Image
+                                    source={require("../../../assets/images/icons/icon_point.png")}
+                                    style={{ width: 23, height: 23 }}
+                                />
+                                <BoldText
+                                    style={{
+                                        fontSize: 18,
+                                        color: "white",
+                                    }}
+                                >
+                                    {" " + numberWithComma(point || 0)}
+                                    <BoldText
+                                        style={{
+                                            fontSize: 14,
+                                            color: "white",
+                                        }}
+                                    >
+                                        {" "}
+                                        AP
+                                    </BoldText>
+                                </BoldText>
+                            </PointButton>
+                            <ChargeButton onPress={goToPointCharge}>
+                                <Image
+                                    source={require("../../../assets/images/icons/icon_charge.png")}
+                                    style={{
+                                        width: 25,
+                                        height: 22,
+                                        marginRight: 5,
+                                    }}
+                                />
                                 <MediumText
                                     style={{
                                         fontSize: 15,
-                                        color: color.blue,
-                                        marginRight: 3,
                                     }}
                                 >
-                                    새로고침
+                                    충전
                                 </MediumText>
-                                <Image
-                                    source={RefreshBtn}
-                                    resizeMode="contain"
-                                    style={{ width: 27, height: 27 }}
-                                />
-                            </Refresh>
-                            <Notification />
+                            </ChargeButton>
                         </Row>
                     </ItemRow>
                     {acceptOrder ? (
@@ -307,7 +392,23 @@ function RealTimeOrder({ navigation }) {
                             </Noti>
                         </Item>
                     ) : null}
-                    <ItemRow style={{ justifyContent: "flex-end" }}>
+                    <ItemRow>
+                        <Refresh onPress={refresh}>
+                            <MediumText
+                                style={{
+                                    fontSize: 15,
+                                    color: color.blue,
+                                    marginRight: 3,
+                                }}
+                            >
+                                새로고침
+                            </MediumText>
+                            <Image
+                                source={RefreshBtn}
+                                resizeMode="contain"
+                                style={{ width: 27, height: 27 }}
+                            />
+                        </Refresh>
                         {/* <SelectFilter
                             data={REGION}
                             // onSelect={(index) => setPeriod(index + 1)}
@@ -335,7 +436,7 @@ function RealTimeOrder({ navigation }) {
                         ) : (
                             <NoOrder>
                                 <RegularText>
-                                    등록된 오더가 없습니다.
+                                    등록된 작업이 없습니다.
                                 </RegularText>
                             </NoOrder>
                         )
