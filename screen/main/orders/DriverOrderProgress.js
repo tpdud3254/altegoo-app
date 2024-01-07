@@ -99,6 +99,7 @@ const Row = styled.View`
 const Results = styled.View`
     justify-content: flex-end;
     flex-direction: row;
+    margin-bottom: 10px;
 `;
 
 const ResultTitle = styled.View`
@@ -117,11 +118,12 @@ const Total = styled.View`
     justify-content: flex-end;
     flex-direction: row;
     align-items: center;
-    padding: 10px 0px;
+    margin-top: 10px;
 `;
 
 const Commission = styled(Total)`
-    padding: 0px;
+    margin-bottom: 5px;
+    margin-top: 0px;
 `;
 
 const ItemButton = styled.TouchableOpacity`
@@ -1017,7 +1019,7 @@ function DriverOrderProgress({ navigation, route }) {
                                         <ResultValue>
                                             <Price
                                                 price={numberWithComma(
-                                                    order.price
+                                                    order.orderPrice
                                                 )}
                                             />
                                             <Price
@@ -1035,6 +1037,63 @@ function DriverOrderProgress({ navigation, route }) {
                                             */}
                                         </ResultValue>
                                     </Results>
+                                    <Commission>
+                                        <RegularText
+                                            style={{
+                                                fontSize: 16,
+                                                color: color["page-grey-text"],
+                                            }}
+                                        >
+                                            결제대행 수수료 (2%)
+                                        </RegularText>
+                                        <BoldText
+                                            style={{
+                                                fontSize: 17,
+                                                marginLeft: 12,
+                                            }}
+                                        >
+                                            {numberWithComma(
+                                                order.finalPrice * 0.02
+                                            )}
+                                            <BoldText
+                                                style={{
+                                                    fontSize: 13,
+                                                }}
+                                            >
+                                                {" "}
+                                                AP
+                                            </BoldText>
+                                        </BoldText>
+                                    </Commission>
+                                    <Commission>
+                                        <RegularText
+                                            style={{
+                                                fontSize: 16,
+                                                color: color["page-grey-text"],
+                                            }}
+                                        >
+                                            차감 AP (20%)
+                                        </RegularText>
+                                        <BoldText
+                                            style={{
+                                                fontSize: 17,
+                                                marginLeft: 12,
+                                            }}
+                                        >
+                                            {numberWithComma(
+                                                order.recommendationPoint +
+                                                    order.registPoint
+                                            )}
+                                            <BoldText
+                                                style={{
+                                                    fontSize: 13,
+                                                }}
+                                            >
+                                                {" "}
+                                                AP
+                                            </BoldText>
+                                        </BoldText>
+                                    </Commission>
                                     <Total>
                                         <RegularText
                                             style={{
@@ -1050,7 +1109,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 marginLeft: 30,
                                             }}
                                         >
-                                            {numberWithComma(order.finalPrice)}
+                                            {numberWithComma(order.orderPoint)}
                                             <BoldText
                                                 style={{
                                                     fontSize: 14,
@@ -1062,35 +1121,6 @@ function DriverOrderProgress({ navigation, route }) {
                                             </BoldText>
                                         </BoldText>
                                     </Total>
-                                    <Commission>
-                                        <RegularText
-                                            style={{
-                                                fontSize: 16,
-                                                color: color["page-grey-text"],
-                                            }}
-                                        >
-                                            수수료
-                                        </RegularText>
-                                        <BoldText
-                                            style={{
-                                                fontSize: 17,
-                                                marginLeft: 12,
-                                            }}
-                                        >
-                                            {numberWithComma(
-                                                order.finalPrice -
-                                                    order.orderPoint
-                                            )}
-                                            <BoldText
-                                                style={{
-                                                    fontSize: 13,
-                                                }}
-                                            >
-                                                {" "}
-                                                AP
-                                            </BoldText>
-                                        </BoldText>
-                                    </Commission>
                                 </Wrapper>
                             </Items>
                         </>

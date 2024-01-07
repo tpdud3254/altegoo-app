@@ -406,8 +406,7 @@ export const Order = {
                                             >
                                                 {" " +
                                                     numberWithComma(
-                                                        order.price +
-                                                            order.emergencyPrice
+                                                        order.finalPrice
                                                     )}
                                                 <BoldText
                                                     style={{

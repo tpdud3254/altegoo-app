@@ -111,7 +111,7 @@ export const Order = {
                 </Row>
                 <Row>
                     <MediumText>
-                        {numberWithComma(data.price)}{" "}
+                        {numberWithComma(data.finalPrice)}{" "}
                         <MediumText
                             style={{
                                 fontSize: 14,

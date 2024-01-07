@@ -680,22 +680,7 @@ function OrderDetails({ navigation, route }) {
                             title="작업 비용"
                             value={
                                 <RegularText>
-                                    {numberWithComma(order.price)}{" "}
-                                    <RegularText
-                                        style={{
-                                            fontSize: 14,
-                                        }}
-                                    >
-                                        AP
-                                    </RegularText>
-                                </RegularText>
-                            }
-                        />
-                        <Item
-                            title="적립 포인트"
-                            value={
-                                <RegularText>
-                                    {numberWithComma(order.registPoint)}{" "}
+                                    {numberWithComma(order.finalPrice)}{" "}
                                     <RegularText
                                         style={{
                                             fontSize: 14,

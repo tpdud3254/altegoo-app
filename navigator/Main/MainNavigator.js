@@ -240,7 +240,7 @@ export default function MainNavigator() {
                         name="OrderProgress"
                         component={OrderProgress}
                         options={{
-                            headerTitle: "오더 현황",
+                            headerTitle: "작업 현황",
                         }}
                     />
                     <Stack.Screen

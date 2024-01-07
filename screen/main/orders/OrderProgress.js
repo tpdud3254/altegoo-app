@@ -133,7 +133,7 @@ const DriverTitle = styled.View`
 `;
 
 const STEP = [
-    { title: "오더요청", progress: 17 },
+    { title: "작업요청", progress: 17 },
     { title: "예약완료", progress: 40 },
     { title: "작업시작", progress: 60 },
     { title: "작업완료", progress: 84 },
@@ -814,7 +814,7 @@ function OrderProgress({ navigation, route }) {
                                 <ResultValue>
                                     <Price
                                         price={numberWithComma(
-                                            order.totalPrice
+                                            order.orderPrice
                                         )}
                                     />
                                     <Price price={numberWithComma(order.tax)} />
