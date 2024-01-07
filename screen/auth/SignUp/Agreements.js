@@ -126,6 +126,7 @@ function Agreements() {
         navigation.navigate("AgreementDetail", {
             index,
             title: termsTexts[index],
+            type: info.userType,
         });
     };
 
