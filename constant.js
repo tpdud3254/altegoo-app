@@ -1,7 +1,7 @@
 export const SERVER = "https://altegoo.shop";
 export const WSS_SERVER = "wss://altegoo.shop";
-// export const SERVER = "https://d52b-218-238-213-154.ngrok-free.app";
-// export const WSS_SERVER = "wss://d52b-218-238-213-154.ngrok-free.app";
+// export const SERVER = "https://5f94-218-238-213-154.ngrok-free.app";
+// export const WSS_SERVER = "wss://5f94-218-238-213-154.ngrok-free.app";
 
 export const PAYMENT_SERVER =
     "https://master.d1p7wg3e032x9j.amplifyapp.com/payment";
@@ -85,7 +85,6 @@ export const LADDER_FLOOR = [
         "22층",
         "23층",
         "24층",
-        ,
         "25층 이상",
     ],
     [

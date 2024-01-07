@@ -233,6 +233,7 @@ function DriverOrderList({ navigation }) {
         const result = {};
 
         orders.map((order) => {
+            if (order.orderStatusId === 8) return;
             const dateTime = new Date(order.dateTime);
 
             const key = `${dateTime

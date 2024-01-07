@@ -42,6 +42,13 @@ const Dot = styled.View`
     margin-right: 4px;
 `;
 
+const Wrapper = styled.View`
+    background-color: ${color.main};
+    align-items: center;
+    padding: 15px 0px;
+    border-radius: 10px;
+`;
+
 function ChargePoint({ route, navigation }) {
     const { info } = useContext(UserContext);
 
@@ -74,7 +81,13 @@ function ChargePoint({ route, navigation }) {
     return (
         <Layout scroll={true}>
             <Container>
-                <TextInput
+                <Wrapper>
+                    <BoldText style={{ textAlign: "center", color: "white" }}>
+                        우리은행{"\n"}1005-204-462233{"\n"}예금주 : 주식회사
+                        지앤지 195
+                    </BoldText>
+                </Wrapper>
+                {/* <TextInput
                     title="충전 포인트 입력"
                     placeholder="충전할 금액을 입력해주세요."
                     returnKeyType="done"
@@ -88,7 +101,7 @@ function ChargePoint({ route, navigation }) {
                     <BoldText style={{ color: color.main }}>
                         포인트 충전하기
                     </BoldText>
-                </Button>
+                </Button> */}
                 <Noti>
                     <TouchableOpacity onPress={toggleNoti}>
                         <RowBetween>
@@ -154,10 +167,6 @@ function ChargePoint({ route, navigation }) {
                             <NotiContent>
                                 은행 점검 시간으로 인해 매일 23:50~00:10
                                 사이에는 환급신청 불가합니다.
-                            </NotiContent>
-                            <NotiContent>
-                                포인트 충전 후 7일 내에 청약철회 시
-                                전자상거래법에 따라 충전금액이 환급됩니다.
                             </NotiContent>
                             <NotiContent>
                                 보유한 충전포인트가 환급 수수료보다 많은

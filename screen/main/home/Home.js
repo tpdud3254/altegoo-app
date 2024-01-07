@@ -200,6 +200,7 @@ function Home({ navigation, route }) {
                         data: { order },
                     } = data;
 
+                    console.log("getOrders : ", order);
                     setOrders(
                         Filter({
                             data: order,
@@ -349,25 +350,23 @@ function Home({ navigation, route }) {
                                             </BoldText>
                                         </BoldText>
                                     </PointButton>
-                                    {info.userTypeId === 2 ? (
-                                        <ChargeButton onPress={goToPointCharge}>
-                                            <Image
-                                                source={require("../../../assets/images/icons/icon_charge.png")}
-                                                style={{
-                                                    width: 27,
-                                                    height: 27,
-                                                    marginRight: 5,
-                                                }}
-                                            />
-                                            <MediumText
-                                                style={{
-                                                    fontSize: 15,
-                                                }}
-                                            >
-                                                충전
-                                            </MediumText>
-                                        </ChargeButton>
-                                    ) : null}
+                                    <ChargeButton onPress={goToPointCharge}>
+                                        <Image
+                                            source={require("../../../assets/images/icons/icon_charge.png")}
+                                            style={{
+                                                width: 27,
+                                                height: 27,
+                                                marginRight: 5,
+                                            }}
+                                        />
+                                        <MediumText
+                                            style={{
+                                                fontSize: 15,
+                                            }}
+                                        >
+                                            충전
+                                        </MediumText>
+                                    </ChargeButton>
                                 </Row>
                             </Item>
                             <Item>

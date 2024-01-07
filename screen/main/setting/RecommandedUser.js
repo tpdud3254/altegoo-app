@@ -251,7 +251,7 @@ function RecommandedUser({ route, navigation }) {
                                 알테구 추천인 정보
                             </RegularText>
                             {myRecommendUser === "altegoo" ? (
-                                <BoldText>알테구</BoldText>
+                                <BoldText>주식회사지앤지195</BoldText>
                             ) : myRecommendUser.userTypeId === 2 ? (
                                 <BoldText>{myRecommendUser.name}</BoldText>
                             ) : (
