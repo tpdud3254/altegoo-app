@@ -360,6 +360,17 @@ function WithdrawalPoint({ route, navigation }) {
                                     </BoldText>
                                 </Row>
                             </Item>
+                            <Item>
+                                <MediumText
+                                    style={{
+                                        fontSize: 15,
+                                        color: color["page-grey-text"],
+                                    }}
+                                >
+                                    * 작업비용을 카드로 결제시 영업일 기준 5-7일
+                                    이후 포인트 출금 가능
+                                </MediumText>
+                            </Item>
                         </>
                     ) : (
                         <NoAccount />
