@@ -126,6 +126,7 @@ const Commission = styled(Total)`
     margin-top: 0px;
 `;
 
+const Guide = styled(Total)``;
 const ItemButton = styled.TouchableOpacity`
     /* border: 1px solid ${color.main}; */
     align-items: center;
@@ -1121,6 +1122,24 @@ function DriverOrderProgress({ navigation, route }) {
                                             </BoldText>
                                         </BoldText>
                                     </Total>
+                                    <Guide
+                                        style={{
+                                            paddingTop: 20,
+                                        }}
+                                    >
+                                        <RegularText
+                                            style={{
+                                                fontSize: 16,
+                                                color: color[
+                                                    "page-bluegrey-text"
+                                                ],
+                                            }}
+                                        >
+                                            *차감 AP란?
+                                            {"\n"}부가세 제외금액에서 추천인 2%
+                                            + 작업등록자 18%
+                                        </RegularText>
+                                    </Guide>
                                 </Wrapper>
                             </Items>
                         </>
