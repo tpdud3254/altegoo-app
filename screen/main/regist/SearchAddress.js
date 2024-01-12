@@ -282,7 +282,7 @@ function SearchAddress({ route, navigation }) {
                         <ItemTitle
                             title={
                                 registInfo.vehicleType === "스카이차"
-                                    ? "1. ‘내림’ 주소를 입력하세요."
+                                    ? "1. 주소를 입력하세요."
                                     : `1. ‘${registInfo.direction}’ 주소를 입력하세요.`
                             }
                         />
@@ -297,7 +297,7 @@ function SearchAddress({ route, navigation }) {
                                         route?.params?.selectAddress1
                                             ?.address ||
                                         (registInfo.vehicleType === "스카이차"
-                                            ? "내림 주소 입력"
+                                            ? "주소 입력"
                                             : `${registInfo.direction} 주소 입력`)
                                     }
                                     textStyle={{
