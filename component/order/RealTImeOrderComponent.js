@@ -153,15 +153,15 @@ export const Order = {
         const getButtonText = () => {
             if (order.orderStatusId === 1) {
                 if (order.emergency) {
-                    return "긴급 예약";
+                    return "긴급\n예약";
                 } else {
-                    return "예약하기";
+                    return "예약\n하기";
                 }
             } else {
                 if (order.acceptUser === info.id) {
-                    return "예약 취소";
+                    return "예약\n취소";
                 } else {
-                    return "예약 중";
+                    return "예약중";
                     //NEXT: 예약대기 우선 삭제
                     // if (order.orderReservation.length === 0) {
                     //     return "예약대기 하기";
