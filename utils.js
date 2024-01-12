@@ -806,7 +806,7 @@ export const GetSkyPrice = (option, time) => {
 };
 
 export const GetEmergencyPrice = (price) => price * 0.25;
-export const GetSavePoint = (price) => price * 0.2;
+export const GetSavePoint = (price) => price * 0.18;
 export const GetTax = (price) => price * 0.1;
 
 export const CheckLoading = (data) => {
