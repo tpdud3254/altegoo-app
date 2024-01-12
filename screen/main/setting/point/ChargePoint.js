@@ -84,7 +84,9 @@ function ChargePoint({ route, navigation }) {
                 <Wrapper>
                     <BoldText style={{ textAlign: "center", color: "white" }}>
                         우리은행{"\n"}1005-204-462233{"\n"}예금주 : 주식회사
-                        지앤지 195
+                        지앤지 195{"\n"}
+                        {"\n"}입금 후 고객센터로 연락바랍니다.{"\n"}
+                        1522-9190
                     </BoldText>
                 </Wrapper>
                 {/* <TextInput
