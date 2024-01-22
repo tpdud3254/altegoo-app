@@ -242,7 +242,8 @@ function RegistOrder({ navigation }) {
             ...(vehicleType === 2 && {
                 floor: SKY_OPTION[floor - 1],
                 volume: VOLUME[1],
-                time: TIME[time - 1],
+                time:
+                    floor === 6 ? SKY_TIME[0][time - 1] : SKY_TIME[1][time - 1],
             }),
         };
 
