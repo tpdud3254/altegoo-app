@@ -1,7 +1,7 @@
-// export const SERVER = "https://altegoo.shop";
-// export const WSS_SERVER = "wss://altegoo.shop";
-export const SERVER = "https://ca95-218-238-213-154.ngrok-free.app";
-export const WSS_SERVER = "wss://ca95-218-238-213-154.ngrok-free.app";
+export const SERVER = "https://altegoo.shop";
+export const WSS_SERVER = "wss://altegoo.shop";
+// export const SERVER = "https://ca95-218-238-213-154.ngrok-free.app";
+// export const WSS_SERVER = "wss://ca95-218-238-213-154.ngrok-free.app";
 
 export const PAYMENT_SERVER =
     "https://master.d1p7wg3e032x9j.amplifyapp.com/payment";
