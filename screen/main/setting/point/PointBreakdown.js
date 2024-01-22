@@ -38,7 +38,7 @@ const Box = styled.View`
 `;
 
 const PERIOD = ["최근 6개월", "최근 12개월"];
-const FILTER = ["전체 내역", "적립", "차감", "출금", "충전"];
+const FILTER = ["전체 내역", "지급", "차감", "출금", "충전"];
 
 function PointBreakdown() {
     const { width } = useWindowDimensions();
@@ -154,7 +154,7 @@ function PointBreakdown() {
             <RowBetween style={{ marginBottom: 10 }}>
                 <BoldText
                     style={{
-                        color: data.type === "적립" ? color.blue : "#EB1D36",
+                        color: data.type === "지급" ? color.blue : "#EB1D36",
                     }}
                 >
                     {numberWithComma(data.point)}
@@ -162,7 +162,7 @@ function PointBreakdown() {
                 </BoldText>
                 <RegularText
                     style={{
-                        color: data.type === "적립" ? color.blue : "#EB1D36",
+                        color: data.type === "지급" ? color.blue : "#EB1D36",
                         fontSize: 15,
                     }}
                 >
