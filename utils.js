@@ -463,7 +463,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 24;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 8;
+            if (time === 1) calc = calc + 8 - 1;
             else if (time === 2) calc = calc + 12;
             else if (time === 3) calc = calc + 8 + 12;
             else if (time === 4) calc = calc + 8 * 2 + 12;
@@ -480,7 +480,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 25;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 9;
+            if (time === 1) calc = calc + 9 - 1;
             else if (time === 2) calc = calc + 13;
             else if (time === 3) calc = calc + 8 + 13;
             else if (time === 4) calc = calc + 8 * 2 + 13;
@@ -497,7 +497,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 26;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 10;
+            if (time === 1) calc = calc + 10 - 1;
             else if (time === 2) calc = calc + 14;
             else if (time === 3) calc = calc + 9 + 14;
             else if (time === 4) calc = calc + 9 * 2 + 14;
@@ -514,7 +514,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 27;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 11;
+            if (time === 1) calc = calc + 11 - 1;
             else if (time === 2) calc = calc + 15;
             else if (time === 3) calc = calc + 10 + 15;
             else if (time === 4) calc = calc + 10 * 2 + 15;
@@ -531,7 +531,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 28;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 12;
+            if (time === 1) calc = calc + 12 - 1;
             else if (time === 2) calc = calc + 16;
             else if (time === 3) calc = calc + 10 + 16;
             else if (time === 4) calc = calc + 10 * 2 + 16;
@@ -548,7 +548,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 29;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 13;
+            if (time === 1) calc = calc + 13 - 1;
             else if (time === 2) calc = calc + 17;
             else if (time === 3) calc = calc + 10 + 17;
             else if (time === 4) calc = calc + 10 * 2 + 17;
@@ -565,7 +565,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 30;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 14;
+            if (time === 1) calc = calc + 14 - 1;
             else if (time === 2) calc = calc + 18;
             else if (time === 3) calc = calc + 11 + 18;
             else if (time === 4) calc = calc + 11 * 2 + 18;
@@ -582,7 +582,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 31;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 19;
+            if (time === 1) calc = calc + 19 - 1;
             else if (time === 2) calc = calc + 19;
             else if (time === 3) calc = calc + 11 + 19;
             else if (time === 4) calc = calc + 11 * 2 + 19;
@@ -599,7 +599,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 32;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 20;
+            if (time === 1) calc = calc + 20 - 1;
             else if (time === 2) calc = calc + 20;
             else if (time === 3) calc = calc + 11 + 20;
             else if (time === 4) calc = calc + 11 * 2 + 20;
@@ -616,7 +616,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 34;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 21;
+            if (time === 1) calc = calc + 21 - 1;
             else if (time === 2) calc = calc + 21;
             else if (time === 3) calc = calc + 12 + 21;
             else if (time === 4) calc = calc + 12 * 2 + 21;
@@ -633,7 +633,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 35;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 23;
+            if (time === 1) calc = calc + 23 - 1;
             else if (time === 2) calc = calc + 23;
             else if (time === 3) calc = calc + 12 + 23;
             else if (time === 4) calc = calc + 12 * 2 + 23;
@@ -650,7 +650,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 37;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 25;
+            if (time === 1) calc = calc + 25 - 1;
             else if (time === 2) calc = calc + 25;
             else if (time === 3) calc = calc + 12 + 25;
             else if (time === 4) calc = calc + 12 * 2 + 25;
@@ -667,7 +667,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 40;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 28;
+            if (time === 1) calc = calc + 28 - 1;
             else if (time === 2) calc = calc + 28;
             else if (time === 3) calc = calc + 12 + 28;
             else if (time === 4) calc = calc + 12 * 2 + 28;
@@ -684,7 +684,7 @@ export const GetLadderPrice = (floor, volume, quantity, time) => {
             else if (quantity === 5) calc = calc + 43;
         } else if (volume === 2) {
             //시간
-            if (time === 1) calc = calc + 31;
+            if (time === 1) calc = calc + 31 - 1;
             else if (time === 2) calc = calc + 31;
             else if (time === 3) calc = calc + 12 + 31;
             else if (time === 4) calc = calc + 12 * 2 + 31;
