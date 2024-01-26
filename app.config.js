@@ -16,7 +16,7 @@ export default {
         },
         assetBundlePatterns: ["**/*"],
         ios: {
-            bundleIdentifier: "com.gng.altegoo",
+            bundleIdentifier: "com.atg.altegoo",
             buildNumber: "1.0.0",
         },
         extra: {
@@ -25,7 +25,7 @@ export default {
             },
         },
         android: {
-            package: "com.gng.altegoo",
+            package: "com.atg.altegoo",
             googleServicesFile: "./google-services.json",
             config: {
                 googleSignIn: {
@@ -50,7 +50,7 @@ export default {
         ],
     },
     android: {
-        package: "com.gng.altegoo",
+        package: "com.atg.altegoo",
         googleServicesFile: "./google-services.json",
         config: {
             googleSignIn: {
