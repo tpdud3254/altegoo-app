@@ -27,13 +27,6 @@ const TERMS_01_COMPANY = [
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_14.png",
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_15.png",
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_16.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_17.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_18.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_19.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_20.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_21.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_22.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_23.png",
 ];
 
 const TERMS_01_DRIVER = [
@@ -53,14 +46,6 @@ const TERMS_01_DRIVER = [
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_14.png",
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_15.png",
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_16.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_17.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_18.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_19.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_20.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_21.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_22.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_23.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_driver/terms01_driver_24.png",
 ];
 
 const TERMS_01_NORMAL = [
@@ -79,14 +64,6 @@ const TERMS_01_NORMAL = [
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_13.png",
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_14.png",
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_15.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_16.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_17.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_18.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_19.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_20.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_21.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_22.png",
-    "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_normal/terms01_person_23.png",
 ];
 
 const TERMS_02 = [
