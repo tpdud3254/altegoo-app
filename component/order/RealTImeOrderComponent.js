@@ -415,7 +415,7 @@ export const Order = {
                                                     }}
                                                 >
                                                     {" "}
-                                                    AP
+                                                    P
                                                 </BoldText>
                                             </BoldText>
                                         </PointButton>

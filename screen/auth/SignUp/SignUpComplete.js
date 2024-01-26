@@ -33,37 +33,37 @@ function SignUpComplete() {
     const createAccount = async () => {
         //로그인지역 가져오기
         let accessedRegion = "조회 실패";
-        const {
-            coords: { latitude, longitude },
-        } = await Location.getCurrentPositionAsync({
-            accuracy: 5,
-        });
+        // const {
+        //     coords: { latitude, longitude },
+        // } = await Location.getCurrentPositionAsync({
+        //     accuracy: 5,
+        // });
 
-        try {
-            //DEVELOP: 연동 부분 이렇게 바꾸기
-            const response = await axios.get(
-                `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
-                {
-                    headers: {
-                        Authorization:
-                            "KakaoAK 86e0df46fbae745bb4c658276b280088",
-                    },
-                }
-            );
+        // try {
+        //     //DEVELOP: 연동 부분 이렇게 바꾸기
+        //     const response = await axios.get(
+        //         `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
+        //         {
+        //             headers: {
+        //                 Authorization:
+        //                     "KakaoAK 86e0df46fbae745bb4c658276b280088",
+        //             },
+        //         }
+        //     );
 
-            console.log(response.data);
-            const {
-                data: {
-                    documents,
-                    meta: { total_count },
-                },
-            } = response;
+        //     console.log(response.data);
+        //     const {
+        //         data: {
+        //             documents,
+        //             meta: { total_count },
+        //         },
+        //     } = response;
 
-            if (total_count > 0)
-                accessedRegion = `${documents[0].address.region_1depth_name}>${documents[0].address.region_2depth_name}`;
-        } catch (error) {
-            console.log(error);
-        }
+        //     if (total_count > 0)
+        //         accessedRegion = `${documents[0].address.region_1depth_name}>${documents[0].address.region_2depth_name}`;
+        // } catch (error) {
+        //     console.log(error);
+        // }
 
         let uploadedLicense = null;
         let uploadedVehiclePermission = null;

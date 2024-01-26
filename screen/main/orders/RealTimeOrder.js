@@ -151,6 +151,13 @@ function RealTimeOrder({ navigation }) {
     };
 
     const getCurrentLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+
+        if (status !== "granted") {
+            setErrorMsg("Permission to access location was denied");
+            return;
+        }
+
         const location = await Location.getCurrentPositionAsync();
 
         const {
@@ -334,7 +341,7 @@ function RealTimeOrder({ navigation }) {
                                         }}
                                     >
                                         {" "}
-                                        AP
+                                        P
                                     </BoldText>
                                 </BoldText>
                             </PointButton>

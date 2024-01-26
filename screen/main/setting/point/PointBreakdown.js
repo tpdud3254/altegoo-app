@@ -158,7 +158,7 @@ function PointBreakdown() {
                     }}
                 >
                     {numberWithComma(data.point)}
-                    <RegularText style={{ fontSize: 14 }}>{"  "}AP</RegularText>
+                    <RegularText style={{ fontSize: 14 }}>{"  "}P</RegularText>
                 </BoldText>
                 <RegularText
                     style={{
@@ -172,7 +172,7 @@ function PointBreakdown() {
             <RowBetween>
                 <RegularText style={{ fontSize: 14 }}>
                     잔액{" " + numberWithComma(data.restPoint)}
-                    <RegularText style={{ fontSize: 12 }}>{"  "}AP</RegularText>
+                    <RegularText style={{ fontSize: 12 }}>{"  "}P</RegularText>
                 </RegularText>
             </RowBetween>
             <Line />

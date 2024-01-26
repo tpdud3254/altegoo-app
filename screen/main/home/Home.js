@@ -346,7 +346,7 @@ function Home({ navigation, route }) {
                                                 }}
                                             >
                                                 {" "}
-                                                AP
+                                                P
                                             </BoldText>
                                         </BoldText>
                                     </PointButton>
@@ -434,7 +434,7 @@ function Home({ navigation, route }) {
                         <MediumText style={{ fontSize: 22 }}>
                             1,234,000{" "}
                             <MediumText style={{ fontSize: 12 }}>
-                                AP
+                                P
                             </MediumText>
                         </MediumText>
                         <Image

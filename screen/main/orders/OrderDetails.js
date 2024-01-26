@@ -686,7 +686,7 @@ function OrderDetails({ navigation, route }) {
                                             fontSize: 14,
                                         }}
                                     >
-                                        AP
+                                        P
                                     </RegularText>
                                 </RegularText>
                             }

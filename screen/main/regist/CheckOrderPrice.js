@@ -220,7 +220,7 @@ const CheckOrderPrice = ({ navigation }) => {
                 </RegularText>
                 <MediumText>
                     {numberWithComma(watch("price", "0"))}
-                    <MediumText style={{ fontSize: 14 }}> AP</MediumText>
+                    <MediumText style={{ fontSize: 14 }}> P</MediumText>
                 </MediumText>
             </Item>
             {registInfo.emergency ? (
@@ -253,7 +253,7 @@ const CheckOrderPrice = ({ navigation }) => {
                     </RegularText>
                     <BoldText style={{ fontSize: 22 }}>
                         {numberWithComma(watch("emergencyPrice", "0"))}
-                        <BoldText style={{ fontSize: 16 }}> AP</BoldText>
+                        <BoldText style={{ fontSize: 16 }}> P</BoldText>
                     </BoldText>
                 </Item>
             ) : null}
@@ -273,7 +273,7 @@ const CheckOrderPrice = ({ navigation }) => {
                 </RegularText>
                 <MediumText style={{ marginBottom: 18 }}>
                     {numberWithComma(watch("curPoint", "0"))}
-                    <MediumText style={{ fontSize: 14 }}> AP</MediumText>
+                    <MediumText style={{ fontSize: 14 }}> P</MediumText>
                 </MediumText>
                 <Row>
                     <View style={{ width: "55%", marginRight: 20 }}>
@@ -297,7 +297,7 @@ const CheckOrderPrice = ({ navigation }) => {
                             <BoldText
                                 style={{ color: color["page-color-text"] }}
                             >
-                                AP
+                                P
                             </BoldText>
                         </Row>
                         <View
@@ -356,7 +356,7 @@ const CheckOrderPrice = ({ navigation }) => {
                             }}
                         >
                             {" "}
-                            AP
+                            P
                         </RegularText>
                     </RegularText>
                 </Row>
@@ -388,7 +388,7 @@ const CheckOrderPrice = ({ navigation }) => {
                             }}
                         >
                             {" "}
-                            AP
+                            P
                         </RegularText>
                     </RegularText>
                 </Row>
@@ -417,7 +417,7 @@ const CheckOrderPrice = ({ navigation }) => {
                             }}
                         >
                             {" "}
-                            AP
+                            P
                         </RegularText>
                     </RegularText>
                 </Row> */}
@@ -453,7 +453,7 @@ const CheckOrderPrice = ({ navigation }) => {
                         )}
                         <BoldText style={{ fontSize: 16, color: color.main }}>
                             {" "}
-                            AP
+                            P
                         </BoldText>
                     </BoldText>
                 </Row>
@@ -466,7 +466,7 @@ const CheckOrderPrice = ({ navigation }) => {
                     {numberWithComma(watch("registPoint", "0"))}
                     <BoldText style={{ fontSize: 16, color: color.blue }}>
                         {" "}
-                        AP
+                        P
                     </BoldText>
                 </BoldText>
             </Item>

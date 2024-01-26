@@ -332,7 +332,7 @@ function RegistOrder({ navigation }) {
                 onPress: onNextStep,
                 title: consultation
                     ? "예상 운임 협의"
-                    : `예상 운임 ${numberWithComma(price)}AP 확인`,
+                    : `예상 운임 ${numberWithComma(price)}P 확인`,
                 disabled: !validation,
             }}
         >

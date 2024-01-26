@@ -135,7 +135,7 @@ function Menus({ navigation }) {
                             <MediumText
                                 style={{ color: color.main, fontSize: 14 }}
                             >
-                                AP
+                                P
                             </MediumText>
                         </MediumText>
                     ) : null}

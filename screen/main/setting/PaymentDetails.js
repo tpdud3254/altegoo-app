@@ -83,7 +83,7 @@ function PaymentDetails() {
                     }}
                 >
                     {numberWithComma(data.point)}
-                    <RegularText style={{ fontSize: 14 }}>{"  "}AP</RegularText>
+                    <RegularText style={{ fontSize: 14 }}>{"  "}P</RegularText>
                 </BoldText>
             </RowBetween>
             <RegularText

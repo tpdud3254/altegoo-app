@@ -265,7 +265,7 @@ function WithdrawalPoint({ route, navigation }) {
                                                     }}
                                                 >
                                                     {" "}
-                                                    AP
+                                                    P
                                                 </BoldText>
                                             </BoldText>
                                         </Row>
@@ -355,7 +355,7 @@ function WithdrawalPoint({ route, navigation }) {
                                             }}
                                         >
                                             {" "}
-                                            AP
+                                            P
                                         </BoldText>
                                     </BoldText>
                                 </Row>

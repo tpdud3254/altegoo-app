@@ -374,7 +374,7 @@ function OrderProgress({ navigation, route }) {
             >
                 {price}{" "}
                 <RegularText style={{ fontSize: 12, textAlign: "right" }}>
-                    AP
+                    P
                 </RegularText>
             </RegularText>
         );
@@ -856,7 +856,7 @@ function OrderProgress({ navigation, route }) {
                                         }}
                                     >
                                         {" "}
-                                        AP
+                                        P
                                     </BoldText>
                                 </BoldText>
                             </Total>
@@ -883,7 +883,7 @@ function OrderProgress({ navigation, route }) {
                                                 }}
                                             >
                                                 {" "}
-                                                AP
+                                                P
                                             </BoldText>
                                         </BoldText>
                                     </RegularText>

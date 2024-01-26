@@ -43,11 +43,11 @@ const Dot = styled.View`
 const COUPON_LIST = [
     {
         title: "회원 가입 축하 쿠폰",
-        value: "작업 등록시 20,000 AP 할인",
+        value: "작업 등록시 20,000 P 할인",
     },
     {
         title: "회원 가입 축하 쿠폰",
-        value: "작업 등록시 20,000 AP 할인",
+        value: "작업 등록시 20,000 P 할인",
     },
 ];
 
@@ -129,7 +129,7 @@ function PointMain({ navigation }) {
                 <BoldText style={{ width: "96%" }}>{data.title}</BoldText>
             </Row>
             <RegularText style={{ width: "96%", fontSize: 17, marginTop: 6 }}>
-                작업 등록시 20,000 AP 할인
+                작업 등록시 20,000 P 할인
             </RegularText>
         </View>
     );
@@ -168,7 +168,7 @@ function PointMain({ navigation }) {
                                 }}
                             >
                                 {" "}
-                                AP
+                                P
                             </BoldText>
                         </BoldText>
                     </Row>

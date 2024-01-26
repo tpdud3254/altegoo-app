@@ -117,7 +117,7 @@ export const Order = {
                                 fontSize: 14,
                             }}
                         >
-                            AP
+                            P
                         </MediumText>
                     </MediumText>
                 </Row>

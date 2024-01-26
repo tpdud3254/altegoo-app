@@ -441,7 +441,7 @@ export const GetOrderOption = (registInfo) => {
                 data[index] =
                     data[index] === 0
                         ? "작업 비용 협의"
-                        : "작업 비용 " + numberWithComma(data[index]) + "AP";
+                        : "작업 비용 " + numberWithComma(data[index]) + "P";
             if (value === "dateTime")
                 data[index] = GetDate(new Date(data[index]), "long");
         }

@@ -428,7 +428,7 @@ function DriverOrderProgress({ navigation, route }) {
             >
                 {price}{" "}
                 <RegularText style={{ fontSize: 12, textAlign: "right" }}>
-                    AP
+                    P
                 </RegularText>
             </RegularText>
         );
@@ -1062,7 +1062,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 }}
                                             >
                                                 {" "}
-                                                AP
+                                                P
                                             </BoldText>
                                         </BoldText>
                                     </Commission>
@@ -1073,7 +1073,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 color: color["page-grey-text"],
                                             }}
                                         >
-                                            차감 AP (20%)
+                                            차감 P (20%)
                                         </RegularText>
                                         <BoldText
                                             style={{
@@ -1091,7 +1091,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 }}
                                             >
                                                 {" "}
-                                                AP
+                                                P
                                             </BoldText>
                                         </BoldText>
                                     </Commission>
@@ -1118,7 +1118,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 }}
                                             >
                                                 {" "}
-                                                AP
+                                                P
                                             </BoldText>
                                         </BoldText>
                                     </Total>

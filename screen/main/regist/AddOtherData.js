@@ -367,7 +367,7 @@ function AddOtherData({ navigation }) {
                         {watch("price")
                             ? numberWithComma(watch("price").toString())
                             : watch("price")}
-                        <BoldText style={{ fontSize: 14 }}> AP</BoldText>
+                        <BoldText style={{ fontSize: 14 }}> P</BoldText>
                     </BoldText>
                 </Wrapper>
             </Item>
@@ -402,7 +402,7 @@ function AddOtherData({ navigation }) {
                                         color: color["page-color-text"],
                                     }}
                                 >
-                                    AP
+                                    P
                                 </MediumText>
                             </MediumText>
                             <TouchableOpacity onPress={minus}>
