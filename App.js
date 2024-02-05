@@ -83,6 +83,12 @@ Notifications.setNotificationHandler({
 });
 
 const getCurrentLocation = async () => {
+    let { status } = await Location.requestBackgroundPermissionsAsync();
+
+    if (status !== "granted") {
+        return;
+    }
+
     const location = await Location.getCurrentPositionAsync();
     console.log("get location on background : ", location);
     const {
@@ -136,10 +142,19 @@ export default function App() {
                 ]);
                 await Promise.all([...imageAssets]);
 
-                const response = await Notifications.getPermissionsAsync();
+                if (Device.isDevice) {
+                    const response = await Notifications.getPermissionsAsync();
 
-                if (response.status === "granted") {
-                    setPushGranted(true);
+                    let finalStatus = response.status;
+                    if (response.status !== "granted") {
+                        const response =
+                            await Notifications.requestPermissionsAsync();
+                        finalStatus = response.status;
+                    }
+
+                    if (finalStatus === "granted") {
+                        // setPushGranted(true);
+                    }
                 }
             } catch (e) {
                 console.warn("prepare error : ", e);
@@ -173,16 +188,16 @@ export default function App() {
         };
     }, []);
 
-    useEffect(() => {
-        if (
-            foreground &&
-            foreground.granted &&
-            background &&
-            background.granted
-        ) {
-            setLocationGranted(true);
-        }
-    }, [foreground, background]);
+    // useEffect(() => {
+    //     if (
+    //         foreground &&
+    //         foreground.granted &&
+    //         background &&
+    //         background.granted
+    //     ) {
+    //         setLocationGranted(true);
+    //     }
+    // }, [foreground, background]);
 
     function cacheImages(images) {
         return images.map((image) => {
@@ -194,71 +209,71 @@ export default function App() {
         });
     }
 
-    const requestPermissions = async () => {
-        if (locationGranted && !pushGranted) {
-            Alert.alert(
-                "알림 허용",
-                "설정 > 애플리케이션 > 알테구에서 알림을 허용해주세요!"
-            );
-        }
-        console.log(
-            "[location] foreground granted : ",
-            foreground.granted,
-            " / status : ",
-            foreground.status
-        );
-        console.log(
-            "[location] background granted : ",
-            background.granted,
-            " / status : ",
-            background.status
-        );
+    // const requestPermissions = async () => {
+    //     if (locationGranted && !pushGranted) {
+    //         Alert.alert(
+    //             "알림 허용",
+    //             "설정 > 애플리케이션 > 알테구에서 알림을 허용해주세요!"
+    //         );
+    //     }
+    //     console.log(
+    //         "[location] foreground granted : ",
+    //         foreground.granted,
+    //         " / status : ",
+    //         foreground.status
+    //     );
+    //     console.log(
+    //         "[location] background granted : ",
+    //         background.granted,
+    //         " / status : ",
+    //         background.status
+    //     );
 
-        if (!foreground || !foreground.granted) {
-            const response = await requestForeground();
-            console.log("[location] request foreground response : ", response);
-        }
+    //     if (!foreground || !foreground.granted) {
+    //         const response = await requestForeground();
+    //         console.log("[location] request foreground response : ", response);
+    //     }
 
-        if (!background || !background.granted) {
-            const response = await requestBackground();
-            console.log("[location] request background response : ", response);
-        }
+    //     if (!background || !background.granted) {
+    //         const response = await requestBackground();
+    //         console.log("[location] request background response : ", response);
+    //     }
 
-        if (Device.isDevice) {
-            const response = await Notifications.getPermissionsAsync();
+    //     if (Device.isDevice) {
+    //         const response = await Notifications.getPermissionsAsync();
 
-            console.log(
-                "[notification] get permission granted : ",
-                response.granted,
-                " / status : ",
-                response.status
-            );
-            let finalStatus = response.status;
-            if (response.status !== "granted") {
-                const response = await Notifications.requestPermissionsAsync();
-                finalStatus = response.status;
-            }
+    //         console.log(
+    //             "[notification] get permission granted : ",
+    //             response.granted,
+    //             " / status : ",
+    //             response.status
+    //         );
+    //         let finalStatus = response.status;
+    //         if (response.status !== "granted") {
+    //             const response = await Notifications.requestPermissionsAsync();
+    //             finalStatus = response.status;
+    //         }
 
-            console.log("[notification] request response : ", response);
-            if (finalStatus === "granted") {
-                setPushGranted(true);
-            }
-        }
-    };
+    //         console.log("[notification] request response : ", response);
+    //         if (finalStatus === "granted") {
+    //             setPushGranted(true);
+    //         }
+    //     }
+    // };
 
     const onLayoutRootView = useCallback(async () => {
         if (appIsReady && fontsLoaded) {
             await SplashScreen.hideAsync();
         }
-    }, [appIsReady, fontsLoaded, locationGranted, pushGranted]);
+    }, [appIsReady, fontsLoaded]);
 
-    if (fontsLoaded && (!locationGranted || !pushGranted)) {
-        return (
-            <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-                <Permission onPress={requestPermissions} />
-            </View>
-        );
-    }
+    // if (fontsLoaded && (!locationGranted || !pushGranted)) {
+    //     return (
+    //         <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+    //             <Permission onPress={requestPermissions} />
+    //         </View>
+    //     );
+    // }
 
     if (!appIsReady || !fontsLoaded) {
         return null;

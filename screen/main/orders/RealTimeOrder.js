@@ -154,7 +154,7 @@ function RealTimeOrder({ navigation }) {
         let { status } = await Location.requestForegroundPermissionsAsync();
 
         if (status !== "granted") {
-            setErrorMsg("Permission to access location was denied");
+            // setErrorMsg("Permission to access location was denied");
             return;
         }
 
