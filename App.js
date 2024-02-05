@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Alert, AppState, Image, View } from "react-native";
+import { AppState, Image, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import Toast from "react-native-toast-message";
@@ -9,7 +9,7 @@ import { toastConfig } from "./component/Toast";
 import { UserProvider } from "./context/UserContext";
 import { StatusBar } from "expo-status-bar";
 import { RegistProvider } from "./context/RegistContext";
-import { checkPosition, showMessage, speech } from "./utils";
+import { speech } from "./utils";
 import { Asset } from "expo-asset";
 import * as Device from "expo-device";
 import * as Location from "expo-location";
@@ -18,7 +18,6 @@ import * as Notifications from "expo-notifications";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import { WSS_SERVER } from "./constant";
-import Permission from "./screen/Permission";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,7 +25,7 @@ SplashScreen.preventAutoHideAsync();
 // location(테스트)
 
 const WEB_SOCKET_TASK = "WEB_SOCKET_TASK";
-const LOCATION_TASK = "LOCATION_TASK";
+// const LOCATION_TASK = "LOCATION_TASK";
 
 let ws = null;
 
@@ -82,21 +81,21 @@ Notifications.setNotificationHandler({
     }),
 });
 
-const getCurrentLocation = async () => {
-    let { status } = await Location.requestBackgroundPermissionsAsync();
+// const getCurrentLocation = async () => {
+//     let { status } = await Location.requestBackgroundPermissionsAsync();
 
-    if (status !== "granted") {
-        return;
-    }
+//     if (status !== "granted") {
+//         return;
+//     }
 
-    const location = await Location.getCurrentPositionAsync();
-    console.log("get location on background : ", location);
-    const {
-        coords: { latitude, longitude },
-    } = location;
+//     const location = await Location.getCurrentPositionAsync();
+//     console.log("get location on background : ", location);
+//     const {
+//         coords: { latitude, longitude },
+//     } = location;
 
-    checkPosition({ latitude, longitude });
-};
+//     checkPosition({ latitude, longitude });
+// };
 
 const initBackgroundFetch = async (taskName, taskFn, interval = 60 * 15) => {
     try {
@@ -114,7 +113,7 @@ const initBackgroundFetch = async (taskName, taskFn, interval = 60 * 15) => {
 };
 
 initBackgroundFetch(WEB_SOCKET_TASK, createSocketOnBackground, 5);
-initBackgroundFetch(LOCATION_TASK, getCurrentLocation, 5);
+// initBackgroundFetch(LOCATION_TASK, getCurrentLocation, 5);
 
 export default function App() {
     const [appIsReady, setAppIsReady] = useState(false);
