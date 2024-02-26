@@ -6,7 +6,6 @@ import { color } from "../../../styles";
 import { SERVER, SIGNUP_NAV, VALID } from "../../../constant";
 import AuthLayout from "../../../component/layout/AuthLayout";
 import RegularText from "../../../component/text/RegularText";
-import { ScrollView, useWindowDimensions } from "react-native";
 import { Radio } from "../../../component/radio/Radio";
 import { RadioContainer } from "../../../component/radio/RadioContainer";
 import TextInput from "../../../component/input/TextInput";
@@ -23,7 +22,6 @@ import { Popup } from "../../../component/Popup";
 
 const Container = styled.View`
     justify-content: space-between;
-    height: ${(props) => props.height - 150}px;
     max-width: 400px;
 `;
 
@@ -37,6 +35,8 @@ const Item = styled.View`
 
 const SkipButton = styled.TouchableOpacity`
     align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 `;
 
 const PopupContainer = styled.View`
@@ -49,7 +49,6 @@ const vehicleType = ["사다리차", "스카이차"];
 
 function RegisterVehicle({ route }) {
     const navigation = useNavigation();
-    const { height: windowHeight } = useWindowDimensions();
     const [popupVisible, setPopupVisible] = useState(false);
     const { info, setInfo } = useContext(UserContext);
     const { register, setValue, watch, getValues, handleSubmit } = useForm();
@@ -265,23 +264,44 @@ function RegisterVehicle({ route }) {
                         disabled: !validation,
                     }}
                 >
-                    <Container height={windowHeight}>
-                        <ScrollView>
-                            <Wrapper>
+                    <Container>
+                        <Wrapper>
+                            <Item>
+                                <Title>차량 종류</Title>
+                                <RadioContainer>
+                                    {vehicleType.map((value, index) => (
+                                        <Radio
+                                            key={index}
+                                            value={value}
+                                            selected={
+                                                watch("vehicleType") ===
+                                                index + 1
+                                            }
+                                            onSelect={() =>
+                                                setValue(
+                                                    "vehicleType",
+                                                    index + 1
+                                                )
+                                            }
+                                        />
+                                    ))}
+                                </RadioContainer>
+                            </Item>
+                            {watch("vehicleType") !== 1 ? (
                                 <Item>
-                                    <Title>차량 종류</Title>
+                                    <Title>차량 옵션</Title>
                                     <RadioContainer>
-                                        {vehicleType.map((value, index) => (
+                                        {weight.map((value, index) => (
                                             <Radio
                                                 key={index}
                                                 value={value}
                                                 selected={
-                                                    watch("vehicleType") ===
+                                                    watch("option") ===
                                                     index + 1
                                                 }
                                                 onSelect={() =>
                                                     setValue(
-                                                        "vehicleType",
+                                                        "option",
                                                         index + 1
                                                     )
                                                 }
@@ -289,81 +309,58 @@ function RegisterVehicle({ route }) {
                                         ))}
                                     </RadioContainer>
                                 </Item>
-                                {watch("vehicleType") !== 1 ? (
-                                    <Item>
-                                        <Title>차량 옵션</Title>
-                                        <RadioContainer>
-                                            {weight.map((value, index) => (
-                                                <Radio
-                                                    key={index}
-                                                    value={value}
-                                                    selected={
-                                                        watch("option") ===
-                                                        index + 1
-                                                    }
-                                                    onSelect={() =>
-                                                        setValue(
-                                                            "option",
-                                                            index + 1
-                                                        )
-                                                    }
-                                                />
-                                            ))}
-                                        </RadioContainer>
-                                    </Item>
-                                ) : (
-                                    <Item>
-                                        <Title>최대 작업 층수</Title>
-                                        <RadioContainer>
-                                            {floor.map((value, index) => (
-                                                <Radio
-                                                    key={index}
-                                                    value={value}
-                                                    selected={
-                                                        watch("option") ===
-                                                        index + 1
-                                                    }
-                                                    onSelect={() =>
-                                                        setValue(
-                                                            "option",
-                                                            index + 1
-                                                        )
-                                                    }
-                                                />
-                                            ))}
-                                        </RadioContainer>
-                                    </Item>
-                                )}
-
+                            ) : (
                                 <Item>
-                                    <Title>차량번호</Title>
-                                    <TextInput
-                                        placeholder="12가1234"
-                                        returnKeyType="done"
-                                        value={watch("vehicleNumber")}
-                                        onChangeText={(text) =>
-                                            setValue("vehicleNumber", text)
-                                        }
-                                        onReset={() =>
-                                            setValue("vehicleNumber", "")
-                                        }
-                                    />
+                                    <Title>최대 작업 층수</Title>
+                                    <RadioContainer>
+                                        {floor.map((value, index) => (
+                                            <Radio
+                                                key={index}
+                                                value={value}
+                                                selected={
+                                                    watch("option") ===
+                                                    index + 1
+                                                }
+                                                onSelect={() =>
+                                                    setValue(
+                                                        "option",
+                                                        index + 1
+                                                    )
+                                                }
+                                            />
+                                        ))}
+                                    </RadioContainer>
                                 </Item>
-                            </Wrapper>
-                            {settingMode ? null : (
-                                <SkipButton onPress={showPopup}>
-                                    <RegularText
-                                        style={{
-                                            fontSize: 16,
-                                            color: color["page-color-text"],
-                                            textDecorationLine: "underline",
-                                        }}
-                                    >
-                                        다음에 할게요
-                                    </RegularText>
-                                </SkipButton>
                             )}
-                        </ScrollView>
+
+                            <Item>
+                                <Title>차량번호</Title>
+                                <TextInput
+                                    placeholder="12가1234"
+                                    returnKeyType="done"
+                                    value={watch("vehicleNumber")}
+                                    onChangeText={(text) =>
+                                        setValue("vehicleNumber", text)
+                                    }
+                                    onReset={() =>
+                                        setValue("vehicleNumber", "")
+                                    }
+                                />
+                            </Item>
+                        </Wrapper>
+                        {settingMode ? null : (
+                            <SkipButton onPress={showPopup}>
+                                <RegularText
+                                    style={{
+                                        fontSize: 16,
+                                        color: color["page-color-text"],
+                                        textDecorationLine: "underline",
+                                    }}
+                                >
+                                    다음에 할게요
+                                </RegularText>
+                            </SkipButton>
+                        )}
                     </Container>
                     <Popup
                         visible={popupVisible}
