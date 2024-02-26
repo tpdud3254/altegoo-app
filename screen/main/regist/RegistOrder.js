@@ -8,9 +8,11 @@ import {
     LADDER_FLOOR,
     QUANTITY,
     REGIST_NAV,
+    SERVER,
     SKY_OPTION,
     SKY_TIME,
     TIME,
+    VALID,
     VEHICLE,
     VOLUME,
 } from "../../../constant";
@@ -26,9 +28,11 @@ import {
     GetLadderPrice,
     GetSkyPrice,
     numberWithComma,
+    showError,
     showMessage,
 } from "../../../utils";
 import * as Linking from "expo-linking";
+import axios from "axios";
 
 const LastOrder = styled.TouchableOpacity`
     flex-direction: row;
@@ -322,8 +326,33 @@ function RegistOrder({ navigation }) {
         );
     };
 
-    const goToKakaoChat = () => {
-        Linking.openURL("http://pf.kakao.com/_QxgmlG");
+    const goToKakaoChat = async () => {
+        axios
+            .get(SERVER + "/admin/kakao")
+            .then(({ data }) => {
+                const {
+                    data: { url },
+                    result,
+                } = data;
+
+                if (result === VALID) {
+                    if (url) {
+                        console.log(data);
+                        Linking.openURL(url);
+                    } else {
+                        showMessage("해당 기능은 추후에 제공 예정입니다.");
+                        cancelConsultation();
+                    }
+                } else {
+                    showMessage("해당 기능은 추후에 제공 예정입니다.");
+                    cancelConsultation();
+                }
+            })
+            .catch((error) => {
+                showError(error);
+                cancelConsultation();
+            })
+            .finally(() => {});
     };
     return (
         <Layout
