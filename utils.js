@@ -849,6 +849,8 @@ export const Filter = ({ data, period, orderBy }) => {
         data.map((value) => {
             const dateTime = new Date(value.createdAt);
 
+            ago.setUTCHours(0, 0, 0, 0);
+
             if (dateTime >= ago) {
                 result.push(value);
             }
