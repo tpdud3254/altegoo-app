@@ -220,7 +220,7 @@ function SignUpComplete() {
                 password,
             });
 
-            console.log(response.data);
+            console.log("signIn : ", response.data);
             const {
                 data: {
                     result,
