@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
-import Layout, { LAYOUT_PADDING_X } from "../../../component/layout/Layout";
+import Layout from "../../../component/layout/Layout";
 import RegularText from "../../../component/text/RegularText";
 import { color } from "../../../styles";
 import MediumText from "../../../component/text/MediumText";
-import { Image, TextInput, View, useWindowDimensions } from "react-native";
+import { Image, View, useWindowDimensions } from "react-native";
 import BoldText from "../../../component/text/BoldText";
-import { REGIST_NAV, SERVER, FONT_OFFSET } from "../../../constant";
+import { REGIST_NAV, SERVER } from "../../../constant";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext";
 import RegistContext from "../../../context/RegistContext";
@@ -186,6 +186,7 @@ const CheckOrderPrice = ({ navigation }) => {
             tax,
             totalPrice,
             usePoint,
+            type,
         } = data;
 
         const prevInfo = registInfo;
@@ -204,54 +205,7 @@ const CheckOrderPrice = ({ navigation }) => {
             finalPrice: finalPrice,
             registPoint: Number(registPoint),
         };
-
-        setRegistInfo({ ...prevInfo, ...sendData });
-
-        console.log("info : ", info);
-
-        const paymentData = {
-            application_id: PAYMENT_APP_ID,
-            price: finalPrice,
-            order_name: registInfo.vehicleType + " 이용비 결제",
-            order_id: info.id + "_" + Date.now(),
-            user: {
-                username: info.name,
-                phone: info.phone,
-            },
-            curPoint,
-            pointId: pointData.id,
-        };
-
-        navigation.navigate(REGIST_NAV[5], { data: paymentData });
-    };
-
-    const goToKeyedInPay = (data) => {
-        const {
-            curPoint,
-            emergencyPrice,
-            price,
-            registPoint,
-            tax,
-            totalPrice,
-            usePoint,
-        } = data;
-
-        const prevInfo = registInfo;
-
-        delete prevInfo.price;
-
-        const finalPrice = Number(totalPrice) + Number(tax);
-
-        const sendData = {
-            price: Number(price),
-            emergencyPrice: Number(emergencyPrice) || 0,
-            usePoint: Number(usePoint) || 0,
-            orderPrice: Number(price) + Number(emergencyPrice) || 0,
-            totalPrice: Number(totalPrice),
-            tax: Number(tax),
-            finalPrice: finalPrice,
-            registPoint: Number(registPoint),
-        };
+        console.log("sendData :", sendData);
 
         setRegistInfo({ ...prevInfo, ...sendData });
 
@@ -271,7 +225,17 @@ const CheckOrderPrice = ({ navigation }) => {
         };
 
         hidePopup();
-        navigation.navigate("KeyedInPay", { data: paymentData });
+
+        if (type === "normal") {
+            //일반결제
+            navigation.navigate(REGIST_NAV[5], { data: paymentData });
+        } else if (type === "keyedin") {
+            //수기결제
+            navigation.navigate("KeyedInPay", { data: paymentData });
+        } else {
+            //무통장입금
+            console.log("무통장");
+        }
     };
 
     //NEXT: 쿠폰사용 포함
@@ -555,13 +519,17 @@ const CheckOrderPrice = ({ navigation }) => {
                 <PopupContainer>
                     <PopupWrapper>
                         <Button
-                            onPress={handleSubmit(onNextStep)}
+                            onPress={handleSubmit((data) =>
+                                onNextStep({ ...data, type: "normal" })
+                            )}
                             type="accent"
                             style={{ width: "70%", backgroundColor: "#BABABA" }}
                             text="일반 결제"
                         />
                         <Button
-                            onPress={handleSubmit(goToKeyedInPay)}
+                            onPress={handleSubmit((data) =>
+                                onNextStep({ ...data, type: "keyedin" })
+                            )}
                             type="accent"
                             style={{
                                 width: "70%",
@@ -573,7 +541,9 @@ const CheckOrderPrice = ({ navigation }) => {
                         />
                         <Button
                             type="accent"
-                            // onPress={handleSubmit(onNextStep)}
+                            onPress={handleSubmit((data) =>
+                                onNextStep({ ...data, type: "banktransfer" })
+                            )}
                             style={{ width: "70%", backgroundColor: "#BABABA" }}
                             text="무통장 입금"
                         />
