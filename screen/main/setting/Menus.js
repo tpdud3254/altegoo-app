@@ -46,6 +46,14 @@ const SMenu = styled.TouchableOpacity`
     align-items: center;
     justify-content: space-between;
 `;
+
+const Footer = styled.ScrollView`
+    position: absolute;
+    bottom: 0;
+    max-height: 100px;
+    width: 110%;
+`;
+
 function Menus({ navigation }) {
     const { info, setInfo } = useContext(UserContext);
 
@@ -150,6 +158,26 @@ function Menus({ navigation }) {
             <Menu onPress={() => goToPage("ChangePassword")}>
                 <MediumText>비밀번호 변경</MediumText>
             </Menu>
+
+            <Footer>
+                <MediumText
+                    style={{
+                        color: color["page-bluegrey-text"],
+                        textAlign: "center",
+                        fontSize: 12,
+                        marginBottom: 10,
+                    }}
+                >
+                    회사명 : (주)지앤지195 / 대표자 : 조선희 {"\n"}
+                    주소 : 서울 금천구 디지털로9길 46 (이앤씨드림타워7차) 707호
+                    {"\n"}
+                    이메일 : pilka4133@altegoo.com{"\n"}
+                    전화 : 1522-9190 / 팩스 : 02-867-0196{"\n"}
+                    사업자등록번호 : 525-81-03000 / 통신판매업신고 : 2023-2122{" "}
+                    {"\n"}
+                    COPYRIGHT (c) (주)지앤지195 ALL RIGHTS RESERVED.
+                </MediumText>
+            </Footer>
         </Layout>
     );
 }

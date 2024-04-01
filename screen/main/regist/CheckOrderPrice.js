@@ -20,6 +20,7 @@ import {
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { PAYMENT_APP_ID } from "@env";
+import Button from "../../../component/button/Button";
 
 const Item = styled.View`
     background-color: white;
@@ -47,6 +48,24 @@ const PointButton = styled.TouchableOpacity`
     border-radius: 10px;
 `;
 
+const PopupContainer = styled.View`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #00000033;
+    align-items: center;
+    justify-content: center;
+`;
+
+const PopupWrapper = styled.View`
+    background-color: white;
+    width: 90%;
+    border-radius: 10px;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+`;
+
 const CheckOrderPrice = ({ navigation }) => {
     const { width: windowWidth } = useWindowDimensions();
     const { info } = useContext(UserContext);
@@ -55,6 +74,7 @@ const CheckOrderPrice = ({ navigation }) => {
     const { setValue, register, handleSubmit, watch, getValues } = useForm();
 
     const [pointData, setPointData] = useState(null);
+    const [isPopupShown, setIsPopupShown] = useState(false);
 
     useEffect(() => {
         console.log("registInfo : ", registInfo);
@@ -149,6 +169,14 @@ const CheckOrderPrice = ({ navigation }) => {
             .finally(() => {});
     };
 
+    const showPopup = () => {
+        setIsPopupShown(true);
+    };
+
+    const hidePopup = () => {
+        setIsPopupShown(false);
+    };
+
     const onNextStep = (data) => {
         const {
             curPoint,
@@ -197,68 +225,118 @@ const CheckOrderPrice = ({ navigation }) => {
         navigation.navigate(REGIST_NAV[5], { data: paymentData });
     };
 
+    const goToKeyedInPay = (data) => {
+        const {
+            curPoint,
+            emergencyPrice,
+            price,
+            registPoint,
+            tax,
+            totalPrice,
+            usePoint,
+        } = data;
+
+        const prevInfo = registInfo;
+
+        delete prevInfo.price;
+
+        const finalPrice = Number(totalPrice) + Number(tax);
+
+        const sendData = {
+            price: Number(price),
+            emergencyPrice: Number(emergencyPrice) || 0,
+            usePoint: Number(usePoint) || 0,
+            orderPrice: Number(price) + Number(emergencyPrice) || 0,
+            totalPrice: Number(totalPrice),
+            tax: Number(tax),
+            finalPrice: finalPrice,
+            registPoint: Number(registPoint),
+        };
+
+        setRegistInfo({ ...prevInfo, ...sendData });
+
+        console.log("info : ", info);
+
+        const paymentData = {
+            application_id: PAYMENT_APP_ID,
+            price: finalPrice,
+            order_name: registInfo.vehicleType + " 이용비 결제",
+            order_id: info.id + "_" + Date.now(),
+            user: {
+                username: info.name,
+                phone: info.phone,
+            },
+            curPoint,
+            pointId: pointData.id,
+        };
+
+        hidePopup();
+        navigation.navigate("KeyedInPay", { data: paymentData });
+    };
+
     //NEXT: 쿠폰사용 포함
     return (
-        <Layout
-            bottomButtonProps={{
-                onPress: handleSubmit(onNextStep),
-                title: "결제 진행",
-            }}
-        >
-            <Item>
-                <RegularText style={{ marginBottom: 13 }}>
-                    알테구 작업 비용 결제
-                </RegularText>
-                <RegularText
-                    style={{
-                        color: color["page-bluegrey-text"],
-                        fontSize: 15,
-                        marginBottom: 5,
-                    }}
-                >
-                    결제금액
-                </RegularText>
-                <MediumText>
-                    {numberWithComma(watch("price", "0"))}
-                    <MediumText style={{ fontSize: 14 }}> P</MediumText>
-                </MediumText>
-            </Item>
-            {registInfo.emergency ? (
-                <Item emergency>
-                    <Row>
-                        <Image
-                            source={require("../../../assets/images/icons/icon_emerg.png")}
-                            style={{ width: 25, height: 25 }}
-                        />
-                        <RegularText
-                            style={{
-                                fontSize: 19,
-                                color: "#EB1D36",
-                                marginTop: 5,
-                                marginLeft: 8,
-                            }}
-                        >
-                            긴급오더
-                        </RegularText>
-                    </Row>
+        <>
+            <Layout
+                bottomButtonProps={{
+                    onPress: showPopup,
+                    title: "결제 진행",
+                }}
+            >
+                <Item>
+                    <RegularText style={{ marginBottom: 13 }}>
+                        알테구 작업 비용 결제
+                    </RegularText>
                     <RegularText
                         style={{
-                            color: color.main,
+                            color: color["page-bluegrey-text"],
                             fontSize: 15,
                             marginBottom: 5,
-                            marginTop: 13,
                         }}
                     >
-                        25% 추가운임
+                        결제금액
                     </RegularText>
-                    <BoldText style={{ fontSize: 22 }}>
-                        {numberWithComma(watch("emergencyPrice", "0"))}
-                        <BoldText style={{ fontSize: 16 }}> P</BoldText>
-                    </BoldText>
+                    <MediumText>
+                        {numberWithComma(watch("price", "0"))}
+                        <MediumText style={{ fontSize: 14 }}> P</MediumText>
+                    </MediumText>
                 </Item>
-            ) : null}
+                {registInfo.emergency ? (
+                    <Item emergency>
+                        <Row>
+                            <Image
+                                source={require("../../../assets/images/icons/icon_emerg.png")}
+                                style={{ width: 25, height: 25 }}
+                            />
+                            <RegularText
+                                style={{
+                                    fontSize: 19,
+                                    color: "#EB1D36",
+                                    marginTop: 5,
+                                    marginLeft: 8,
+                                }}
+                            >
+                                긴급오더
+                            </RegularText>
+                        </Row>
+                        <RegularText
+                            style={{
+                                color: color.main,
+                                fontSize: 15,
+                                marginBottom: 5,
+                                marginTop: 13,
+                            }}
+                        >
+                            25% 추가운임
+                        </RegularText>
+                        <BoldText style={{ fontSize: 22 }}>
+                            {numberWithComma(watch("emergencyPrice", "0"))}
+                            <BoldText style={{ fontSize: 16 }}> P</BoldText>
+                        </BoldText>
+                    </Item>
+                ) : null}
 
-            {/* 
+                {/* 
             //NEXT: 포인트 결제 일단 삭제
             <Item>
                 <RegularText style={{ marginBottom: 13 }}>포인트</RegularText>
@@ -324,75 +402,75 @@ const CheckOrderPrice = ({ navigation }) => {
                     </PointButton>
                 </Row>
             </Item> */}
-            <Item accent>
-                <MediumText style={{ marginBottom: 25 }}>
-                    최종 결제 금액
-                </MediumText>
-                <Row>
-                    <RegularText
-                        style={{
-                            fontSize: 15,
-                            marginBottom: 8,
-                            maxWidth: "50%",
-                            marginRight: 10,
-                            textAlign: "right",
-                        }}
-                    >
-                        알테구 작업 비용
-                    </RegularText>
-                    <RegularText
-                        style={{
-                            fontSize: 16,
-                            marginBottom: 8,
-                            // width: "25%",
-                            maxWidth: "50%",
-                            textAlign: "right",
-                        }}
-                    >
-                        {numberWithComma(watch("orderPrice", "0"))}
+                <Item accent>
+                    <MediumText style={{ marginBottom: 25 }}>
+                        최종 결제 금액
+                    </MediumText>
+                    <Row>
                         <RegularText
                             style={{
-                                fontSize: 14,
+                                fontSize: 15,
+                                marginBottom: 8,
+                                maxWidth: "50%",
+                                marginRight: 10,
+                                textAlign: "right",
                             }}
                         >
-                            {" "}
-                            P
+                            알테구 작업 비용
                         </RegularText>
-                    </RegularText>
-                </Row>
-                <Row>
-                    <RegularText
-                        style={{
-                            fontSize: 15,
-                            marginBottom: 8,
-                            maxWidth: "50%",
-                            marginRight: 10,
-                            textAlign: "right",
-                        }}
-                    >
-                        부가세(10%)
-                    </RegularText>
-                    <RegularText
-                        style={{
-                            fontSize: 16,
-                            marginBottom: 8,
-                            // width: "25%",
-                            maxWidth: "50%",
-                            textAlign: "right",
-                        }}
-                    >
-                        {numberWithComma(watch("tax", "0"))}
                         <RegularText
                             style={{
-                                fontSize: 14,
+                                fontSize: 16,
+                                marginBottom: 8,
+                                // width: "25%",
+                                maxWidth: "50%",
+                                textAlign: "right",
                             }}
                         >
-                            {" "}
-                            P
+                            {numberWithComma(watch("orderPrice", "0"))}
+                            <RegularText
+                                style={{
+                                    fontSize: 14,
+                                }}
+                            >
+                                {" "}
+                                P
+                            </RegularText>
                         </RegularText>
-                    </RegularText>
-                </Row>
-                {/* <Row>
+                    </Row>
+                    <Row>
+                        <RegularText
+                            style={{
+                                fontSize: 15,
+                                marginBottom: 8,
+                                maxWidth: "50%",
+                                marginRight: 10,
+                                textAlign: "right",
+                            }}
+                        >
+                            부가세(10%)
+                        </RegularText>
+                        <RegularText
+                            style={{
+                                fontSize: 16,
+                                marginBottom: 8,
+                                // width: "25%",
+                                maxWidth: "50%",
+                                textAlign: "right",
+                            }}
+                        >
+                            {numberWithComma(watch("tax", "0"))}
+                            <RegularText
+                                style={{
+                                    fontSize: 14,
+                                }}
+                            >
+                                {" "}
+                                P
+                            </RegularText>
+                        </RegularText>
+                    </Row>
+                    {/* <Row>
                     <RegularText
                         style={{
                             fontSize: 15,
@@ -421,56 +499,88 @@ const CheckOrderPrice = ({ navigation }) => {
                         </RegularText>
                     </RegularText>
                 </Row> */}
-                <View
-                    style={{
-                        height: 1.5,
-                        backgroundColor: color["image-area-background"],
-                        width: "60%",
-                        marginTop: 13,
-                        marginBottom: 13,
-                    }}
-                ></View>
-                <Row>
-                    <RegularText
+                    <View
                         style={{
-                            fontSize: 15,
-                            marginRight: 20,
-                            maxWidth: windowWidth * 0.3,
+                            height: 1.5,
+                            backgroundColor: color["image-area-background"],
+                            width: "60%",
+                            marginTop: 13,
+                            marginBottom: 13,
                         }}
-                    >
-                        총 결제 금액{" "}
-                    </RegularText>
-                    <BoldText
-                        style={{
-                            fontSize: 22,
-                            color: color.main,
-                            maxWidth: windowWidth * 0.7,
-                        }}
-                    >
-                        {numberWithComma(
-                            Number(watch("totalPrice", "0")) +
-                                Number(watch("tax", "0"))
-                        )}
-                        <BoldText style={{ fontSize: 16, color: color.main }}>
+                    ></View>
+                    <Row>
+                        <RegularText
+                            style={{
+                                fontSize: 15,
+                                marginRight: 20,
+                                maxWidth: windowWidth * 0.3,
+                            }}
+                        >
+                            총 결제 금액{" "}
+                        </RegularText>
+                        <BoldText
+                            style={{
+                                fontSize: 22,
+                                color: color.main,
+                                maxWidth: windowWidth * 0.7,
+                            }}
+                        >
+                            {numberWithComma(
+                                Number(watch("totalPrice", "0")) +
+                                    Number(watch("tax", "0"))
+                            )}
+                            <BoldText
+                                style={{ fontSize: 16, color: color.main }}
+                            >
+                                {" "}
+                                P
+                            </BoldText>
+                        </BoldText>
+                    </Row>
+                </Item>
+                <Item accent>
+                    <MediumText style={{ color: color.blue, marginBottom: 20 }}>
+                        적립 예정 포인트
+                    </MediumText>
+                    <BoldText style={{ fontSize: 22, color: color.blue }}>
+                        {numberWithComma(watch("registPoint", "0"))}
+                        <BoldText style={{ fontSize: 16, color: color.blue }}>
                             {" "}
                             P
                         </BoldText>
                     </BoldText>
-                </Row>
-            </Item>
-            <Item accent>
-                <MediumText style={{ color: color.blue, marginBottom: 20 }}>
-                    적립 예정 포인트
-                </MediumText>
-                <BoldText style={{ fontSize: 22, color: color.blue }}>
-                    {numberWithComma(watch("registPoint", "0"))}
-                    <BoldText style={{ fontSize: 16, color: color.blue }}>
-                        {" "}
-                        P
-                    </BoldText>
-                </BoldText>
-            </Item>
-        </Layout>
+                </Item>
+            </Layout>
+            {isPopupShown ? (
+                <PopupContainer>
+                    <PopupWrapper>
+                        <Button
+                            onPress={handleSubmit(onNextStep)}
+                            type="accent"
+                            style={{ width: "70%", backgroundColor: "#BABABA" }}
+                            text="일반 결제"
+                        />
+                        <Button
+                            onPress={handleSubmit(goToKeyedInPay)}
+                            type="accent"
+                            style={{
+                                width: "70%",
+                                marginTop: 15,
+                                marginBottom: 15,
+                                backgroundColor: "#BABABA",
+                            }}
+                            text="수기 결제"
+                        />
+                        <Button
+                            type="accent"
+                            // onPress={handleSubmit(onNextStep)}
+                            style={{ width: "70%", backgroundColor: "#BABABA" }}
+                            text="무통장 입금"
+                        />
+                    </PopupWrapper>
+                </PopupContainer>
+            ) : null}
+        </>
     );
 };
 

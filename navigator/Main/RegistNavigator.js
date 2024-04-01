@@ -11,6 +11,7 @@ import { color } from "../../styles";
 import { Image } from "react-native";
 import RegistOrder from "../../screen/main/regist/RegistOrder";
 import CheckOrderPrice from "../../screen/main/regist/CheckOrderPrice";
+import KeyedInPay from "../../screen/main/KeyedInPay";
 
 const Stack = createStackNavigator();
 
@@ -72,6 +73,11 @@ export default function RegistNavigator() {
                 name={REGIST_NAV[5]}
                 component={Payment}
                 options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name={"KeyedInPay"}
+                component={KeyedInPay}
+                options={{ title: "수기 결제" }}
             />
             <Stack.Screen
                 name={REGIST_NAV[6]}
