@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { Image, View } from "react-native";
 import MediumText from "../../../component/text/MediumText";
-import UserContext from "../../../context/UserContext";
+import UserContext, { UserConsumer } from "../../../context/UserContext";
 import Layout from "../../../component/layout/Layout";
 import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
@@ -67,25 +67,34 @@ function Menus({ navigation }) {
             header: () => (
                 <Top>
                     <View>
-                        {info.userType === COMPANY && info.r_pack ? (
-                            <RowAround style={{ marginBottom: 5 }}>
-                                <BoldText style={{ fontSize: 22 }}>
-                                    {info.name} 님
-                                </BoldText>
-                                <Image
-                                    style={{
-                                        width: 85,
-                                        height: 35,
-                                    }}
-                                    resizeMode="center"
-                                    source={require(`../../../assets/images/icons/rpack.png`)}
-                                />
-                            </RowAround>
-                        ) : (
-                            <BoldText style={{ fontSize: 22, marginBottom: 5 }}>
-                                {info.name} 님
-                            </BoldText>
-                        )}
+                        <UserConsumer>
+                            {({ info }) =>
+                                info.userType === COMPANY && info.r_pack ? (
+                                    <RowAround style={{ marginBottom: 5 }}>
+                                        <BoldText style={{ fontSize: 22 }}>
+                                            {info.name} 님
+                                        </BoldText>
+                                        <Image
+                                            style={{
+                                                width: 85,
+                                                height: 35,
+                                            }}
+                                            resizeMode="center"
+                                            source={require(`../../../assets/images/icons/rpack.png`)}
+                                        />
+                                    </RowAround>
+                                ) : (
+                                    <BoldText
+                                        style={{
+                                            fontSize: 22,
+                                            marginBottom: 5,
+                                        }}
+                                    >
+                                        {info.name} 님
+                                    </BoldText>
+                                )
+                            }
+                        </UserConsumer>
                         <RegularText>
                             {GetPhoneNumberWithDash(info.phone)}
                         </RegularText>
@@ -100,7 +109,6 @@ function Menus({ navigation }) {
                 </Top>
             ),
         });
-
         const focusSubscription = navigation.addListener("focus", () => {
             getPoint(); //포인트
         });

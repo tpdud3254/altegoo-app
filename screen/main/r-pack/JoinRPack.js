@@ -5,10 +5,34 @@ import { color } from "../../../styles";
 import axios from "axios";
 import Layout from "../../../component/layout/Layout";
 import { showMessage } from "../../../utils";
+import { SERVER, VALID } from "../../../constant";
+import UserContext from "../../../context/UserContext";
 
 function JoinRPack({ navigation }) {
-    const onNextStep = () => {
-        showMessage("해당 기능은 추후에 제공 예정입니다.");
+    const { info, setInfo } = useContext(UserContext);
+
+    const onNextStep = async () => {
+        try {
+            const response = await axios.post(SERVER + "/users/rpack/join", {
+                id: info.id,
+            });
+
+            const {
+                data: {
+                    data: { user },
+                    result,
+                },
+            } = response;
+
+            if (result === VALID) {
+                showMessage("알팩 가입에 성공하였습니다.");
+                setInfo({ ...info, ...user });
+                navigation.goBack();
+            } else
+                showMessage("가입에 실패하였습니다.\n고객센터로 문의해주세요.");
+        } catch (error) {
+            showMessage("가입에 실패하였습니다.\n고객센터로 문의해주세요.");
+        }
     };
 
     return (
