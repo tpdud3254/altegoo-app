@@ -8,6 +8,7 @@ import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
 import {
     GetPhoneNumberWithDash,
+    IsRpackMember,
     getAsyncStorageToken,
     numberWithComma,
 } from "../../../utils";
@@ -69,7 +70,7 @@ function Menus({ navigation }) {
                     <View>
                         <UserConsumer>
                             {({ info }) =>
-                                info.userType === COMPANY && info.r_pack ? (
+                                IsRpackMember(info) ? (
                                     <RowAround style={{ marginBottom: 5 }}>
                                         <BoldText style={{ fontSize: 22 }}>
                                             {info.name} 님

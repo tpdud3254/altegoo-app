@@ -7,12 +7,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginContext from "../../../context/LoginContext";
 import Layout from "../../../component/layout/Layout";
 import RegularText from "../../../component/text/RegularText";
-import { GetPhoneNumberWithDash } from "../../../utils";
+import { GetPhoneNumberWithDash, IsRpackMember } from "../../../utils";
 import { color } from "../../../styles";
 import { shadowProps } from "../../../component/Shadow";
 import LightText from "../../../component/text/LightText";
 import { Row } from "../../../component/Row";
-import { COMPANY, TOKEN, UID, USER_TYPE } from "../../../constant";
+import { TOKEN, UID, USER_TYPE } from "../../../constant";
 
 const Continer = styled.View`
     justify-content: space-between;
@@ -285,7 +285,7 @@ function MemberInformation({ navigation }) {
                             </Items>
                         </>
                     ) : null}
-                    {info.userType === COMPANY && info.r_pack ? (
+                    {IsRpackMember(info) ? (
                         <TouchableOpacity onPress={goToCancelRPack}>
                             <MediumText
                                 style={{

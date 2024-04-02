@@ -119,6 +119,7 @@ function Payment({ navigation, route }) {
             tax: registInfo.tax || 0,
             finalPrice: registInfo.finalPrice || 0,
             registPoint: registInfo.registPoint || 0,
+            rPackPrice: registInfo.rPackPrice || 0,
         };
 
         try {

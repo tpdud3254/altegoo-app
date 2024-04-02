@@ -1,6 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { DRIVER, SERVER, TOKEN, UID, USER_TYPE, VALID } from "./constant";
+import {
+    COMPANY,
+    DRIVER,
+    SERVER,
+    TOKEN,
+    UID,
+    USER_TYPE,
+    VALID,
+} from "./constant";
 import * as Speech from "expo-speech";
 import axios from "axios";
 import * as Linking from "expo-linking";
@@ -972,4 +980,8 @@ export const GetKrDateTime = (datetime) => {
     const result = new Date(kr_curr);
 
     return result;
+};
+
+export const IsRpackMember = (info) => {
+    return info.userType === COMPANY && info.r_pack;
 };

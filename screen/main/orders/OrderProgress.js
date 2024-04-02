@@ -795,6 +795,9 @@ function OrderProgress({ navigation, route }) {
                             <Results>
                                 <ResultTitle>
                                     <Title>알테구 이용비</Title>
+                                    {order.rPackPrice > 0 ? (
+                                        <Title>- 알팩 회원 할인</Title>
+                                    ) : null}
                                     <Title>부가세 (10%)</Title>
                                     {/* <Title>포인트 사용</Title>
                                     <Title>
@@ -817,6 +820,13 @@ function OrderProgress({ navigation, route }) {
                                             order.orderPrice
                                         )}
                                     />
+                                    {order.rPackPrice > 0 ? (
+                                        <Price
+                                            price={numberWithComma(
+                                                order.rPackPrice
+                                            )}
+                                        />
+                                    ) : null}
                                     <Price price={numberWithComma(order.tax)} />
                                     {/* <Price
                                         price={

@@ -13,6 +13,7 @@ import {
     GetEmergencyPrice,
     GetSavePoint,
     GetTax,
+    IsRpackMember,
     getAsyncStorageToken,
     numberWithComma,
     showError,
@@ -80,6 +81,7 @@ const CheckOrderPrice = ({ navigation }) => {
         console.log("registInfo : ", registInfo);
 
         getPoint();
+        getRpackPrice();
 
         register("price"); //운임
         register("emergencyPrice"); // 긴급 비용
@@ -89,6 +91,7 @@ const CheckOrderPrice = ({ navigation }) => {
         register("totalPrice"); //최종 결제 금액
         register("registPoint"); //적립 예정 포인트
         register("tax"); //부가세
+        register("rPackPrice"); //알팩 요금
 
         setValue("price", registInfo.price.toString());
 
@@ -101,22 +104,29 @@ const CheckOrderPrice = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
-        const { price, emergencyPrice, usePoint } = getValues();
+        const { price, emergencyPrice, usePoint, rPackPrice } = getValues();
 
         const priceNum = Number(price) || 0;
         const emergencyPriceNum = Number(emergencyPrice) || 0;
         const usePointNum = Number(usePoint) || 0;
+        const rPackPriceNum = Number(rPackPrice) || 0;
 
         const orderPrice = priceNum + emergencyPriceNum;
-        const totalPrice = priceNum + emergencyPriceNum - usePointNum;
+        const totalPrice =
+            priceNum + emergencyPriceNum - usePointNum - rPackPriceNum;
         const registPoint = GetSavePoint(priceNum + emergencyPriceNum);
-        const tax = GetTax(totalPrice);
+        const tax = GetTax(priceNum + emergencyPriceNum - rPackPriceNum);
 
         setValue("orderPrice", orderPrice.toString());
         setValue("totalPrice", totalPrice.toString());
         setValue("registPoint", registPoint.toString());
         setValue("tax", tax.toString());
-    }, [watch("price"), watch("emergencyPrice"), watch("usePoint")]);
+    }, [
+        watch("price"),
+        watch("emergencyPrice"),
+        watch("usePoint"),
+        watch("rPackPrice"),
+    ]);
 
     useEffect(() => {
         //내가 가지고 있는 포인트보다 작거나 같아야함
@@ -169,6 +179,28 @@ const CheckOrderPrice = ({ navigation }) => {
             .finally(() => {});
     };
 
+    const getRpackPrice = async () => {
+        if (IsRpackMember(info)) {
+            axios
+                .get(SERVER + "/users/rpack/price")
+                .then(({ data }) => {
+                    const {
+                        result,
+                        data: { price },
+                    } = data;
+                    console.log("result: ", result);
+
+                    setValue("rPackPrice", price.r_packPrice.toString());
+                })
+                .catch((error) => {
+                    showError(error);
+                })
+                .finally(() => {});
+        } else {
+            setValue("rPackPrice", "0");
+        }
+    };
+
     const showPopup = () => {
         setIsPopupShown(true);
     };
@@ -187,6 +219,7 @@ const CheckOrderPrice = ({ navigation }) => {
             totalPrice,
             usePoint,
             type,
+            rPackPrice,
         } = data;
 
         const prevInfo = registInfo;
@@ -204,6 +237,7 @@ const CheckOrderPrice = ({ navigation }) => {
             tax: Number(tax),
             finalPrice: finalPrice,
             registPoint: Number(registPoint),
+            rPackPrice: Number(rPackPrice),
         };
         console.log("sendData :", sendData);
 
@@ -402,6 +436,41 @@ const CheckOrderPrice = ({ navigation }) => {
                             </RegularText>
                         </RegularText>
                     </Row>
+                    {IsRpackMember(info) ? (
+                        <Row>
+                            <RegularText
+                                style={{
+                                    fontSize: 15,
+                                    marginBottom: 8,
+                                    maxWidth: "50%",
+                                    marginRight: 10,
+                                    textAlign: "right",
+                                }}
+                            >
+                                - 알팩 회원 할인
+                            </RegularText>
+                            <RegularText
+                                style={{
+                                    fontSize: 16,
+                                    marginBottom: 8,
+                                    // width: "25%",
+                                    maxWidth: "50%",
+                                    textAlign: "right",
+                                }}
+                            >
+                                {numberWithComma(watch("rPackPrice", "0"))}
+                                <RegularText
+                                    style={{
+                                        fontSize: 14,
+                                    }}
+                                >
+                                    {" "}
+                                    P
+                                </RegularText>
+                            </RegularText>
+                        </Row>
+                    ) : null}
+
                     <Row>
                         <RegularText
                             style={{

@@ -7,6 +7,7 @@ import {
     CheckLoading,
     Filter,
     GoToOrderPage,
+    IsRpackMember,
     getAsyncStorageToken,
     numberWithComma,
     showError,
@@ -402,8 +403,7 @@ function Home({ navigation, route }) {
                                             충전
                                         </MediumText>
                                     </ChargeButton>
-                                    {info.userType === COMPANY &&
-                                    !info.r_pack ? (
+                                    {!IsRpackMember(info) ? (
                                         <RPackButton onPress={goToJoinRPack}>
                                             <MediumText
                                                 style={{

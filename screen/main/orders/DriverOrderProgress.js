@@ -14,6 +14,7 @@ import {
     GetCurrentDateTime,
     GetDate,
     GetPhoneNumberWithDash,
+    GetTax,
     GetTime,
     GoToKakaoNavi,
     getAsyncStorageToken,
@@ -1024,8 +1025,12 @@ function DriverOrderProgress({ navigation, route }) {
                                                 )}
                                             />
                                             <Price
+                                                // price={numberWithComma(
+                                                //     order.tax
+                                                //         )}
+                                                //알팩 비용때문에 수정
                                                 price={numberWithComma(
-                                                    order.tax
+                                                    GetTax(order.orderPrice)
                                                 )}
                                             />
 
