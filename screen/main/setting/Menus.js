@@ -15,7 +15,8 @@ import { color } from "../../../styles";
 import { shadowProps } from "../../../component/Shadow";
 import Arrow from "../../../assets/images/icons/arrow_right_B.png";
 import axios from "axios";
-import { SERVER } from "../../../constant";
+import { COMPANY, SERVER } from "../../../constant";
+import { RowAround } from "../../../component/Row";
 
 const Top = styled.View`
     background-color: white;
@@ -66,9 +67,25 @@ function Menus({ navigation }) {
             header: () => (
                 <Top>
                     <View>
-                        <BoldText style={{ fontSize: 22, marginBottom: 5 }}>
-                            {info.name} 님
-                        </BoldText>
+                        {info.userType === COMPANY && info.r_pack ? (
+                            <RowAround style={{ marginBottom: 5 }}>
+                                <BoldText style={{ fontSize: 22 }}>
+                                    {info.name} 님
+                                </BoldText>
+                                <Image
+                                    style={{
+                                        width: 85,
+                                        height: 35,
+                                    }}
+                                    resizeMode="center"
+                                    source={require(`../../../assets/images/icons/rpack.png`)}
+                                />
+                            </RowAround>
+                        ) : (
+                            <BoldText style={{ fontSize: 22, marginBottom: 5 }}>
+                                {info.name} 님
+                            </BoldText>
+                        )}
                         <RegularText>
                             {GetPhoneNumberWithDash(info.phone)}
                         </RegularText>

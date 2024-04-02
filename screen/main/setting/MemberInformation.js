@@ -12,7 +12,7 @@ import { color } from "../../../styles";
 import { shadowProps } from "../../../component/Shadow";
 import LightText from "../../../component/text/LightText";
 import { Row } from "../../../component/Row";
-import { TOKEN, UID, USER_TYPE } from "../../../constant";
+import { COMPANY, TOKEN, UID, USER_TYPE } from "../../../constant";
 
 const Continer = styled.View`
     justify-content: space-between;
@@ -81,6 +81,10 @@ function MemberInformation({ navigation }) {
             modify: true,
             type: "permission",
         });
+    };
+
+    const goToCancelRPack = () => {
+        navigation.navigate("CancelRPack");
     };
 
     const Title = ({ children, onPress }) => (
@@ -281,19 +285,35 @@ function MemberInformation({ navigation }) {
                             </Items>
                         </>
                     ) : null}
+                    {info.userType === COMPANY && info.r_pack ? (
+                        <TouchableOpacity onPress={goToCancelRPack}>
+                            <MediumText
+                                style={{
+                                    color: color["page-bluegrey-text"],
+                                    textAlign: "center",
+                                    marginTop: 10,
+                                    fontSize: 16,
+                                }}
+                            >
+                                알팩 해지하기
+                            </MediumText>
+                        </TouchableOpacity>
+                    ) : null}
                 </View>
-                <TouchableOpacity onPress={logout}>
-                    <MediumText
-                        style={{
-                            color: color["page-bluegrey-text"],
-                            textAlign: "center",
-                            marginTop: 20,
-                            marginBottom: 20,
-                        }}
-                    >
-                        로그아웃
-                    </MediumText>
-                </TouchableOpacity>
+                <View>
+                    <TouchableOpacity onPress={logout}>
+                        <MediumText
+                            style={{
+                                color: color["page-bluegrey-text"],
+                                textAlign: "center",
+                                marginTop: 20,
+                                marginBottom: 13,
+                            }}
+                        >
+                            로그아웃
+                        </MediumText>
+                    </TouchableOpacity>
+                </View>
             </Continer>
         </Layout>
     );

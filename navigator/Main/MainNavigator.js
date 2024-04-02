@@ -22,6 +22,8 @@ import RegistNavigator from "./RegistNavigator";
 import OrderDetails from "../../screen/main/orders/OrderDetails";
 import DriverOrderProgress from "../../screen/main/orders/DriverOrderProgress";
 import SettingNavigator from "./SettingNavigator";
+import JoinRPack from "../../screen/main/r-pack/JoinRPack";
+import CancelRPack from "../../screen/main/r-pack/CancelRPack";
 
 Location.watchPositionAsync(
     {
@@ -273,6 +275,22 @@ export default function MainNavigator() {
                         options={{
                             title: "결제하기",
                             headerShown: false,
+                            headerTitleAlign: "center",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="JoinRPack"
+                        component={JoinRPack}
+                        options={{
+                            title: "알팩 가입하기",
+                            headerTitleAlign: "center",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="CancelRPack"
+                        component={CancelRPack}
+                        options={{
+                            title: "알팩 해지하기",
                             headerTitleAlign: "center",
                         }}
                     />

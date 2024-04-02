@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../../../context/UserContext";
-import { DRIVER, VALID } from "../../../constant";
+import { COMPANY, DRIVER, VALID } from "../../../constant";
 import axios from "axios";
 import { SERVER } from "../../../constant";
 import {
@@ -49,16 +49,23 @@ const PointButton = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     align-self: flex-start;
+    justify-content: center;
     padding: 8px 13px;
     border-radius: 12px;
     margin-top: -20px;
-    margin-right: 10px;
+    margin-right: 7px;
+    height: 40px;
 `;
 
 const ChargeButton = styled(PointButton)`
     background-color: ${color.btnDefault};
     border: 1px solid ${color["image-area-background"]};
 `;
+
+const RPackButton = styled(PointButton)`
+    background-color: ${color["r-pack"]};
+`;
+
 const Wrapper = styled.View`
     background-color: white;
     padding: 16px 16px;
@@ -260,6 +267,10 @@ function Home({ navigation, route }) {
         navigation.navigate("SettingNavigator", { screen: "ChargePoint" });
     };
 
+    const goToJoinRPack = () => {
+        navigation.navigate("JoinRPack");
+    };
+
     const goToKakaoChat = async () => {
         axios
             .get(SERVER + "/admin/kakao")
@@ -352,7 +363,8 @@ function Home({ navigation, route }) {
                                     <PointButton onPress={goToPoint}>
                                         <Image
                                             source={require("../../../assets/images/icons/icon_point.png")}
-                                            style={{ width: 27, height: 27 }}
+                                            style={{ width: 23, height: 23 }}
+                                            resizeMode="contain"
                                         />
                                         <BoldText
                                             style={{
@@ -376,10 +388,11 @@ function Home({ navigation, route }) {
                                         <Image
                                             source={require("../../../assets/images/icons/icon_charge.png")}
                                             style={{
-                                                width: 27,
-                                                height: 27,
+                                                width: 25,
+                                                height: 23,
                                                 marginRight: 5,
                                             }}
+                                            resizeMode="contain"
                                         />
                                         <MediumText
                                             style={{
@@ -389,6 +402,19 @@ function Home({ navigation, route }) {
                                             충전
                                         </MediumText>
                                     </ChargeButton>
+                                    {info.userType === COMPANY &&
+                                    !info.r_pack ? (
+                                        <RPackButton onPress={goToJoinRPack}>
+                                            <MediumText
+                                                style={{
+                                                    fontSize: 15,
+                                                    color: "white",
+                                                }}
+                                            >
+                                                알팩가입
+                                            </MediumText>
+                                        </RPackButton>
+                                    ) : null}
                                 </Row>
                             </Item>
                             <Item>
