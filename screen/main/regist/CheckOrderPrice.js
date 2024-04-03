@@ -13,7 +13,7 @@ import {
     GetEmergencyPrice,
     GetSavePoint,
     GetTax,
-    IsRpackMember,
+    IsGugupackMember,
     getAsyncStorageToken,
     numberWithComma,
     showError,
@@ -80,8 +80,8 @@ const CheckOrderPrice = ({ navigation }) => {
     useEffect(() => {
         console.log("registInfo : ", registInfo);
 
+        getGugupackPrice();
         getPoint();
-        getRpackPrice();
 
         register("price"); //운임
         register("emergencyPrice"); // 긴급 비용
@@ -91,7 +91,7 @@ const CheckOrderPrice = ({ navigation }) => {
         register("totalPrice"); //최종 결제 금액
         register("registPoint"); //적립 예정 포인트
         register("tax"); //부가세
-        register("rPackPrice"); //알팩 요금
+        register("gugupackPrice"); //구구팩 요금
 
         setValue("price", registInfo.price.toString());
 
@@ -104,18 +104,18 @@ const CheckOrderPrice = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
-        const { price, emergencyPrice, usePoint, rPackPrice } = getValues();
+        const { price, emergencyPrice, usePoint, gugupackPrice } = getValues();
 
         const priceNum = Number(price) || 0;
         const emergencyPriceNum = Number(emergencyPrice) || 0;
         const usePointNum = Number(usePoint) || 0;
-        const rPackPriceNum = Number(rPackPrice) || 0;
+        const gugupackPriceNum = Number(gugupackPrice) || 0;
 
         const orderPrice = priceNum + emergencyPriceNum;
         const totalPrice =
-            priceNum + emergencyPriceNum - usePointNum - rPackPriceNum;
+            priceNum + emergencyPriceNum - usePointNum - gugupackPriceNum;
         const registPoint = GetSavePoint(priceNum + emergencyPriceNum);
-        const tax = GetTax(priceNum + emergencyPriceNum - rPackPriceNum);
+        const tax = GetTax(priceNum + emergencyPriceNum - gugupackPriceNum);
 
         setValue("orderPrice", orderPrice.toString());
         setValue("totalPrice", totalPrice.toString());
@@ -125,7 +125,7 @@ const CheckOrderPrice = ({ navigation }) => {
         watch("price"),
         watch("emergencyPrice"),
         watch("usePoint"),
-        watch("rPackPrice"),
+        watch("gugupackPrice"),
     ]);
 
     useEffect(() => {
@@ -179,10 +179,10 @@ const CheckOrderPrice = ({ navigation }) => {
             .finally(() => {});
     };
 
-    const getRpackPrice = async () => {
-        if (IsRpackMember(info)) {
+    const getGugupackPrice = async () => {
+        if (IsGugupackMember(info)) {
             axios
-                .get(SERVER + "/users/rpack/price")
+                .get(SERVER + "/users/gugupack/price")
                 .then(({ data }) => {
                     const {
                         result,
@@ -190,14 +190,14 @@ const CheckOrderPrice = ({ navigation }) => {
                     } = data;
                     console.log("result: ", result);
 
-                    setValue("rPackPrice", price.r_packPrice.toString());
+                    setValue("gugupackPrice", price.gugupackPrice.toString());
                 })
                 .catch((error) => {
                     showError(error);
                 })
                 .finally(() => {});
         } else {
-            setValue("rPackPrice", "0");
+            setValue("gugupackPrice", "0");
         }
     };
 
@@ -219,7 +219,7 @@ const CheckOrderPrice = ({ navigation }) => {
             totalPrice,
             usePoint,
             type,
-            rPackPrice,
+            gugupackPrice,
         } = data;
 
         const prevInfo = registInfo;
@@ -237,13 +237,11 @@ const CheckOrderPrice = ({ navigation }) => {
             tax: Number(tax),
             finalPrice: finalPrice,
             registPoint: Number(registPoint),
-            rPackPrice: Number(rPackPrice),
+            gugupackPrice: Number(gugupackPrice),
         };
         console.log("sendData :", sendData);
 
         setRegistInfo({ ...prevInfo, ...sendData });
-
-        console.log("info : ", info);
 
         const paymentData = {
             application_id: PAYMENT_APP_ID,
@@ -436,7 +434,7 @@ const CheckOrderPrice = ({ navigation }) => {
                             </RegularText>
                         </RegularText>
                     </Row>
-                    {IsRpackMember(info) ? (
+                    {IsGugupackMember(info) ? (
                         <Row>
                             <RegularText
                                 style={{
@@ -447,7 +445,7 @@ const CheckOrderPrice = ({ navigation }) => {
                                     textAlign: "right",
                                 }}
                             >
-                                - 알팩 회원 할인
+                                - 구구팩 회원 할인
                             </RegularText>
                             <RegularText
                                 style={{
@@ -458,7 +456,7 @@ const CheckOrderPrice = ({ navigation }) => {
                                     textAlign: "right",
                                 }}
                             >
-                                {numberWithComma(watch("rPackPrice", "0"))}
+                                {numberWithComma(watch("gugupackPrice", "0"))}
                                 <RegularText
                                     style={{
                                         fontSize: 14,

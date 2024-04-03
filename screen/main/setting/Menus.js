@@ -8,7 +8,7 @@ import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
 import {
     GetPhoneNumberWithDash,
-    IsRpackMember,
+    IsGugupackMember,
     getAsyncStorageToken,
     numberWithComma,
 } from "../../../utils";
@@ -70,7 +70,7 @@ function Menus({ navigation }) {
                     <View>
                         <UserConsumer>
                             {({ info }) =>
-                                IsRpackMember(info) ? (
+                                IsGugupackMember(info) ? (
                                     <RowAround style={{ marginBottom: 5 }}>
                                         <BoldText style={{ fontSize: 22 }}>
                                             {info.name} 님
@@ -81,7 +81,7 @@ function Menus({ navigation }) {
                                                 height: 35,
                                             }}
                                             resizeMode="center"
-                                            source={require(`../../../assets/images/icons/rpack.png`)}
+                                            source={require(`../../../assets/images/icons/gugupack.png`)}
                                         />
                                     </RowAround>
                                 ) : (

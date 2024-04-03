@@ -1028,7 +1028,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 // price={numberWithComma(
                                                 //     order.tax
                                                 //         )}
-                                                //알팩 비용때문에 수정
+                                                //구구팩 비용때문에 수정
                                                 price={numberWithComma(
                                                     GetTax(order.orderPrice)
                                                 )}
@@ -1059,7 +1059,9 @@ function DriverOrderProgress({ navigation, route }) {
                                             }}
                                         >
                                             {numberWithComma(
-                                                order.finalPrice * 0.02
+                                                Math.floor(
+                                                    order.finalPrice * 0.02
+                                                )
                                             )}
                                             <BoldText
                                                 style={{

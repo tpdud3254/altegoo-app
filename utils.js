@@ -982,6 +982,6 @@ export const GetKrDateTime = (datetime) => {
     return result;
 };
 
-export const IsRpackMember = (info) => {
-    return info.userType === COMPANY && info.r_pack;
+export const IsGugupackMember = (info) => {
+    return info.userType === COMPANY && info.gugupack;
 };

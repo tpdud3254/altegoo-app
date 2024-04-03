@@ -22,8 +22,8 @@ import RegistNavigator from "./RegistNavigator";
 import OrderDetails from "../../screen/main/orders/OrderDetails";
 import DriverOrderProgress from "../../screen/main/orders/DriverOrderProgress";
 import SettingNavigator from "./SettingNavigator";
-import JoinRPack from "../../screen/main/r-pack/JoinRPack";
-import CancelRPack from "../../screen/main/r-pack/CancelRPack";
+import JoinGugupack from "../../screen/main/gugupack/JoinGugupack";
+import CancelGugupack from "../../screen/main/gugupack/CancelGugupack";
 
 Location.watchPositionAsync(
     {
@@ -279,18 +279,18 @@ export default function MainNavigator() {
                         }}
                     />
                     <Stack.Screen
-                        name="JoinRPack"
-                        component={JoinRPack}
+                        name="JoinGugupack"
+                        component={JoinGugupack}
                         options={{
-                            title: "알팩 가입하기",
+                            title: "구구팩 가입하기",
                             headerTitleAlign: "center",
                         }}
                     />
                     <Stack.Screen
-                        name="CancelRPack"
-                        component={CancelRPack}
+                        name="CancelGugupack"
+                        component={CancelGugupack}
                         options={{
-                            title: "알팩 해지하기",
+                            title: "구구팩 해지하기",
                             headerTitleAlign: "center",
                         }}
                     />

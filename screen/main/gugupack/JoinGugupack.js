@@ -8,12 +8,12 @@ import { showMessage } from "../../../utils";
 import { SERVER, VALID } from "../../../constant";
 import UserContext from "../../../context/UserContext";
 
-function JoinRPack({ navigation }) {
+function JoinGugupack({ navigation }) {
     const { info, setInfo } = useContext(UserContext);
 
     const onNextStep = async () => {
         try {
-            const response = await axios.post(SERVER + "/users/rpack/join", {
+            const response = await axios.post(SERVER + "/users/gugupack/join", {
                 id: info.id,
             });
 
@@ -25,7 +25,7 @@ function JoinRPack({ navigation }) {
             } = response;
 
             if (result === VALID) {
-                showMessage("알팩 가입에 성공하였습니다.");
+                showMessage("구구팩 가입에 성공하였습니다.");
                 setInfo({ ...info, ...user });
                 navigation.goBack();
             } else
@@ -43,9 +43,9 @@ function JoinRPack({ navigation }) {
                 disabled: false,
             }}
         >
-            <MediumText>알팩 가입 약관{"\n"}(추가 예정)</MediumText>
+            <MediumText>구구팩 가입 약관{"\n"}(추가 예정)</MediumText>
         </Layout>
     );
 }
 
-export default JoinRPack;
+export default JoinGugupack;

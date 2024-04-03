@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginContext from "../../../context/LoginContext";
 import Layout from "../../../component/layout/Layout";
 import RegularText from "../../../component/text/RegularText";
-import { GetPhoneNumberWithDash, IsRpackMember } from "../../../utils";
+import { GetPhoneNumberWithDash, IsGugupackMember } from "../../../utils";
 import { color } from "../../../styles";
 import { shadowProps } from "../../../component/Shadow";
 import LightText from "../../../component/text/LightText";
@@ -83,8 +83,8 @@ function MemberInformation({ navigation }) {
         });
     };
 
-    const goToCancelRPack = () => {
-        navigation.navigate("CancelRPack");
+    const goToCancelGugupack = () => {
+        navigation.navigate("CancelGugupack");
     };
 
     const Title = ({ children, onPress }) => (
@@ -285,8 +285,8 @@ function MemberInformation({ navigation }) {
                             </Items>
                         </>
                     ) : null}
-                    {IsRpackMember(info) ? (
-                        <TouchableOpacity onPress={goToCancelRPack}>
+                    {IsGugupackMember(info) ? (
+                        <TouchableOpacity onPress={goToCancelGugupack}>
                             <MediumText
                                 style={{
                                     color: color["page-bluegrey-text"],
@@ -295,7 +295,7 @@ function MemberInformation({ navigation }) {
                                     fontSize: 16,
                                 }}
                             >
-                                알팩 해지하기
+                                구구팩 해지하기
                             </MediumText>
                         </TouchableOpacity>
                     ) : null}

@@ -7,7 +7,6 @@ import {
     CheckLoading,
     Filter,
     GoToOrderPage,
-    IsRpackMember,
     getAsyncStorageToken,
     numberWithComma,
     showError,
@@ -63,8 +62,8 @@ const ChargeButton = styled(PointButton)`
     border: 1px solid ${color["image-area-background"]};
 `;
 
-const RPackButton = styled(PointButton)`
-    background-color: ${color["r-pack"]};
+const GugupackButton = styled(PointButton)`
+    background-color: ${color["point-green"]};
 `;
 
 const Wrapper = styled.View`
@@ -268,8 +267,8 @@ function Home({ navigation, route }) {
         navigation.navigate("SettingNavigator", { screen: "ChargePoint" });
     };
 
-    const goToJoinRPack = () => {
-        navigation.navigate("JoinRPack");
+    const goToJoinGugupack = () => {
+        navigation.navigate("JoinGugupack");
     };
 
     const goToKakaoChat = async () => {
@@ -403,17 +402,20 @@ function Home({ navigation, route }) {
                                             충전
                                         </MediumText>
                                     </ChargeButton>
-                                    {!IsRpackMember(info) ? (
-                                        <RPackButton onPress={goToJoinRPack}>
+                                    {info.userType === COMPANY &&
+                                    !info.gugupack ? (
+                                        <GugupackButton
+                                            onPress={goToJoinGugupack}
+                                        >
                                             <MediumText
                                                 style={{
                                                     fontSize: 15,
                                                     color: "white",
                                                 }}
                                             >
-                                                알팩가입
+                                                구구팩가입
                                             </MediumText>
-                                        </RPackButton>
+                                        </GugupackButton>
                                     ) : null}
                                 </Row>
                             </Item>

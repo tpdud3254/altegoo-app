@@ -38,5 +38,5 @@ export const color = {
     "button-accent-disabled-background": "#FFC19B",
     "image-area-background": "#E6E6E6",
     red: "#eb1d36",
-    "r-pack": "#05e096",
+    "point-green": "#05e096",
 };
