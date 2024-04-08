@@ -199,8 +199,8 @@ function Menus({ navigation }) {
                     {"\n"}
                     이메일 : pilka4133@altegoo.com{"\n"}
                     전화 : 1522-9190 / 팩스 : 02-867-0196{"\n"}
-                    사업자등록번호 : 525-81-03000 / 통신판매업신고 : 2023-2122{" "}
-                    {"\n"}
+                    사업자등록번호 : 525-81-03000 / 통신판매업신고 : 제
+                    2023-서울금천-2122 호{"\n"}
                     COPYRIGHT (c) (주)지앤지195 ALL RIGHTS RESERVED.
                 </MediumText>
             </Footer>
