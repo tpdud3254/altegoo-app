@@ -39,6 +39,22 @@ const MONTH = [
     "11",
     "12",
 ];
+
+const MONTHLY_INSTALLMENT = [
+    "일시불",
+    "2개월",
+    "3개월",
+    "4개월",
+    "5개월",
+    "6개월",
+    "7개월",
+    "8개월",
+    "9개월",
+    "10개월",
+    "11개월",
+    "12개월",
+];
+
 const Wrapper = styled.View``;
 const Row = styled.View`
     flex-direction: row;
@@ -54,7 +70,7 @@ function KeyedInPay({ navigation, route }) {
     const [year, setYear] = useState(0);
     const [month, setMonth] = useState(0);
     const [cardNumber, setCardNumber] = useState("");
-    const [cardNumberText, setCardNumberText] = useState("");
+    const [monthlyInstallment, setMonthlyInstallment] = useState(1);
 
     const { registInfo } = useContext(RegistContext);
     const { info } = useContext(UserContext);
@@ -235,6 +251,28 @@ function KeyedInPay({ navigation, route }) {
                             data={MONTH}
                             onSelect={(index) => setMonth(index + 1)}
                             selectedIndex={month - 1}
+                        />
+                    </Row>
+                </Wrapper>
+                <View style={{ marginTop: 20 }}>
+                    <MediumText
+                        style={{
+                            fontSize: 17,
+                            color: color["page-grey-text"],
+                        }}
+                    >
+                        할부 선택
+                    </MediumText>
+                </View>
+                <Wrapper>
+                    <Row>
+                        <SelectBox
+                            placeholder="할부"
+                            data={MONTHLY_INSTALLMENT}
+                            onSelect={(index) =>
+                                setMonthlyInstallment(index + 1)
+                            }
+                            selectedIndex={monthlyInstallment - 1}
                         />
                     </Row>
                 </Wrapper>

@@ -53,7 +53,7 @@ function SelectBox({
     const [selected, setSelected] = useState(-1);
 
     useEffect(() => {
-        if (selectedIndex) setSelected(selectedIndex);
+        if (selectedIndex === 0 || selectedIndex) setSelected(selectedIndex);
     }, [selectedIndex]);
 
     const show = () => {
