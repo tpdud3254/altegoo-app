@@ -126,6 +126,7 @@ function Home({ navigation, route }) {
     const [orders, setOrders] = useState(-1);
     const [completedOrders, setCompletedOrders] = useState(-1);
     const [acceptOrders, setAcceptOrders] = useState(-1);
+    const [standByOrders, setStandByOrders] = useState(-1);
     const [period, setPeriod] = useState(1);
 
     const bannerRef = useRef();
@@ -137,6 +138,7 @@ function Home({ navigation, route }) {
         setLoading(true);
         getPoint(); //포인트
         getOrders(); //작업리스트
+        getStandByOrders(); //입금 대기중 작업리스트
 
         if (info.userType === DRIVER) getAcceptOrders();
 
@@ -144,6 +146,7 @@ function Home({ navigation, route }) {
             setLoading(true);
             getPoint(); //포인트
             getOrders(); //작업리스트
+            getStandByOrders(); //입금 대기중 작업리스트
 
             if (info.userType === DRIVER) getAcceptOrders();
         });
@@ -155,19 +158,20 @@ function Home({ navigation, route }) {
 
     useEffect(() => {
         if (info.userType === DRIVER) {
-            if (CheckLoading({ point, orders, acceptOrders })) {
+            if (CheckLoading({ point, orders, acceptOrders, standByOrders })) {
                 setLoading(false);
             }
         } else {
-            if (CheckLoading({ point, orders })) {
+            if (CheckLoading({ point, orders, standByOrders })) {
                 setLoading(false);
             }
         }
-    }, [point, orders, acceptOrders]);
+    }, [point, orders, acceptOrders, standByOrders]);
 
     useEffect(() => {
         getOrders();
     }, [period]);
+
     const getPoint = async () => {
         axios
             .get(SERVER + "/users/point", {
@@ -251,6 +255,34 @@ function Home({ navigation, route }) {
             })
             .finally(() => {});
     };
+
+    const getStandByOrders = async () => {
+        axios
+            .get(SERVER + "/orders/vbank/list", {
+                headers: {
+                    auth: await getAsyncStorageToken(),
+                },
+            })
+            .then(({ data }) => {
+                const { result } = data;
+
+                if (result === VALID) {
+                    const {
+                        data: { order },
+                    } = data;
+
+                    console.log("getStandByOrders : ", order);
+                    setStandByOrders(order || []);
+                } else {
+                    setStandByOrders([]);
+                }
+            })
+            .catch((error) => {
+                showError(error);
+            })
+            .finally(() => {});
+    };
+
     const goToPoint = () => {
         navigation.navigate("SettingNavigator", { screen: "PointMain" });
 
@@ -582,6 +614,43 @@ function Home({ navigation, route }) {
                           })
                         : null}
 
+                    {standByOrders.length > 0 ? (
+                        <Item>
+                            <Wrapper
+                                style={shadowProps}
+                                border={true}
+                                borderColor={color["standby-border"]}
+                            >
+                                <Header>
+                                    <MediumText
+                                        style={{
+                                            fontSize: 18,
+                                            marginTop: 5,
+                                        }}
+                                    >
+                                        입금 대기 중
+                                    </MediumText>
+                                </Header>
+
+                                <Orders>
+                                    <Order.Items>
+                                        {standByOrders.map((order, index) => (
+                                            <Order.Item
+                                                key={index}
+                                                data={order}
+                                                nextPage={GoToOrderPage(
+                                                    info,
+                                                    order,
+                                                    { isStandByOrder: true }
+                                                )}
+                                                showBadge={false}
+                                            />
+                                        ))}
+                                    </Order.Items>
+                                </Orders>
+                            </Wrapper>
+                        </Item>
+                    ) : null}
                     <Item>
                         <Wrapper style={shadowProps}>
                             <Header>

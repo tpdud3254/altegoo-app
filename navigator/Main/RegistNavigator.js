@@ -12,6 +12,7 @@ import { Image } from "react-native";
 import RegistOrder from "../../screen/main/regist/RegistOrder";
 import CheckOrderPrice from "../../screen/main/regist/CheckOrderPrice";
 import KeyedInPay from "../../screen/main/KeyedInPay";
+import RegistStandBy from "../../screen/main/regist/RegistStandBy";
 
 const Stack = createStackNavigator();
 
@@ -82,6 +83,11 @@ export default function RegistNavigator() {
             <Stack.Screen
                 name={REGIST_NAV[6]}
                 component={RegistCompleted}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name={REGIST_NAV[7]}
+                component={RegistStandBy}
                 options={{ headerShown: false }}
             />
             <Stack.Screen

@@ -10,12 +10,14 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext";
 import RegistContext from "../../../context/RegistContext";
 import {
+    GetCurrentDateTime,
     GetEmergencyPrice,
     GetSavePoint,
     GetTax,
     IsGugupackMember,
     getAsyncStorageToken,
     numberWithComma,
+    numberWithZero,
     showError,
 } from "../../../utils";
 import axios from "axios";
@@ -243,6 +245,10 @@ const CheckOrderPrice = ({ navigation }) => {
 
         setRegistInfo({ ...prevInfo, ...sendData });
 
+        const now = GetCurrentDateTime();
+
+        now.setUTCMinutes(now.getUTCMinutes() + 10);
+
         const paymentData = {
             application_id: PAYMENT_APP_ID,
             price: finalPrice,
@@ -254,6 +260,21 @@ const CheckOrderPrice = ({ navigation }) => {
             },
             curPoint,
             pointId: pointData.id,
+            extra: {
+                // test_deposit: true, //TEST: 가상계좌결제 테스트
+                deposit_expiration:
+                    now.getUTCFullYear() +
+                    "-" +
+                    numberWithZero(now.getUTCMonth() + 1) +
+                    "-" +
+                    numberWithZero(now.getUTCDate()) +
+                    " " +
+                    numberWithZero(now.getUTCHours()) +
+                    ":" +
+                    numberWithZero(now.getUTCMinutes()) +
+                    ":" +
+                    "00",
+            },
         };
 
         hidePopup();

@@ -532,7 +532,11 @@ export const Filter = ({ data, period, orderBy }) => {
     return result;
 };
 
-export const GoToOrderPage = (info, order) => {
+export const GoToOrderPage = (info, order, extra) => {
+    if (extra?.isStandByOrder) {
+        return "StandByOrderProgress";
+    }
+
     if (info.userType === DRIVER) {
         //기사일 경우
         if (order.registUser.id === info.id) {

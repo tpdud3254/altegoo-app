@@ -20,7 +20,7 @@ export const Order = {
     Items: ({ children }) => {
         return <View>{children}</View>;
     },
-    Item: ({ data, nextPage }) => {
+    Item: ({ data, nextPage, showBadge = true }) => {
         const navigation = useNavigation();
         const Badge = ({ status }) => {
             let text = "";
@@ -121,14 +121,17 @@ export const Order = {
                         </MediumText>
                     </MediumText>
                 </Row>
-                <Row>
+                <Row lastChild={showBadge ? false : true}>
                     <RegularText style={{ color: color["page-grey-text"] }}>
                         {data.address1}
                     </RegularText>
                 </Row>
-                <Row lastChild={true}>
-                    <Badge status={data.orderStatusId} />
-                </Row>
+                {showBadge ? (
+                    <Row lastChild={true}>
+                        <Badge status={data.orderStatusId} />
+                    </Row>
+                ) : null}
+
                 <Line />
             </ItemContainer>
         );

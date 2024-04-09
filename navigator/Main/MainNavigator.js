@@ -24,6 +24,7 @@ import DriverOrderProgress from "../../screen/main/orders/DriverOrderProgress";
 import SettingNavigator from "./SettingNavigator";
 import JoinGugupack from "../../screen/main/gugupack/JoinGugupack";
 import CancelGugupack from "../../screen/main/gugupack/CancelGugupack";
+import StandByOrderProgress from "../../screen/main/orders/StandByOrderProgress";
 
 Location.watchPositionAsync(
     {
@@ -250,6 +251,13 @@ export default function MainNavigator() {
                         component={DriverOrderProgress}
                         options={{
                             headerTitle: "작업 현황",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="StandByOrderProgress"
+                        component={StandByOrderProgress}
+                        options={{
+                            headerTitle: "대기 중인 작업",
                         }}
                     />
                     <Stack.Screen
