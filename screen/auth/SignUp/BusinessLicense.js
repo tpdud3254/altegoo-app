@@ -8,7 +8,7 @@ import AuthLayout from "../../../component/layout/AuthLayout";
 import RegularText from "../../../component/text/RegularText";
 import MediumText from "../../../component/text/MediumText";
 import { Image, ScrollView, useWindowDimensions } from "react-native";
-import { Popup } from "../../../component/Popup";
+import { Popup } from "../../../component/popup/Popup";
 
 const Container = styled.View`
     justify-content: space-between;

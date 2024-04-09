@@ -16,7 +16,7 @@ import { Image, View } from "react-native";
 import RegularText from "../../../component/text/RegularText";
 import SelectBox from "../../../component/selectBox/SelectBox";
 import UserContext from "../../../context/UserContext";
-import { PopupWithButtons } from "../../../component/PopupWithButtons";
+import { PopupWithButtons } from "../../../component/popup/PopupWithButtons";
 import { Box } from "../../../component/box/Box";
 import {
     CheckValidation,

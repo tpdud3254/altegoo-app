@@ -5,7 +5,7 @@ import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimen
 import { useNavigation } from "@react-navigation/native";
 import UserContext from "../../context/UserContext";
 import { COMPANY, DRIVER } from "../../constant";
-import { PopupWithButtons } from "../PopupWithButtons";
+import { PopupWithButtons } from "../popup/PopupWithButtons";
 import RegularText from "../text/RegularText";
 
 const Container = styled.TouchableOpacity`

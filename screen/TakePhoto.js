@@ -9,7 +9,7 @@ import { color } from "../styles";
 import UserContext from "../context/UserContext";
 import MediumText from "../component/text/MediumText";
 import InfoIcon from "../assets/images/icons/icon_info2.png";
-import { Popup } from "../component/Popup";
+import { Popup } from "../component/popup/Popup";
 import RegularText from "../component/text/RegularText";
 import Button from "../component/button/Button";
 import { SERVER, VALID } from "../constant";

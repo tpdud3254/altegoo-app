@@ -19,7 +19,7 @@ import {
     showMessage,
 } from "../../../utils";
 import WebView from "react-native-webview";
-import { PopupWithButtons } from "../../../component/PopupWithButtons";
+import { PopupWithButtons } from "../../../component/popup/PopupWithButtons";
 import axios from "axios";
 import { DRIVER, SERVER, VALID } from "../../../constant";
 import LoadingLayout from "../../../component/layout/LoadingLayout";

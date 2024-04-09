@@ -17,7 +17,7 @@ import RegularText from "../text/RegularText";
 import { color } from "../../styles";
 import { useNavigation } from "@react-navigation/native";
 import BoldText from "../text/BoldText";
-import { PopupWithButtons } from "../PopupWithButtons";
+import { PopupWithButtons } from "../popup/PopupWithButtons";
 import UserContext from "../../context/UserContext";
 import axios from "axios";
 import { DRIVER, SERVER, VALID } from "../../constant";

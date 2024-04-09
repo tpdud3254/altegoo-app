@@ -18,7 +18,7 @@ import {
 } from "../../../utils";
 import axios from "axios";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
-import { Popup } from "../../../component/Popup";
+import { Popup } from "../../../component/popup/Popup";
 
 const Container = styled.View`
     justify-content: space-between;

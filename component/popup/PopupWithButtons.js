@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
-import { color } from "../styles";
+import { color } from "../../styles";
 import Dialog, {
     DialogButton,
     DialogContent,
     DialogFooter,
 } from "react-native-popup-dialog";
-import { FONT_OFFSET } from "../constant";
+import { FONT_OFFSET } from "../../constant";
 
 const Container = styled.View`
     padding-top: 20px;

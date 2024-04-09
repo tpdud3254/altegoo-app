@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
-import { color } from "../styles";
+import { color } from "../../styles";
 import { TouchableOpacity } from "react-native";
 import Dialog, { DialogContent } from "react-native-popup-dialog";
-import BoldText from "./text/BoldText";
+import BoldText from "../text/BoldText";
 
 const Container = styled.View`
     padding-top: 20px;
