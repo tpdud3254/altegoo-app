@@ -34,6 +34,7 @@ import { Row } from "../../../component/Row";
 import SelectFilter from "../../../component/selectBox/SelectFilter";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
 import * as Linking from "expo-linking";
+import { Support } from "../../../component/Support";
 
 const Item = styled.View`
     width: 100%;
@@ -424,11 +425,12 @@ function Home({ navigation, route }) {
                                             }}
                                         />
                                     </TouchableOpacity>
-                                    <Notification
+                                    <Support />
+                                    {/* <Notification
                                         onPress={() =>
                                             showMessage("지원 예정 기능입니다.")
                                         }
-                                    />
+                                    /> */}
                                 </View>
                             </ItemRow>
                             <Item>
