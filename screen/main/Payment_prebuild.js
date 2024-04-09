@@ -227,7 +227,7 @@ function Payment({ navigation, route }) {
         //구매자 정보로 결제창이 미리 적용될 수 있으며, 통계에도 사용되는 정보
         const user = {
             // id: 'user_id_1234', //개발사에서 관리하는 회원고유번호
-            username: "알테구",
+            username: route?.params?.data.user.username,
             phone: route?.params?.data.user.phone,
             // email: 'user1234@gmail.com', //구매자 이메일
             // gender: 0, //성별, 1:남자 , 0:여자
