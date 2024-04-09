@@ -17,7 +17,7 @@ import { shadowProps } from "../../../component/Shadow";
 import Arrow from "../../../assets/images/icons/arrow_right_B.png";
 import axios from "axios";
 import { COMPANY, SERVER } from "../../../constant";
-import { RowAround } from "../../../component/Row";
+import { Row } from "../../../component/Row";
 
 const Top = styled.View`
     background-color: white;
@@ -71,19 +71,25 @@ function Menus({ navigation }) {
                         <UserConsumer>
                             {({ info }) =>
                                 IsGugupackMember(info) ? (
-                                    <RowAround style={{ marginBottom: 5 }}>
-                                        <BoldText style={{ fontSize: 22 }}>
+                                    <Row style={{ marginBottom: 3 }}>
+                                        <BoldText
+                                            style={{
+                                                fontSize: 22,
+                                                marginRight: 5,
+                                            }}
+                                        >
                                             {info.name} 님
                                         </BoldText>
                                         <Image
                                             style={{
-                                                width: 85,
-                                                height: 35,
+                                                width: 25,
+                                                height: 25,
+                                                marginBottom: 2,
                                             }}
-                                            resizeMode="center"
-                                            source={require(`../../../assets/images/icons/gugupack.png`)}
+                                            resizeMode="contain"
+                                            source={require(`../../../assets/images/icons/gugu_badge.png`)}
                                         />
-                                    </RowAround>
+                                    </Row>
                                 ) : (
                                     <BoldText
                                         style={{

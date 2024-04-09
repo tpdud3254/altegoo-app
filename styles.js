@@ -38,6 +38,6 @@ export const color = {
     "button-accent-disabled-background": "#FFC19B",
     "image-area-background": "#E6E6E6",
     red: "#eb1d36",
-    "point-green": "#05e096",
+    "point-green": "#07e7cc",
     "standby-border": "#13C63C",
 };

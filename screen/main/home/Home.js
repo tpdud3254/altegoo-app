@@ -7,6 +7,7 @@ import {
     CheckLoading,
     Filter,
     GoToOrderPage,
+    IsGugupackMember,
     getAsyncStorageToken,
     numberWithComma,
     showError,
@@ -38,10 +39,17 @@ const Item = styled.View`
     width: 100%;
     margin-bottom: 30px;
 `;
+
 const ItemRow = styled(Item)`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+`;
+
+const Banner = styled.View`
+    width: 100%;
+    margin-top: -15px;
+    margin-bottom: ${(props) => (props.gugupack ? 20 : 40)}px;
 `;
 
 const PointButton = styled.TouchableOpacity`
@@ -63,7 +71,10 @@ const ChargeButton = styled(PointButton)`
 `;
 
 const GugupackButton = styled(PointButton)`
-    background-color: ${color["point-green"]};
+    background-color: ${color["point-green"] + "22"};
+    border: 1.5px solid ${color["point-green"]};
+    width: 100%;
+    height: 60px;
 `;
 
 const Wrapper = styled.View`
@@ -464,24 +475,9 @@ function Home({ navigation, route }) {
                                             충전
                                         </MediumText>
                                     </ChargeButton>
-                                    {info.userType === COMPANY &&
-                                    !info.gugupack ? (
-                                        <GugupackButton
-                                            onPress={goToJoinGugupack}
-                                        >
-                                            <MediumText
-                                                style={{
-                                                    fontSize: 15,
-                                                    color: "white",
-                                                }}
-                                            >
-                                                구구팩가입
-                                            </MediumText>
-                                        </GugupackButton>
-                                    ) : null}
                                 </Row>
                             </Item>
-                            <Item>
+                            <Banner gugupack={IsGugupackMember(info)}>
                                 <FlatList
                                     horizontal
                                     pagingEnabled
@@ -519,7 +515,27 @@ function Home({ navigation, route }) {
                                         />
                                     ))}
                                 </Indicators>
-                            </Item>
+                            </Banner>
+                            {info.userType === COMPANY && !info.gugupack ? (
+                                <View style={{ marginBottom: 20 }}>
+                                    <GugupackButton onPress={goToJoinGugupack}>
+                                        <Image
+                                            source={require("../../../assets/images/icons/gugu_badge.png")}
+                                            style={{ width: 35, height: 35 }}
+                                            resizeMode="contain"
+                                        />
+                                        <MediumText
+                                            style={{
+                                                fontSize: 17,
+                                                marginLeft: 1.5,
+                                                color: color["page-grey-text"],
+                                            }}
+                                        >
+                                            팩 가입하기
+                                        </MediumText>
+                                    </GugupackButton>
+                                </View>
+                            ) : null}
                         </>
                     )}
                 >
