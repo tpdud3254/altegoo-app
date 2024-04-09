@@ -39,4 +39,5 @@ export const color = {
     "image-area-background": "#E6E6E6",
     red: "#eb1d36",
     "point-green": "#05e096",
+    "standby-border": "#13C63C",
 };
