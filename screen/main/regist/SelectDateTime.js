@@ -250,7 +250,7 @@ function SelectDateTime({ navigation }) {
                 <Notice>
                     <View
                         style={{
-                            backgroundColor: color.sub.yellow + "44",
+                            backgroundColor: color.sub.yellow + "99",
                             borderRadius: 25,
                             width: 30,
                             height: 30,
@@ -292,13 +292,13 @@ function SelectDateTime({ navigation }) {
                                 backgroundColor: isSelectedDay(date.dateString)
                                     ? color.main
                                     : isHandDay(date.dateString, date.month)
-                                    ? color.sub.yellow + "44"
+                                    ? color.sub.yellow + "99"
                                     : state === "today"
                                     ? "aliceblue"
                                     : "white",
                                 borderRadius: 25,
-                                width: 45,
-                                height: 45,
+                                width: 30,
+                                height: 30,
                                 justifyContent: "center",
                                 alignItems: "center",
                             }}
