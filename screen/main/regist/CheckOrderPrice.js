@@ -45,12 +45,6 @@ const Row = styled.View`
     align-items: center;
 `;
 
-const PointButton = styled.TouchableOpacity`
-    border: 1px solid ${color.main};
-    padding: 10px;
-    border-radius: 10px;
-`;
-
 const PopupContainer = styled.View`
     position: absolute;
     width: 100%;
@@ -65,8 +59,22 @@ const PopupWrapper = styled.View`
     width: 90%;
     border-radius: 10px;
     align-items: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+`;
+
+const PayButton = styled.TouchableOpacity`
+    width: 80%;
+    flex-direction: row;
+    align-items: center;
+`;
+
+const PayButtonImage = styled.Image`
+    /* background-color: black; */
+`;
+const PayButtonText = styled.View`
+    width: 70%;
+    align-items: center;
 `;
 
 const CheckOrderPrice = ({ navigation }) => {
@@ -606,35 +614,64 @@ const CheckOrderPrice = ({ navigation }) => {
             {isPopupShown ? (
                 <PopupContainer>
                     <PopupWrapper>
-                        <Button
+                        <PayButton
                             onPress={handleSubmit((data) =>
                                 onNextStep({ ...data, type: "normal" })
                             )}
-                            type="accent"
-                            style={{ width: "70%", backgroundColor: "#BABABA" }}
-                            text="일반 결제"
-                        />
-                        <Button
+                        >
+                            <View style={{ width: "30%" }}>
+                                <PayButtonImage
+                                    source={require("../../../assets/images/icons/pay_mobile.png")}
+                                    style={{
+                                        width: 60,
+                                        height: 65,
+                                        opacity: 0.8,
+                                    }}
+                                    resizeMode="contain"
+                                />
+                            </View>
+                            <PayButtonText>
+                                <RegularText>
+                                    일반 결제 및 무통장입금
+                                </RegularText>
+                            </PayButtonText>
+                        </PayButton>
+                        <View
+                            style={{
+                                width: "92%",
+                                backgroundColor: "grey",
+                                height: 0.5,
+                                opacity: 0.5,
+                                marginTop: 20,
+                                marginBottom: 20,
+                            }}
+                        ></View>
+                        <PayButton
                             onPress={handleSubmit((data) =>
                                 onNextStep({ ...data, type: "keyedin" })
                             )}
-                            type="accent"
-                            style={{
-                                width: "70%",
-                                marginTop: 15,
-                                marginBottom: 15,
-                                backgroundColor: "#BABABA",
-                            }}
-                            text="수기 결제"
-                        />
-                        <Button
-                            type="accent"
-                            onPress={handleSubmit((data) =>
-                                onNextStep({ ...data, type: "banktransfer" })
-                            )}
-                            style={{ width: "70%", backgroundColor: "#BABABA" }}
-                            text="무통장 입금"
-                        />
+                        >
+                            <View
+                                style={{
+                                    width: "30%",
+                                }}
+                            >
+                                <PayButtonImage
+                                    source={require("../../../assets/images/icons/pay_keyedin.png")}
+                                    style={{
+                                        width: 85,
+                                        height: 75,
+                                        marginLeft: -13,
+                                        marginTop: -5,
+                                        opacity: 0.9,
+                                    }}
+                                    resizeMode="contain"
+                                />
+                            </View>
+                            <PayButtonText>
+                                <RegularText>카드번호 직접 입력</RegularText>
+                            </PayButtonText>
+                        </PayButton>
                     </PopupWrapper>
                 </PopupContainer>
             ) : null}
