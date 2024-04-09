@@ -20,7 +20,11 @@ export const toastConfig = {
         <ToastBox style={shadowProps}>
             <Ionicons name="warning" size={25} color={color.main} />
             <RegularText
-                style={{ color: color["page-dark-text"], marginTop: 5 }}
+                style={{
+                    color: color["page-dark-text"],
+                    marginTop: 5,
+                    textAlign: "center",
+                }}
             >
                 {props}
             </RegularText>
