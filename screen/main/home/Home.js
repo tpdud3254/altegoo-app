@@ -103,17 +103,6 @@ const Indicator = styled.TouchableOpacity`
     border-radius: 100px;
     margin: 0px 3px 0px 3px;
 `;
-const bannerPath = [
-    require(`../../../assets/images/banner/banner_001.png`),
-    require(`../../../assets/images/banner/banner_002.png`),
-    require(`../../../assets/images/banner/banner_003.png`),
-];
-
-const bannerLink = [
-    "https://blog.naver.com/altegoo/223315218402",
-    "https://blog.naver.com/altegoo/223315218757",
-    "https://blog.naver.com/altegoo/223315219167",
-];
 
 const PERIOD = ["1주일", "1개월", "3개월"];
 function Home({ navigation, route }) {
@@ -131,11 +120,14 @@ function Home({ navigation, route }) {
 
     const bannerRef = useRef();
     const [bannerIndex, setBannerIndex] = useState(0);
+    const [bannerImageArr, setBannerImageArr] = useState([]);
+    const [bannerLinkArr, setBannerLinkArr] = useState([]);
     const { firstLogin, setFirstLogin } = useContext(LoginContext); //NEXT: 앱 처음 로그인 시 가이드 말풍선 만들기
     const [showGuide, setShowGuide] = useState(false);
 
     useEffect(() => {
         setLoading(true);
+        getBannerList();
         getPoint(); //포인트
         getOrders(); //작업리스트
         getStandByOrders(); //입금 대기중 작업리스트
@@ -171,6 +163,38 @@ function Home({ navigation, route }) {
     useEffect(() => {
         getOrders();
     }, [period]);
+
+    const getBannerList = async () => {
+        axios
+            .get(SERVER + "/admin/banner")
+            .then(({ data }) => {
+                const {
+                    result,
+                    data: { list },
+                } = data;
+                console.log("result: ", result);
+
+                const imageArr = [];
+                const linkArr = [];
+
+                list.map((value) => {
+                    imageArr.push(value.imageUrl);
+                    linkArr.push(value.link);
+                });
+
+                setBannerImageArr(imageArr);
+                setBannerLinkArr(linkArr);
+
+                console.log("banner list: ", imageArr);
+                console.log("banner link: ", linkArr);
+            })
+            .catch((error) => {
+                setBannerImageArr([]);
+                setBannerLinkArr([]);
+                showError(error);
+            })
+            .finally(() => {});
+    };
 
     const getPoint = async () => {
         axios
@@ -340,12 +364,18 @@ function Home({ navigation, route }) {
                 marginBottom: -10,
             }}
             onPress={() => {
-                Linking.openURL(bannerLink[bannerIndex]);
+                Linking.openURL(bannerLinkArr[bannerIndex]);
             }}
         >
             <Image
-                source={item}
-                style={{ width: "100%", resizeMode: "contain" }}
+                source={{
+                    uri: item,
+                }}
+                style={{
+                    width: "100%",
+                    resizeMode: "contain",
+                    height: "100%",
+                }}
             />
         </TouchableOpacity>
     );
@@ -456,7 +486,7 @@ function Home({ navigation, route }) {
                                     horizontal
                                     pagingEnabled
                                     showsHorizontalScrollIndicator={false}
-                                    data={bannerPath}
+                                    data={bannerImageArr}
                                     renderItem={renderIntro}
                                     ref={bannerRef}
                                     onMomentumScrollEnd={(event) => {
@@ -474,7 +504,7 @@ function Home({ navigation, route }) {
                                     }}
                                 />
                                 <Indicators>
-                                    {bannerPath.map((__, index) => (
+                                    {bannerImageArr.map((__, index) => (
                                         <Indicator
                                             key={index}
                                             // onPress={() =>
