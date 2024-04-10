@@ -3,6 +3,8 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import {
     COMPANY,
     DRIVER,
+    EVENT_POPUP_SHOWN,
+    EVENT_POPUP_TIME,
     SERVER,
     TOKEN,
     UID,
@@ -74,6 +76,22 @@ export const getAsyncStorageToken = () => {
 
 export const setAsyncStorageToken = async (token) => {
     await AsyncStorage.setItem(TOKEN, token);
+};
+
+export const GetAsyncStorageEventPopupShown = () => {
+    return AsyncStorage.getItem(EVENT_POPUP_SHOWN);
+};
+
+export const SetAsyncStorageEventPopupShown = async (isShown) => {
+    await AsyncStorage.setItem(EVENT_POPUP_SHOWN, isShown.toString());
+};
+
+export const GetAsyncStorageEventPopupTime = () => {
+    return AsyncStorage.getItem(EVENT_POPUP_TIME);
+};
+
+export const SetAsyncStorageEventPopupTime = async (datetime) => {
+    await AsyncStorage.setItem(EVENT_POPUP_TIME, datetime.toString());
 };
 
 export const numberWithComma = (cost) => {

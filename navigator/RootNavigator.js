@@ -9,6 +9,7 @@ import UserContext from "../context/UserContext";
 import LoadingLayout from "../component/layout/LoadingLayout";
 import { VALID } from "../constant";
 import {
+    SetAsyncStorageEventPopupShown,
     SetAsyncStorageUid,
     SetAsyncStorageUserType,
     getAsyncStorageToken,
@@ -38,6 +39,7 @@ export default function RootNavigator() {
                             setIsLoggedIn(true);
                             SetAsyncStorageUid(user.user.id);
                             SetAsyncStorageUserType(user.user.userTypeId);
+                            SetAsyncStorageEventPopupShown(false);
                         } else {
                             //로그인 정보 가져오지 못할 시 로그인 화면으로 나가게끔 처리
                             setLoading(true);

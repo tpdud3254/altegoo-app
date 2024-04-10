@@ -6,8 +6,12 @@ import { SERVER } from "../../../constant";
 import {
     CheckLoading,
     Filter,
+    GetAsyncStorageEventPopupShown,
+    GetAsyncStorageEventPopupTime,
+    GetCurrentDateTime,
     GoToOrderPage,
     IsGugupackMember,
+    SetAsyncStorageEventPopupShown,
     getAsyncStorageToken,
     numberWithComma,
     showError,
@@ -35,6 +39,7 @@ import SelectFilter from "../../../component/selectBox/SelectFilter";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
 import * as Linking from "expo-linking";
 import { Support } from "../../../component/Support";
+import { EventPopup } from "../../../component/popup/EventPopup";
 
 const Item = styled.View`
     width: 100%;
@@ -118,7 +123,7 @@ const Indicator = styled.TouchableOpacity`
 
 const PERIOD = ["1주일", "1개월", "3개월"];
 function Home({ navigation, route }) {
-    const { width } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const { info } = useContext(UserContext);
 
     const [loading, setLoading] = useState(true);
@@ -134,12 +139,17 @@ function Home({ navigation, route }) {
     const [bannerIndex, setBannerIndex] = useState(0);
     const [bannerImageArr, setBannerImageArr] = useState([]);
     const [bannerLinkArr, setBannerLinkArr] = useState([]);
+
+    const [popupImageUrl, setPopupImageUrl] = useState("");
+    const [showEventPopup, setShowEventPopup] = useState(false);
+
     const { firstLogin, setFirstLogin } = useContext(LoginContext); //NEXT: 앱 처음 로그인 시 가이드 말풍선 만들기
     const [showGuide, setShowGuide] = useState(false);
 
     useEffect(() => {
         setLoading(true);
-        getBannerList();
+        getPopupUrl(); //팝업 가져오기
+        getBannerList(); //배너 가져오기
         getPoint(); //포인트
         getOrders(); //작업리스트
         getStandByOrders(); //입금 대기중 작업리스트
@@ -176,6 +186,50 @@ function Home({ navigation, route }) {
         getOrders();
     }, [period]);
 
+    const getPopupUrl = async () => {
+        axios
+            .get(SERVER + "/admin/popup")
+            .then(({ data }) => {
+                const {
+                    result,
+                    data: { popup },
+                } = data;
+
+                console.log("popupImageUrl: ", popup[0].popupUrl);
+
+                if (popup[0].popupUrl && popup[0].popupUrl.length > 0) {
+                    setPopupImageUrl(popup[0].popupUrl);
+                    openPopup();
+                } else setPopupImageUrl("");
+            })
+            .catch((error) => {
+                setPopupImageUrl("");
+            })
+            .finally(() => {});
+    };
+
+    const openPopup = async () => {
+        const popupShown = await GetAsyncStorageEventPopupShown();
+        const popupTime = await GetAsyncStorageEventPopupTime();
+
+        const now = GetCurrentDateTime();
+        const datetime = new Date(popupTime);
+
+        if (
+            popupShown === "false" &&
+            (popupTime === null || popupTime.length === 0 || now > datetime)
+        ) {
+            setShowEventPopup(true);
+        } else {
+            setShowEventPopup(false);
+        }
+    };
+
+    const closePopup = () => {
+        setShowEventPopup(false);
+        SetAsyncStorageEventPopupShown(true);
+    };
+
     const getBannerList = async () => {
         axios
             .get(SERVER + "/admin/banner")
@@ -184,7 +238,7 @@ function Home({ navigation, route }) {
                     result,
                     data: { list },
                 } = data;
-                console.log("result: ", result);
+                // console.log("result: ", result);
 
                 const imageArr = [];
                 const linkArr = [];
@@ -197,8 +251,8 @@ function Home({ navigation, route }) {
                 setBannerImageArr(imageArr);
                 setBannerLinkArr(linkArr);
 
-                console.log("banner list: ", imageArr);
-                console.log("banner link: ", linkArr);
+                // console.log("banner list: ", imageArr);
+                // console.log("banner link: ", linkArr);
             })
             .catch((error) => {
                 setBannerImageArr([]);
@@ -220,8 +274,8 @@ function Home({ navigation, route }) {
                     result,
                     data: { point },
                 } = data;
-                console.log("result: ", result);
-                console.log("point: ", point);
+                // console.log("result: ", result);
+                // console.log("point: ", point);
 
                 setPoint(point?.curPoint);
             })
@@ -247,7 +301,7 @@ function Home({ navigation, route }) {
                         data: { order },
                     } = data;
 
-                    console.log("getOrders : ", order);
+                    // console.log("getOrders : ", order);
                     setOrders(
                         Filter({
                             data: order,
@@ -307,7 +361,7 @@ function Home({ navigation, route }) {
                         data: { order },
                     } = data;
 
-                    console.log("getStandByOrders : ", order);
+                    // console.log("getStandByOrders : ", order);
                     setStandByOrders(order || []);
                 } else {
                     setStandByOrders([]);
@@ -350,7 +404,7 @@ function Home({ navigation, route }) {
 
                 if (result === VALID) {
                     if (url) {
-                        console.log(data);
+                        // console.log(data);
                         Linking.openURL(url);
                     } else {
                         showMessage("해당 기능은 추후에 제공 예정입니다.");
@@ -744,6 +798,13 @@ function Home({ navigation, route }) {
                             )}
                         </Wrapper>
                     </Item>
+                    <EventPopup
+                        visible={showEventPopup}
+                        onClose={closePopup}
+                        url={popupImageUrl}
+                        width={width}
+                        height={height}
+                    />
                 </Layout>
             )}
         </>
