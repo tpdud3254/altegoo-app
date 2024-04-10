@@ -178,10 +178,13 @@ function RecommendedMember() {
                                       watch("recommendedMember")
                                   )
                         }
-                        onChangeText={(text) =>
-                            setValue("recommendedMember", text)
-                        }
-                        onReset={() => setValue("recommendedMember", "")}
+                        onChangeText={(text) => {
+                            setValue("recommendedMember", text);
+                            setSelectedUserId(null);
+                        }}
+                        onReset={() => {
+                            setValue("recommendedMember", "");
+                        }}
                     />
                     <RegularText
                         style={{
@@ -223,7 +226,7 @@ function RecommendedMember() {
                 ) : null}
 
                 <Wrapper>
-                    <CheckBox onPress={() => setIsExist((prev) => !prev)}>
+                    {/* <CheckBox onPress={() => setIsExist((prev) => !prev)}>
                         <Image
                             style={{ width: 23, height: 23 }}
                             source={
@@ -239,10 +242,10 @@ function RecommendedMember() {
                         >
                             추천할 회원이 없어요.
                         </RegularText>
-                    </CheckBox>
+                    </CheckBox> */}
                 </Wrapper>
                 <Wrapper>
-                    <Info>
+                    {/* <Info>
                         <Image
                             style={{ width: 18, height: 18 }}
                             source={require("../../../assets/images/icons/icon_info2.png")}
@@ -266,7 +269,7 @@ function RecommendedMember() {
                                 추천인 미입력 시 알테구로 자동 등록 됩니다.
                             </RegularText>
                         </RegularText>
-                    </Info>
+                    </Info> */}
                 </Wrapper>
             </Container>
         </AuthLayout>
