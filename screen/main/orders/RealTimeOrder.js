@@ -25,6 +25,7 @@ import RefreshBtn from "../../../assets/images/icons/btn_Refresh.png";
 import { Order } from "../../../component/order/RealTImeOrderComponent";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
 import SelectFilter from "../../../component/selectBox/SelectFilter";
+import { Support } from "../../../component/Support";
 
 const Refresh = styled.TouchableOpacity`
     flex-direction: row;
@@ -318,7 +319,8 @@ function RealTimeOrder({ navigation }) {
                             {orders && orders !== -1 ? orders.length : "0"} 건의
                             실시간 작업
                         </BoldText>
-                        <Notification />
+                        <Support />
+                        {/* <Notification /> */}
                     </ItemRow>
                     <ItemRow>
                         <Row>

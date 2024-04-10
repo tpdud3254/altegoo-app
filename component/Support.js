@@ -14,7 +14,8 @@ export const Support = () => {
             <TouchableOpacity onPress={() => Linking.openURL(`tel:15229190`)}>
                 <Image
                     source={require("../assets/images/icons/support.png")}
-                    style={{ width: 30, height: 30 }}
+                    style={{ width: 26, height: 30 }}
+                    resizeMode="contain"
                 />
             </TouchableOpacity>
         </View>

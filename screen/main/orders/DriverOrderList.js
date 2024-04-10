@@ -22,6 +22,7 @@ import axios from "axios";
 import { SERVER, VALID } from "../../../constant";
 import SelectFilter from "../../../component/selectBox/SelectFilter";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
+import { Support } from "../../../component/Support";
 
 const HeaderContainer = styled.View`
     background-color: white;
@@ -337,9 +338,10 @@ function DriverOrderList({ navigation }) {
                         </View>
                     )}
                     <HeaderItem style={{ justifyContent: "flex-end" }}>
-                        <Notification
+                        <Support />
+                        {/* <Notification
                             onPress={() => showMessage("지원 예정 기능입니다.")}
-                        />
+                        /> */}
                     </HeaderItem>
                 </HeaderWrapper>
                 <HeaderWrapper>
