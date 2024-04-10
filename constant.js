@@ -16,6 +16,9 @@ export const TOKEN = "token";
 export const UID = "uid";
 export const USER_TYPE = "user_type";
 
+export const EVENT_POPUP_SHOWN = "event_popup_shown";
+export const EVENT_POPUP_TIME = "event_popup_time";
+
 export const SIGNUP_NAV = {
     NORMAL: ["Agreements", "Identification", "EnterPassword", "SignUpComplete"],
     DRIVER: [
