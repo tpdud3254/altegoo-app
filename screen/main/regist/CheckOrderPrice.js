@@ -200,7 +200,21 @@ const CheckOrderPrice = ({ navigation }) => {
                     } = data;
                     console.log("result: ", result);
 
-                    setValue("gugupackPrice", price.gugupackPrice.toString());
+                    if (
+                        registInfo.volume === "시간" &&
+                        registInfo.vehicleType === "사다리차" &&
+                        registInfo.time.search("간단") !== -1 &&
+                        (registInfo.floor === "2층" ||
+                            registInfo.floor === "3층" ||
+                            registInfo.floor === "4층" ||
+                            registInfo.floor === "5층")
+                    )
+                        setValue("gugupackPrice", 10000);
+                    else
+                        setValue(
+                            "gugupackPrice",
+                            price.gugupackPrice.toString()
+                        );
                 })
                 .catch((error) => {
                     showError(error);
@@ -230,6 +244,7 @@ const CheckOrderPrice = ({ navigation }) => {
             usePoint,
             type,
             gugupackPrice,
+            orderPrice,
         } = data;
 
         const prevInfo = registInfo;
@@ -242,7 +257,7 @@ const CheckOrderPrice = ({ navigation }) => {
             price: Number(price),
             emergencyPrice: Number(emergencyPrice) || 0,
             usePoint: Number(usePoint) || 0,
-            orderPrice: Number(price) + Number(emergencyPrice) || 0,
+            orderPrice: Number(orderPrice) || 0,
             totalPrice: Number(totalPrice),
             tax: Number(tax),
             finalPrice: finalPrice,
@@ -485,17 +500,7 @@ const CheckOrderPrice = ({ navigation }) => {
                                     textAlign: "right",
                                 }}
                             >
-                                {registInfo.volume === "시간" &&
-                                registInfo.vehicleType === "사다리차" &&
-                                registInfo.time.search("간단") !== -1 &&
-                                (registInfo.floor === "2층" ||
-                                    registInfo.floor === "3층" ||
-                                    registInfo.floor === "4층" ||
-                                    registInfo.floor === "5층")
-                                    ? numberWithComma(10000)
-                                    : numberWithComma(
-                                          watch("gugupackPrice", "0")
-                                      )}
+                                {numberWithComma(watch("gugupackPrice", "0"))}
                                 <RegularText
                                     style={{
                                         fontSize: 14,
