@@ -485,7 +485,17 @@ const CheckOrderPrice = ({ navigation }) => {
                                     textAlign: "right",
                                 }}
                             >
-                                {numberWithComma(watch("gugupackPrice", "0"))}
+                                {registInfo.volume === "시간" &&
+                                registInfo.vehicleType === "사다리차" &&
+                                registInfo.time.search("간단") !== -1 &&
+                                (registInfo.floor === "2층" ||
+                                    registInfo.floor === "3층" ||
+                                    registInfo.floor === "4층" ||
+                                    registInfo.floor === "5층")
+                                    ? numberWithComma(10000)
+                                    : numberWithComma(
+                                          watch("gugupackPrice", "0")
+                                      )}
                                 <RegularText
                                     style={{
                                         fontSize: 14,
