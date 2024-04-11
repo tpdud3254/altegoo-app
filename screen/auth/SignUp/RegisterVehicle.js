@@ -184,6 +184,8 @@ function RegisterVehicle({ route }) {
 
         setInfo({ ...info, vehicle });
 
+        hidePopup();
+
         const curNavIndex =
             SIGNUP_NAV[info.userType].indexOf("RegisterVehicle");
         navigation.navigate(SIGNUP_NAV[info.userType][curNavIndex + 1]);
