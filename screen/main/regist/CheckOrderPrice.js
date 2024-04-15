@@ -121,11 +121,10 @@ const CheckOrderPrice = ({ navigation }) => {
         const usePointNum = Number(usePoint) || 0;
         const gugupackPriceNum = Number(gugupackPrice) || 0;
 
-        const orderPrice = priceNum + emergencyPriceNum;
-        const totalPrice =
-            priceNum + emergencyPriceNum - usePointNum - gugupackPriceNum;
-        const registPoint = GetSavePoint(priceNum + emergencyPriceNum);
-        const tax = GetTax(priceNum + emergencyPriceNum - gugupackPriceNum);
+        const orderPrice = priceNum + emergencyPriceNum - gugupackPriceNum;
+        const totalPrice = orderPrice - usePointNum;
+        const registPoint = GetSavePoint(orderPrice);
+        const tax = GetTax(orderPrice);
 
         setValue("orderPrice", orderPrice.toString());
         setValue("totalPrice", totalPrice.toString());
@@ -467,7 +466,10 @@ const CheckOrderPrice = ({ navigation }) => {
                                 textAlign: "right",
                             }}
                         >
-                            {numberWithComma(watch("orderPrice", "0"))}
+                            {numberWithComma(
+                                Number(watch("orderPrice", "0")) +
+                                    Number(watch("gugupackPrice", "0"))
+                            )}
                             <RegularText
                                 style={{
                                     fontSize: 14,

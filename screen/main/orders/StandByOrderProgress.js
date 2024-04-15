@@ -462,7 +462,8 @@ function StandByOrderProgress({ navigation, route }) {
                                 <ResultValue>
                                     <Price
                                         price={numberWithComma(
-                                            order.orderPrice
+                                            order.orderPrice +
+                                                order.gugupackPrice
                                         )}
                                     />
                                     {order.gugupackPrice > 0 ? (
