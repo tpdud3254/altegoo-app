@@ -123,7 +123,8 @@ const CheckOrderPrice = ({ navigation }) => {
 
         const orderPrice = priceNum + emergencyPriceNum - gugupackPriceNum;
         const totalPrice = orderPrice - usePointNum;
-        const registPoint = GetSavePoint(orderPrice);
+        const registPoint =
+            GetSavePoint(orderPrice) - (gugupackPriceNum > 0 ? 10000 : 0);
         const tax = GetTax(orderPrice);
 
         setValue("orderPrice", orderPrice.toString());
