@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components/native";
 import RegistContext from "../../../context/RegistContext";
 import { color } from "../../../styles";
-import { DIRECTION, REGIST_NAV } from "../../../constant";
+import { DIRECTION, REGIST_NAV, TEST_MODE } from "../../../constant";
 import Layout from "../../../component/layout/Layout";
 import { OptionScroll } from "../../../component/OptionScroll";
 import RegularText from "../../../component/text/RegularText";
@@ -36,6 +36,11 @@ function SearchAddress({ route, navigation }) {
     }, []);
 
     useEffect(() => {
+        if (TEST_MODE) {
+            setValidation(true);
+            return;
+        }
+
         if (registInfo.direction === DIRECTION[2]) {
             if (
                 route?.params?.selectAddress1?.address.length > 0 &&
@@ -118,6 +123,25 @@ function SearchAddress({ route, navigation }) {
     };
 
     const onNextStep = async (data) => {
+        if (TEST_MODE) {
+            setRegistInfo({
+                ...registInfo,
+                address1: "서울 관악구 관악로 1",
+                simpleAddress1: "서울 관악구",
+                detailAddress1: "456",
+                address2: null,
+                simpleAddress2: null,
+                detailAddress2: null,
+                region: 1,
+                latitude: "37.4662872666604",
+                longitude: "126.94815644252",
+            });
+
+            navigation.navigate(REGIST_NAV[3]);
+
+            return;
+        }
+
         const { detailAddress1, detailAddress2 } = data;
 
         const regionId = getRegion(

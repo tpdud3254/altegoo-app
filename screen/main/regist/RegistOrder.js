@@ -7,6 +7,7 @@ import {
     DIRECTION,
     REGIST_NAV,
     SERVER,
+    TEST_MODE,
     VALID,
     VEHICLE,
     VOLUME,
@@ -113,6 +114,16 @@ function RegistOrder({ navigation }) {
     useEffect(() => {
         getAllPrice();
     }, []);
+
+    useEffect(() => {
+        if (TEST_MODE && !loading) {
+            // setVolume(1);
+            // setQuantity(1);
+            setVolume(2);
+            setTime(1);
+            setFloor(2);
+        }
+    }, [loading]);
 
     useEffect(() => {
         if (
@@ -468,7 +479,6 @@ function RegistOrder({ navigation }) {
         const prev = direction;
 
         if ((prev !== 3 && index === 3) || (prev === 3 && index !== 3)) {
-            console.log("dd");
             setFloor(0);
             setDownFloor(0);
             setUpFloor(0);

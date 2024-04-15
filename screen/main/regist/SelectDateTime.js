@@ -11,6 +11,7 @@ import {
     CALENDAR_LOCALES,
     FONT_OFFSET,
     REGIST_NAV,
+    TEST_MODE,
 } from "../../../constant";
 import Layout from "../../../component/layout/Layout";
 import { OptionScroll } from "../../../component/OptionScroll";
@@ -79,6 +80,24 @@ function SelectDateTime({ navigation }) {
         console.log(registInfo);
 
         setOptionData(GetOrderOption(registInfo));
+
+        if (TEST_MODE) {
+            const now = GetCurrentDateTime();
+
+            now.setUTCDate(now.getUTCDate() + 3);
+
+            const dateString =
+                now.getUTCFullYear() +
+                "-" +
+                numberWithZero(now.getUTCMonth() + 1) +
+                "-" +
+                numberWithZero(now.getUTCDate());
+
+            setDay(dateString);
+            setSelectedDay(GetDate(dateString, "long"));
+            setTime(`${now.getUTCHours()}:${now.getUTCMinutes()}`);
+            setSelectedTime(GetTime(now, "long"));
+        }
     }, []);
 
     const showPopup = (option) => {
