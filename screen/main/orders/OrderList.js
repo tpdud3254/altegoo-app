@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
 import MediumText from "../../../component/text/MediumText";
-import { Notification } from "../../../component/Notification";
+import { Notification } from "../../../component/icon/Notification";
 import { color } from "../../../styles";
 import Layout from "../../../component/layout/Layout";
 import { shadowProps } from "../../../component/Shadow";
@@ -21,7 +21,7 @@ import axios from "axios";
 import { SERVER, VALID } from "../../../constant";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
 import SelectFilter from "../../../component/selectBox/SelectFilter";
-import { Support } from "../../../component/Support";
+import { Support } from "../../../component/icon/Support";
 
 const HeaderContainer = styled.View`
     background-color: white;

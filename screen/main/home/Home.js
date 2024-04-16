@@ -32,14 +32,15 @@ import BoldText from "../../../component/text/BoldText";
 import { shadowProps } from "../../../component/Shadow";
 import RegularText from "../../../component/text/RegularText";
 import { Order } from "../../../component/order/OrderComponent";
-import { Notification } from "../../../component/Notification";
+
 import LoginContext from "../../../context/LoginContext";
 import { Row } from "../../../component/Row";
 import SelectFilter from "../../../component/selectBox/SelectFilter";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
 import * as Linking from "expo-linking";
-import { Support } from "../../../component/Support";
+import { Support } from "../../../component/icon/Support";
 import { EventPopup } from "../../../component/popup/EventPopup";
+import { Insurance } from "../../../component/icon/Insurance";
 
 const Item = styled.View`
     width: 100%;
@@ -107,7 +108,7 @@ const NoOrder = styled.View`
 const Indicators = styled.View`
     flex-direction: row;
     justify-content: center;
-    margin-top: 7px;
+    margin-top: 3px;
     /* margin-bottom: 35px; */
 `;
 
@@ -439,8 +440,11 @@ function Home({ navigation, route }) {
                 }}
                 style={{
                     width: "100%",
+                    height: 78,
                     resizeMode: "contain",
-                    height: "100%",
+                    borderRadius: 12,
+                    borderWidth: 0.5,
+                    borderColor: "white",
                 }}
             />
         </TouchableOpacity>
@@ -475,16 +479,24 @@ function Home({ navigation, route }) {
                                             style={{
                                                 width: 30,
                                                 height: 30,
-                                                marginRight: 13,
+                                                marginRight: 10,
                                             }}
                                         />
                                     </TouchableOpacity>
-                                    <Support />
+                                    <View style={{ marginRight: 10 }}>
+                                        <Support />
+                                    </View>
+                                    <Insurance
+                                        onPress={() =>
+                                            showMessage("지원 예정 기능입니다.")
+                                        }
+                                    />
                                     {/* <Notification
                                         onPress={() =>
                                             showMessage("지원 예정 기능입니다.")
                                         }
-                                    /> */}
+                                    />
+                                    */}
                                 </View>
                             </ItemRow>
                             <Item>

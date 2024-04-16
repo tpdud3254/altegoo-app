@@ -12,13 +12,13 @@ export const Notification = ({ onPress }) => {
         <View>
             <TouchableOpacity onPress={onPress}>
                 <Image
-                    source={require("../assets/images/icons/btn_notifcation.png")}
+                    source={require("../../assets/images/icons/btn_notifcation.png")}
                     style={{ width: 30, height: 30 }}
                 />
                 {false ? (
                     <Badge>
                         <Image
-                            source={require("../assets/images/icons/badge.png")}
+                            source={require("../../assets/images/icons/badge.png")}
                             style={{ width: 20, height: 20 }}
                         />
                     </Badge>

@@ -19,13 +19,13 @@ import Layout from "../../../component/layout/Layout";
 import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
 import * as Location from "expo-location";
-import { Notification } from "../../../component/Notification";
+import { Notification } from "../../../component/icon/Notification";
 import { Row } from "../../../component/Row";
 import RefreshBtn from "../../../assets/images/icons/btn_Refresh.png";
 import { Order } from "../../../component/order/RealTImeOrderComponent";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
 import SelectFilter from "../../../component/selectBox/SelectFilter";
-import { Support } from "../../../component/Support";
+import { Support } from "../../../component/icon/Support";
 
 const Refresh = styled.TouchableOpacity`
     flex-direction: row;
