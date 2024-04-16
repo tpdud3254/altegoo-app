@@ -69,6 +69,7 @@ function RecommendedMember() {
     const [userPhone, setUserPhone] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
 
+    //NEXT: [추천할 회원이 없어요.] 를 체크한 뒤, 연락처를 수정할 경우 check
     useEffect(() => {
         console.log(info);
         register("recommendedMember");
