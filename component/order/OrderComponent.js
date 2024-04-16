@@ -43,6 +43,16 @@ export const Order = {
                     textColor = color["page-black-text"];
                     backgroundColor = color["image-area-background"];
                     break;
+                case 7:
+                    text = "작업 취소";
+                    textColor = color["page-black-text"];
+                    backgroundColor = color["image-area-background"];
+                    break;
+                case 8:
+                    text = "작업 취소";
+                    textColor = color["page-black-text"];
+                    backgroundColor = color["image-area-background"];
+                    break;
                 default:
                     text = "예약 완료";
                     textColor = color.blue;
@@ -90,7 +100,7 @@ export const Order = {
         };
 
         return (
-            <ItemContainer onPress={goToPage}>
+            <ItemContainer onPress={data.orderStatusId > 6 ? null : goToPage}>
                 <Row>
                     <LightText style={{ marginBottom: 5 }}>
                         {GetDate(data.dateTime)}
