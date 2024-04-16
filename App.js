@@ -131,6 +131,7 @@ export default function App() {
     const [pushGranted, setPushGranted] = useState(false);
     const [locationGranted, setLocationGranted] = useState(false);
 
+    //NEXT: 플레이스토어와 앱 버전 다를 시 팝업 추가
     useEffect(() => {
         async function prepare() {
             try {
