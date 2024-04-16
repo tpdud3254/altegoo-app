@@ -199,7 +199,10 @@ function Payment({ navigation, route }) {
 
     const goBootpay = () => {
         const payload = {
-            pg: "nicepay", //['kcp', 'danal', 'inicis', 'nicepay', 'lgup', 'toss', 'payapp', 'easypay', 'jtnet', 'tpay', 'mobilians', 'payletter', 'onestore', 'welcome'] 중 택 1
+            pg:
+                route?.params?.data.paymentType === "keyedin"
+                    ? "danal"
+                    : "nicepay", //['kcp', 'danal', 'inicis', 'nicepay', 'lgup', 'toss', 'payapp', 'easypay', 'jtnet', 'tpay', 'mobilians', 'payletter', 'onestore', 'welcome'] 중 택 1
             price: route?.params?.data.price, //결제금액
             order_name: route?.params?.data.order_name, //결제창에 보여질 상품명
             order_id: route?.params?.data.order_id, //개발사에 관리하는 주문번호
@@ -207,8 +210,12 @@ function Payment({ navigation, route }) {
             // subscription_id: '12345_21345', //개발사에 관리하는 주문번호 (정기결제용)
             // authentication_id: '12345_21345', //개발사에 관리하는 주문번호 (본인인증용)
 
-            // method: 'card',
-            methods: ["카드", "계좌이체", "카카오페이", "네이버페이"], // ['카드', '휴대폰', '계좌이체', '가상계좌', '카카오페이', '네이버페이', '페이코', '카드자동'] 중 택 1
+            ...(route?.params?.data.paymentType === "keyedin" && {
+                method: "카드수기",
+            }),
+            ...(route?.params?.data.paymentType === "normal" && {
+                methods: ["카드", "계좌이체", "카카오페이", "네이버페이"],
+            }), // ['카드', '휴대폰', '계좌이체', '가상계좌', '카카오페이', '네이버페이', '페이코', '카드자동'] 중 택 1
         };
 
         //결제되는 상품정보들로 통계에 사용되며, price의 합은 결제금액과 동일해야함

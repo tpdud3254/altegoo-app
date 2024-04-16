@@ -304,13 +304,14 @@ const CheckOrderPrice = ({ navigation }) => {
 
         if (type === "normal") {
             //일반결제
-            navigation.navigate(REGIST_NAV[5], { data: paymentData });
+            navigation.navigate(REGIST_NAV[5], {
+                data: { ...paymentData, paymentType: "normal" },
+            });
         } else if (type === "keyedin") {
             //수기결제
-            navigation.navigate("KeyedInPay", { data: paymentData });
-        } else {
-            //무통장입금
-            console.log("무통장");
+            navigation.navigate(REGIST_NAV[5], {
+                data: { ...paymentData, paymentType: "keyedin" },
+            });
         }
     };
 
