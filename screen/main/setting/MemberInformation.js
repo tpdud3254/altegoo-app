@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { Image, TouchableOpacity, View } from "react-native";
 import MediumText from "../../../component/text/MediumText";
@@ -7,12 +7,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginContext from "../../../context/LoginContext";
 import Layout from "../../../component/layout/Layout";
 import RegularText from "../../../component/text/RegularText";
-import { GetPhoneNumberWithDash, IsGugupackMember } from "../../../utils";
+import {
+    GetPhoneNumberWithDash,
+    IsGugupackMember,
+    showMessage,
+} from "../../../utils";
 import { color } from "../../../styles";
 import { shadowProps } from "../../../component/Shadow";
 import LightText from "../../../component/text/LightText";
 import { Row } from "../../../component/Row";
-import { TOKEN, UID, USER_TYPE } from "../../../constant";
+import { SERVER, TOKEN, UID, USER_TYPE, VALID } from "../../../constant";
+import { PopupWithButtons } from "../../../component/popup/PopupWithButtons";
+import axios from "axios";
 
 const Continer = styled.View`
     justify-content: space-between;
@@ -49,6 +55,8 @@ function MemberInformation({ navigation }) {
     const { setIsLoggedIn } = useContext(LoginContext);
     const { info, setInfo } = useContext(UserContext);
 
+    const [isPopupShown, setIsPopupShown] = useState(false);
+
     useEffect(() => {
         console.log("info : ", info);
     }, []);
@@ -59,6 +67,14 @@ function MemberInformation({ navigation }) {
         await AsyncStorage.removeItem(TOKEN);
         await AsyncStorage.removeItem(UID);
         await AsyncStorage.removeItem(USER_TYPE);
+    };
+
+    const showPopup = () => {
+        setIsPopupShown(true);
+    };
+
+    const hidePopup = () => {
+        setIsPopupShown(false);
     };
 
     const goToRegisterVehicle = () => {
@@ -83,8 +99,34 @@ function MemberInformation({ navigation }) {
         });
     };
 
-    const goToCancelGugupack = () => {
-        navigation.navigate("CancelGugupack");
+    const goToCancelGugupack = async () => {
+        // navigation.navigate("CancelGugupack");
+        try {
+            const response = await axios.post(
+                SERVER + "/users/gugupack/cancel",
+                {
+                    id: info.id,
+                }
+            );
+
+            const {
+                data: {
+                    data: { user },
+                    result,
+                },
+            } = response;
+
+            if (result === VALID) {
+                showMessage("구구팩 해지에 성공하였습니다.");
+                console.log("cancel! : ", user.gugupack);
+                setInfo({ ...info, ...user });
+            } else
+                showMessage("해지에 실패하였습니다.\n고객센터로 문의해주세요.");
+        } catch (error) {
+            showMessage("해지에 실패하였습니다.\n고객센터로 문의해주세요.");
+        } finally {
+            hidePopup();
+        }
     };
 
     const Title = ({ children, onPress }) => (
@@ -286,7 +328,7 @@ function MemberInformation({ navigation }) {
                         </>
                     ) : null}
                     {IsGugupackMember(info) ? (
-                        <TouchableOpacity onPress={goToCancelGugupack}>
+                        <TouchableOpacity onPress={showPopup}>
                             <MediumText
                                 style={{
                                     color: color["page-bluegrey-text"],
@@ -315,6 +357,28 @@ function MemberInformation({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </Continer>
+            <PopupWithButtons
+                visible={isPopupShown}
+                onTouchOutside={hidePopup}
+                onClick={goToCancelGugupack}
+                negativeButtonLabel="취소"
+                // width={windowWidth * 0.8}
+            >
+                <RegularText
+                    style={{
+                        fontSize: 22,
+                        textAlign: "center",
+                        lineHeight: 33,
+                        paddingTop: 15,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                        paddingBottom: 15,
+                    }}
+                >
+                    정말 구구팩을{"\n"}
+                    해지하시겠습니까?
+                </RegularText>
+            </PopupWithButtons>
         </Layout>
     );
 }
