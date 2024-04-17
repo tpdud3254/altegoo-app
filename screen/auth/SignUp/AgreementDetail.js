@@ -7,8 +7,8 @@ import { COMPANY, DRIVER, NORMAL } from "../../../constant";
 
 const Container = styled.View``;
 
-const IMG_WIDTH = 1190;
-const IMG_HEIGHT = 1684;
+const IMG_WIDTH = 500;
+const IMG_HEIGHT = 707;
 
 const TERMS_01_COMPANY = [
     "https://altegoo-bucket.s3.ap-northeast-2.amazonaws.com/terms/01_company/terms01_company_1.png",
