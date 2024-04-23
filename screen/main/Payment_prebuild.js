@@ -35,7 +35,7 @@ function Payment({ navigation, route }) {
         return true;
     };
 
-    const registWork = async () => {
+    const registWork = async (method) => {
         const sendingData = {
             vehicleType: registInfo.vehicleType || null,
             direction: registInfo.direction || null,
@@ -68,6 +68,10 @@ function Payment({ navigation, route }) {
             finalPrice: registInfo.finalPrice || 0,
             registPoint: registInfo.registPoint || 0,
             gugupackPrice: registInfo.gugupackPrice || 0,
+            method:
+                route?.params?.data.paymentType === "keyedin"
+                    ? "keyedin"
+                    : method,
         };
 
         try {
@@ -152,6 +156,7 @@ function Payment({ navigation, route }) {
             vbank_name: data.vbank_data.bank_name,
             vbank_expired_at: data.vbank_data.expired_at,
             vbank_tid: data.vbank_data.tid,
+            method: "vbank",
         };
 
         try {
@@ -299,7 +304,7 @@ function Payment({ navigation, route }) {
 
     const onDone = (data) => {
         console.log("-- done", data);
-        registWork();
+        registWork(data.data.method_symbol);
     };
 
     const onClose = () => {
