@@ -68,6 +68,8 @@ function Payment({ navigation, route }) {
             finalPrice: registInfo.finalPrice || 0,
             registPoint: registInfo.registPoint || 0,
             gugupackPrice: registInfo.gugupackPrice || 0,
+            isDesignation: registInfo.isDesignation || false,
+            driverId: registInfo.driverId || null,
             method:
                 route?.params?.data.paymentType === "keyedin"
                     ? "keyedin"
@@ -150,6 +152,8 @@ function Payment({ navigation, route }) {
             finalPrice: registInfo.finalPrice || 0,
             registPoint: registInfo.registPoint || 0,
             gugupackPrice: registInfo.gugupackPrice || 0,
+            isDesignation: registInfo.isDesignation || false,
+            driverId: registInfo.driverId || null,
             receipt_id: data.receipt_id,
             vbank_account: data.vbank_data.bank_account,
             vbank_code: data.vbank_data.bank_code,

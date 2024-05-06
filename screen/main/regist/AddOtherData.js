@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
     Image,
+    Keyboard,
     TextInput as RNTextInput,
     TouchableOpacity,
     View,
+    useWindowDimensions,
 } from "react-native";
 import styled from "styled-components/native";
 
@@ -17,12 +19,23 @@ import {
     GetPhoneNumberWithDash,
     GetTime,
     numberWithComma,
+    showMessage,
 } from "../../../utils";
 import { useForm } from "react-hook-form";
-import { FONT_OFFSET, REGIST_NAV } from "../../../constant";
+import {
+    FONT_OFFSET,
+    NORMAL,
+    REGIST_NAV,
+    SERVER,
+    VALID,
+} from "../../../constant";
 import Layout from "../../../component/layout/Layout";
 import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
+import { PopupWithButtons } from "../../../component/popup/PopupWithButtons";
+import TextInput from "../../../component/input/TextInput";
+import axios from "axios";
+import { shadowProps } from "../../../component/Shadow";
 
 const Row = styled.View`
     flex-direction: row;
@@ -73,11 +86,53 @@ const NormalButton = styled.TouchableOpacity`
     height: 60px;
 `;
 
+const PopupWrapper = styled.View`
+    margin-bottom: 20px;
+`;
+
+const SelectPopup = styled.View`
+    width: 100%;
+    position: absolute;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    top: 120px;
+    z-index: 100;
+    padding: 15px 18px;
+    border-radius: 12px;
+    background-color: white;
+`;
+
+const SelectPopupText = styled.View`
+    width: 55%;
+    justify-content: space-between;
+    flex-direction: row;
+`;
+const PopupButton = styled.TouchableOpacity`
+    width: 60px;
+    height: 40px;
+    border: 1px solid ${color["input-focus-border"]};
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+`;
+
 function AddOtherData({ navigation }) {
     const { info } = useContext(UserContext);
     const { registInfo, setRegistInfo } = useContext(RegistContext);
 
+    const { width: windowWidth } = useWindowDimensions();
+
     const [isDirectPhone, setIsDirectPhone] = useState(false);
+    const [isDesignation, setIsDesignation] = useState(false);
+    const [isPopupShown, setIsPopupShown] = useState(false);
+    const [validation, setValidation] = useState(false);
+    // const [isExist, setIsExist] = useState(true);
+    const [show, setShow] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [userPhone, setUserPhone] = useState(null);
+    const [selectedUserId, setSelectedUserId] = useState(null);
 
     const { setValue, register, handleSubmit, watch, getValues } = useForm();
 
@@ -89,6 +144,7 @@ function AddOtherData({ navigation }) {
             min: 0,
         });
         register("memo");
+        register("driver");
 
         setValue("price", registInfo.price);
     }, []);
@@ -100,6 +156,88 @@ function AddOtherData({ navigation }) {
             setValue("directPhone", null);
         }
     }, [isDirectPhone]);
+
+    // useEffect(() => {
+    //     if (!isExist) setValue("driver", "99999999999");
+    //     else setValue("driver", "");
+    // }, [isExist]);
+
+    useEffect(() => {
+        if (selectedUserId && selectedUserId > 0) {
+            setValidation(true);
+        } else {
+            setValidation(false);
+        }
+    }, [selectedUserId]);
+
+    useEffect(() => {
+        // if (!isExist) {
+        //     return;
+        // }
+        const phone = getValues("driver");
+
+        if (phone && phone.length > 10) {
+            checkRecommnedUser(phone);
+        } else {
+            setShow(false);
+        }
+    }, [watch("driver")]);
+
+    const checkRecommnedUser = async (phone) => {
+        try {
+            const response = await axios.get(SERVER + "/users/search", {
+                params: {
+                    phone,
+                },
+            });
+
+            console.log(response.data);
+
+            const {
+                data: { result },
+            } = response;
+
+            if (result === VALID) {
+                const {
+                    data: {
+                        data: { userId, name, phone, userTypeId },
+                    },
+                } = response;
+
+                if (userTypeId === 2) {
+                    setUserId(userId);
+                    setUserName(name);
+                    setUserPhone(phone);
+                    Keyboard.dismiss();
+                } else {
+                    setUserId(0);
+                }
+            } else {
+                setUserId(0);
+            }
+
+            setShow(true);
+        } catch (error) {
+            console.log(error);
+            showError(error);
+        }
+    };
+
+    const onSelect = () => {
+        setSelectedUserId(userId);
+        setUserId(null);
+        setUserName(null);
+        setUserPhone(null);
+        setShow(false);
+    };
+
+    const showPopup = () => {
+        setIsPopupShown(true);
+    };
+
+    const hidePopup = () => {
+        setIsPopupShown(false);
+    };
 
     const plus = () => {
         setValue("price", getValues("price") + 10000);
@@ -121,13 +259,35 @@ function AddOtherData({ navigation }) {
             emergency,
             memo: memo || null,
             price,
+            isDesignation: isDesignation,
         };
 
         console.log("sendData : ", sendData);
 
         setRegistInfo({ ...prevInfo, ...sendData });
 
-        navigation.navigate(REGIST_NAV[4]);
+        if (!isDesignation) navigation.navigate(REGIST_NAV[4]);
+        else showPopup();
+    };
+
+    const onSelectDriver = () => {
+        console.log("onSelectDriver selectedUserId: ", selectedUserId);
+        console.log("onSelectDriver validation: ", validation);
+        const prevInfo = registInfo;
+
+        if (validation) {
+            const sendData = {
+                driverId: Number(selectedUserId),
+            };
+
+            setRegistInfo({ ...prevInfo, ...sendData });
+
+            hidePopup();
+            navigation.navigate(REGIST_NAV[4]);
+        } else {
+            hidePopup();
+            showMessage("기사를 선택해주세요.");
+        }
     };
 
     const ItemTitle = ({ title }) => {
@@ -313,6 +473,28 @@ function AddOtherData({ navigation }) {
                     </Content>
                 </Wrapper>
             </Item>
+            {info.userType === NORMAL ? null : (
+                <Item>
+                    <ItemTitle title="기사 지정" />
+                    <Wrapper>
+                        <TouchableOpacity
+                            onPress={() => setIsDesignation((prev) => !prev)}
+                        >
+                            <Row>
+                                <Checkbox checked={isDesignation} />
+                                <RegularText
+                                    style={{
+                                        fontSize: 16,
+                                        color: color["page-grey-text"],
+                                    }}
+                                >
+                                    선택 시 기사를 지정할 수 있습니다.
+                                </RegularText>
+                            </Row>
+                        </TouchableOpacity>
+                    </Wrapper>
+                </Item>
+            )}
             <Item>
                 <ItemTitle title="연락처" />
                 <Wrapper>
@@ -439,6 +621,79 @@ function AddOtherData({ navigation }) {
                     </View>
                 </Wrapper>
             </Item>
+            <PopupWithButtons
+                visible={isPopupShown}
+                onTouchOutside={hidePopup}
+                onClick={onSelectDriver}
+                negativeButtonLabel="취소"
+                width={windowWidth * 0.8}
+            >
+                <RegularText
+                    style={{
+                        fontSize: 22,
+                        textAlign: "center",
+                        paddingTop: 15,
+                        // paddingLeft: 20,
+                        // paddingRight: 20,
+                        paddingBottom: 15,
+                    }}
+                >
+                    기사 지정
+                </RegularText>
+                <PopupWrapper>
+                    <TextInput
+                        title=""
+                        placeholder="전화번호를 입력하세요"
+                        keyboardType="number-pad"
+                        returnKeyType="done"
+                        value={watch("driver")}
+                        onChangeText={(text) => {
+                            setValue("driver", text);
+                            setSelectedUserId(null);
+                        }}
+                        onReset={() => {
+                            setValue("driver", "");
+                        }}
+                    />
+                    <RegularText
+                        style={{
+                            fontSize: 16,
+                            color: color["page-grey-text"],
+                            marginTop: 8,
+                        }}
+                    >
+                        숫자만 입력하세요.
+                    </RegularText>
+                </PopupWrapper>
+                {show ? (
+                    <SelectPopup style={shadowProps}>
+                        {userId === 0 ? (
+                            <RegularText
+                                style={{ width: "100%", textAlign: "center" }}
+                            >
+                                해당 번호가 없습니다.
+                            </RegularText>
+                        ) : (
+                            <>
+                                <SelectPopupText>
+                                    <MediumText>{userPhone}</MediumText>
+                                    <MediumText>{userName}</MediumText>
+                                </SelectPopupText>
+                                <PopupButton onPress={onSelect}>
+                                    <MediumText
+                                        style={{
+                                            color: color["page-color-text"],
+                                            fontSize: 14,
+                                        }}
+                                    >
+                                        선택
+                                    </MediumText>
+                                </PopupButton>
+                            </>
+                        )}
+                    </SelectPopup>
+                ) : null}
+            </PopupWithButtons>
         </Layout>
     );
 }
