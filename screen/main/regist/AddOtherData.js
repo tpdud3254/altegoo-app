@@ -199,15 +199,33 @@ function AddOtherData({ navigation }) {
 
             if (result === VALID) {
                 const {
-                    data: {
-                        data: { userId, name, phone, userTypeId },
-                    },
+                    data: { data },
                 } = response;
 
-                if (userTypeId === 2) {
-                    setUserId(userId);
-                    setUserName(name);
-                    setUserPhone(phone);
+                const userVehicleType = data.vehicle[0].type.type;
+
+                const registVehicleType = registInfo.vehicleType;
+
+                console.log(
+                    "checkRecommnedUser : ",
+                    data.vehicle[0].type.type,
+                    userVehicleType
+                );
+                console.log(
+                    "registInfo : ",
+                    registInfo.vehicleType,
+                    registVehicleType
+                );
+                if (
+                    data.userTypeId === 2 &&
+                    ((userVehicleType.search("사다리") > -1 &&
+                        registVehicleType.search("사다리") > -1) ||
+                        (userVehicleType.search("스카이") > -1 &&
+                            registVehicleType.search("스카이") > -1))
+                ) {
+                    setUserId(data.userId);
+                    setUserName(data.name);
+                    setUserPhone(data.phone);
                     Keyboard.dismiss();
                 } else {
                     setUserId(0);
