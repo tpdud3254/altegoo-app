@@ -1050,7 +1050,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 color: color["page-grey-text"],
                                             }}
                                         >
-                                            결제대행 수수료 (2%)
+                                            결제대행 수수료
                                         </RegularText>
                                         <BoldText
                                             style={{
@@ -1080,7 +1080,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 color: color["page-grey-text"],
                                             }}
                                         >
-                                            차감 P (20%)
+                                            차감 P
                                         </RegularText>
                                         <BoldText
                                             style={{
@@ -1142,9 +1142,9 @@ function DriverOrderProgress({ navigation, route }) {
                                                 ],
                                             }}
                                         >
-                                            *차감 AP란?
-                                            {"\n"}부가세 제외금액에서 추천인 2%
-                                            + 작업등록자 18%
+                                            *차감 ap란?{"\n"}부가세 제외
+                                            금액에서 추천인 포인트와 작업등록자
+                                            포인트를 뺀 금액
                                         </RegularText>
                                     </Guide>
                                 </Wrapper>

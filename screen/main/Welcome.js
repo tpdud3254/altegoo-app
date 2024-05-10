@@ -132,7 +132,7 @@ function Welcome() {
                                 textAlign: "center",
                             }}
                         >
-                            지금 바로 작업등록 하세요.{"\n"}작업완료 시, 20%
+                            지금 바로 작업등록 하세요.{"\n"}작업완료 시, 15%
                             포인트 적립!{"\n"}친구추천 포인트도 적립받으세요.
                         </RegularText>
                     ) : info.userTypeId === 3 ? (
@@ -156,7 +156,7 @@ function Welcome() {
                                 textAlign: "center",
                             }}
                         >
-                            지금 바로 작업등록 하세요.{"\n"}작업완료 시, 20%
+                            지금 바로 작업등록 하세요.{"\n"}작업완료 시, 15%
                             포인트 적립!{"\n"}친구추천 포인트도 적립받으세요.
                         </RegularText>
                     )}
