@@ -25,6 +25,7 @@ import SettingNavigator from "./SettingNavigator";
 import JoinGugupack from "../../screen/main/gugupack/JoinGugupack";
 import CancelGugupack from "../../screen/main/gugupack/CancelGugupack";
 import StandByOrderProgress from "../../screen/main/orders/StandByOrderProgress";
+import Constants from "expo-constants";
 
 Location.watchPositionAsync(
     {
@@ -178,10 +179,14 @@ export default function MainNavigator() {
         }
 
         let token;
+
+        const projectId =
+            Constants?.expoConfig?.extra?.eas?.projectId ??
+            Constants?.easConfig?.projectId;
         if (Device.isDevice) {
             token = (
                 await Notifications.getExpoPushTokenAsync({
-                    projectId: "0d74eebd-b11d-421e-bce6-587423f34de3",
+                    projectId,
                 })
             ).data;
             console.log("push token : ", token);
