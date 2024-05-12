@@ -46,6 +46,8 @@ export default {
                     isAndroidBackgroundLocationEnabled: true,
                 },
             ],
+            "expo-asset",
+            "expo-font",
         ],
     },
     android: {
