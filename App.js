@@ -117,7 +117,7 @@ initBackgroundFetch(WEB_SOCKET_TASK, createSocketOnBackground, 5);
 
 export default function App() {
     const [appIsReady, setAppIsReady] = useState(false);
-    const [fontsLoaded] = useFonts({
+    const [fontsLoaded, fontError] = useFonts({
         "SpoqaHanSansNeo-Bold": require("./assets/fonts/SpoqaHanSansNeo-Bold.otf"),
         "SpoqaHanSansNeo-Light": require("./assets/fonts/SpoqaHanSansNeo-Light.otf"),
         "SpoqaHanSansNeo-Medium": require("./assets/fonts/SpoqaHanSansNeo-Medium.otf"),
@@ -133,14 +133,15 @@ export default function App() {
 
     //NEXT: 플레이스토어와 앱 버전 다를 시 팝업 추가
     useEffect(() => {
+        console.log("fontError : ", fontError);
         async function prepare() {
             try {
-                const imageAssets = cacheImages([
-                    require(`./assets/images/intro/img_01.png`),
-                    require(`./assets/images/intro/img_02.png`),
-                    require(`./assets/images/intro/img_03.png`),
-                ]);
-                await Promise.all([...imageAssets]);
+                // const imageAssets = cacheImages([
+                //     require(`./assets/images/intro/img_01.png`),
+                //     require(`./assets/images/intro/img_02.png`),
+                //     require(`./assets/images/intro/img_03.png`),
+                // ]);
+                // await Promise.all([...imageAssets]);
 
                 if (Device.isDevice) {
                     const response = await Notifications.getPermissionsAsync();
@@ -262,7 +263,10 @@ export default function App() {
     // };
 
     const onLayoutRootView = useCallback(async () => {
-        if (appIsReady && fontsLoaded) {
+        console.log("appIsReady : ", appIsReady);
+        console.log("fontsLoaded : ", fontsLoaded);
+        // if (appIsReady && fontsLoaded) {
+        if (appIsReady) {
             await SplashScreen.hideAsync();
         }
     }, [appIsReady, fontsLoaded]);
@@ -275,7 +279,8 @@ export default function App() {
     //     );
     // }
 
-    if (!appIsReady || !fontsLoaded) {
+    // if (!appIsReady || !fontsLoaded) {
+    if (!appIsReady) {
         return null;
     }
 

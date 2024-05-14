@@ -46,8 +46,28 @@ export default {
                     isAndroidBackgroundLocationEnabled: true,
                 },
             ],
-            "expo-asset",
-            "expo-font",
+            [
+                "expo-asset",
+                {
+                    assets: [
+                        "./assets/images/intro/img_01.png",
+                        "./assets/images/intro/img_02.png",
+                        "./assets/images/intro/img_03.png",
+                    ],
+                },
+            ],
+            [
+                "expo-font",
+                {
+                    fonts: [
+                        "./assets/fonts/SpoqaHanSansNeo-Bold.otf",
+                        "./assets/fonts/SpoqaHanSansNeo-Light.otf",
+                        "./assets/fonts/SpoqaHanSansNeo-Medium.otf",
+                        "./assets/fonts/SpoqaHanSansNeo-Regular.otf",
+                        "./assets/fonts/SpoqaHanSansNeo-Thin.otf",
+                    ],
+                },
+            ],
         ],
     },
     android: {
