@@ -61,7 +61,7 @@
     "react-native-tab-view": "^3.3.4",
     "react-native-toast-message": "^2.1.5",
     "react-native-webview": "13.8.6",
-    "react-native-webview-bootpay": "^13.6.0",
+    "react-native-webview-bootpay": "^13.8.41",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
