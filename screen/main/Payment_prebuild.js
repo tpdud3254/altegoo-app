@@ -103,6 +103,7 @@ function Payment({ navigation, route }) {
                 navigation.navigate(REGIST_NAV[6], {
                     orderId: order.id,
                     dateTime: order.dateTime,
+                    isDesignation: registInfo.isDesignation || false,
                 });
                 return;
             } else {
