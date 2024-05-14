@@ -180,13 +180,13 @@ function AddOtherData({ navigation }) {
         if (phone && phone.length > 10) {
             setShow(true);
             setSearching(true);
-            checkRecommnedUser(phone);
+            checkDriver(phone);
         } else {
             setShow(false);
         }
     }, [watch("driver")]);
 
-    const checkRecommnedUser = async (phone) => {
+    const checkDriver = async (phone) => {
         try {
             const response = await axios.get(SERVER + "/users/search", {
                 params: {
@@ -209,16 +209,6 @@ function AddOtherData({ navigation }) {
 
                 const registVehicleType = registInfo.vehicleType;
 
-                console.log(
-                    "checkRecommnedUser : ",
-                    data.vehicle[0].type.type,
-                    userVehicleType
-                );
-                console.log(
-                    "registInfo : ",
-                    registInfo.vehicleType,
-                    registVehicleType
-                );
                 if (
                     data.userTypeId === 2 &&
                     ((userVehicleType.search("사다리") > -1 &&
