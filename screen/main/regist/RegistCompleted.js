@@ -161,25 +161,39 @@ function RegistCompleted({ navigation, route }) {
                             resizeMode: "contain",
                         }}
                     />
-                    <RegularText
-                        style={{
-                            fontSize: 22,
-                            textAlign: "center",
-                            lineHeight: 35,
-                            marginTop: 20,
-                        }}
-                    >
-                        현재 등록되어 있는{" "}
-                        <BoldText
+                    {route?.params?.isDesignation ? (
+                        <RegularText
                             style={{
                                 fontSize: 22,
-                                color: color.main,
+                                textAlign: "center",
+                                lineHeight: 35,
+                                marginTop: 20,
                             }}
                         >
-                            {userCount}명
-                        </BoldText>
-                        의 기사님께{"\n"}작업 요청 알림이 전송되었습니다.
-                    </RegularText>
+                            지정된 기사에게 요청 되었습니다.
+                        </RegularText>
+                    ) : (
+                        <RegularText
+                            style={{
+                                fontSize: 22,
+                                textAlign: "center",
+                                lineHeight: 35,
+                                marginTop: 20,
+                            }}
+                        >
+                            현재 등록되어 있는{" "}
+                            <BoldText
+                                style={{
+                                    fontSize: 22,
+                                    color: color.main,
+                                }}
+                            >
+                                {userCount}명
+                            </BoldText>
+                            의 기사님께{"\n"}작업 요청 알림이 전송되었습니다.
+                        </RegularText>
+                    )}
+
                     <View
                         style={{
                             height: 1.5,
