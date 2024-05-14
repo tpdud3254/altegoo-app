@@ -129,6 +129,7 @@ function AddOtherData({ navigation }) {
     const [validation, setValidation] = useState(false);
     // const [isExist, setIsExist] = useState(true);
     const [show, setShow] = useState(false);
+    const [searching, setSearching] = useState(false);
     const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState(null);
     const [userPhone, setUserPhone] = useState(null);
@@ -177,6 +178,8 @@ function AddOtherData({ navigation }) {
         const phone = getValues("driver");
 
         if (phone && phone.length > 10) {
+            setShow(true);
+            setSearching(true);
             checkRecommnedUser(phone);
         } else {
             setShow(false);
@@ -233,11 +236,11 @@ function AddOtherData({ navigation }) {
             } else {
                 setUserId(0);
             }
-
-            setShow(true);
         } catch (error) {
             console.log(error);
             showError(error);
+        } finally {
+            setSearching(false);
         }
     };
 
@@ -247,6 +250,7 @@ function AddOtherData({ navigation }) {
         setUserName(null);
         setUserPhone(null);
         setShow(false);
+        setSearching(false);
     };
 
     const showPopup = () => {
@@ -685,7 +689,13 @@ function AddOtherData({ navigation }) {
                 </PopupWrapper>
                 {show ? (
                     <SelectPopup style={shadowProps}>
-                        {userId === 0 ? (
+                        {searching ? (
+                            <RegularText
+                                style={{ width: "100%", textAlign: "center" }}
+                            >
+                                검색 중
+                            </RegularText>
+                        ) : userId === 0 ? (
                             <RegularText
                                 style={{ width: "100%", textAlign: "center" }}
                             >
