@@ -181,16 +181,8 @@ function RegistCompleted({ navigation, route }) {
                                 marginTop: 20,
                             }}
                         >
-                            현재 등록되어 있는{" "}
-                            <BoldText
-                                style={{
-                                    fontSize: 22,
-                                    color: color.main,
-                                }}
-                            >
-                                {userCount}명
-                            </BoldText>
-                            의 기사님께{"\n"}작업 요청 알림이 전송되었습니다.
+                            현재 등록되어 있는 모든 기사님께{"\n"}작업 요청
+                            알림이 전송되었습니다.
                         </RegularText>
                     )}
 
