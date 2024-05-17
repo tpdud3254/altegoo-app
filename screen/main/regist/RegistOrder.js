@@ -452,7 +452,7 @@ function RegistOrder({ navigation }) {
                 floor: skyTimeWeight[floor - 1],
                 volume: VOLUME[1],
                 time:
-                    floor === 6
+                    floor >= 6
                         ? skyTimeOptions[0][time - 1]
                         : skyTimeOptions[1][time - 1],
             }),
