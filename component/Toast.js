@@ -37,7 +37,11 @@ export const toastConfig = {
                 style={{ width: 25, height: 25 }}
             />
             <RegularText
-                style={{ color: color["page-dark-text"], marginTop: 5 }}
+                style={{
+                    color: color["page-dark-text"],
+                    marginTop: 5,
+                    textAlign: "center",
+                }}
             >
                 {props}
             </RegularText>

@@ -4,35 +4,41 @@ import MediumText from "../../../component/text/MediumText";
 import { color } from "../../../styles";
 import axios from "axios";
 import Layout from "../../../component/layout/Layout";
-import { showMessage } from "../../../utils";
+import { getAsyncStorageToken, showMessage } from "../../../utils";
 import { SERVER, VALID } from "../../../constant";
 import UserContext from "../../../context/UserContext";
 import RegularText from "../../../component/text/RegularText";
 
 function JoinGugupack({ navigation }) {
-    const { info, setInfo } = useContext(UserContext);
-
     const onNextStep = async () => {
         try {
-            const response = await axios.post(SERVER + "/users/gugupack/join", {
-                id: info.id,
-            });
+            const response = await axios.get(
+                SERVER + "/users/gugupack/subscribe",
+                {
+                    headers: {
+                        auth: await getAsyncStorageToken(),
+                    },
+                }
+            );
 
             const {
-                data: {
-                    data: { user },
-                    result,
-                },
+                data: { result },
             } = response;
 
+            console.log(" JoinGugupac :  ", result);
             if (result === VALID) {
-                showMessage("구구팩 가입에 성공하였습니다.");
-                setInfo({ ...info, ...user });
+                showMessage(
+                    "구구팩 신청에 성공하였습니다.\n가입 승인을 기다려주세요."
+                );
                 navigation.goBack();
             } else
-                showMessage("가입에 실패하였습니다.\n고객센터로 문의해주세요.");
+                showMessage(
+                    "구구팩 신청에 실패하였습니다.\n고객센터로 문의해주세요."
+                );
         } catch (error) {
-            showMessage("가입에 실패하였습니다.\n고객센터로 문의해주세요.");
+            showMessage(
+                "구구팩 신청에 실패하였습니다.\n고객센터로 문의해주세요."
+            );
         }
     };
 
@@ -40,7 +46,7 @@ function JoinGugupack({ navigation }) {
         <Layout
             bottomButtonProps={{
                 onPress: onNextStep,
-                title: "동의하고 가입하기",
+                title: "동의하고 신청하기",
                 disabled: false,
             }}
         >

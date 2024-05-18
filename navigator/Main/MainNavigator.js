@@ -295,7 +295,7 @@ export default function MainNavigator() {
                         name="JoinGugupack"
                         component={JoinGugupack}
                         options={{
-                            title: "구구팩 가입하기",
+                            title: "구구팩 신청하기",
                             headerTitleAlign: "center",
                         }}
                     />

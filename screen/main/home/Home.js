@@ -599,7 +599,7 @@ function Home({ navigation, route }) {
                                                 color: color["page-grey-text"],
                                             }}
                                         >
-                                            팩 가입하기
+                                            팩 신청하기
                                         </MediumText>
                                     </GugupackButton>
                                 </View>
