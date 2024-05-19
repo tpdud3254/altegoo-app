@@ -5,14 +5,14 @@ import { color } from "../../../styles";
 import MediumText from "../../../component/text/MediumText";
 import { Image, View, useWindowDimensions } from "react-native";
 import BoldText from "../../../component/text/BoldText";
-import { REGIST_NAV, SERVER } from "../../../constant";
+import { REGIST_NAV, SERVER, VALID } from "../../../constant";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../context/UserContext";
 import RegistContext from "../../../context/RegistContext";
 import {
     GetCurrentDateTime,
     GetEmergencyPrice,
-    GetSavePoint,
+    GetRegistPoint,
     GetTax,
     IsGugupackMember,
     getAsyncStorageToken,
@@ -85,12 +85,14 @@ const CheckOrderPrice = ({ navigation }) => {
     const { setValue, register, handleSubmit, watch, getValues } = useForm();
 
     const [pointData, setPointData] = useState(null);
+    const [commissionList, setCommissionList] = useState([]);
     const [isPopupShown, setIsPopupShown] = useState(false);
 
     useEffect(() => {
         console.log("registInfo : ", registInfo);
 
         getGugupackPrice();
+        getCommissionList();
         getPoint();
 
         register("price"); //운임
@@ -114,6 +116,8 @@ const CheckOrderPrice = ({ navigation }) => {
     }, []);
 
     useEffect(() => {
+        if (commissionList.length === 0) return;
+
         const { price, emergencyPrice, usePoint, gugupackPrice } = getValues();
 
         const priceNum = Number(price) || 0;
@@ -124,8 +128,9 @@ const CheckOrderPrice = ({ navigation }) => {
         const orderPrice = priceNum + emergencyPriceNum - gugupackPriceNum;
         const totalPrice = orderPrice - usePointNum;
         const registPoint =
-            GetSavePoint(orderPrice) - (gugupackPriceNum > 0 ? 10000 : 0);
-        const tax = GetTax(orderPrice);
+            GetRegistPoint(orderPrice, commissionList) -
+            (gugupackPriceNum > 0 ? 10000 : 0);
+        const tax = GetTax(orderPrice, commissionList);
 
         setValue("orderPrice", orderPrice.toString());
         setValue("totalPrice", totalPrice.toString());
@@ -136,6 +141,7 @@ const CheckOrderPrice = ({ navigation }) => {
         watch("emergencyPrice"),
         watch("usePoint"),
         watch("gugupackPrice"),
+        commissionList,
     ]);
 
     useEffect(() => {
@@ -187,6 +193,25 @@ const CheckOrderPrice = ({ navigation }) => {
                 showError(error);
             })
             .finally(() => {});
+    };
+
+    const getCommissionList = async () => {
+        try {
+            const response = await axios.get(SERVER + "/commission/");
+
+            const {
+                data: {
+                    result,
+                    data: { list },
+                },
+            } = response;
+
+            if (result === VALID) {
+                setCommissionList(list);
+                console.log("getCommissionList : ", list);
+            } else {
+            }
+        } catch (error) {}
     };
 
     const getGugupackPrice = async () => {

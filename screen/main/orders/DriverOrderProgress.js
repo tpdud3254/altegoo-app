@@ -14,7 +14,6 @@ import {
     GetCurrentDateTime,
     GetDate,
     GetPhoneNumberWithDash,
-    GetTax,
     GetTime,
     GoToKakaoNavi,
     getAsyncStorageToken,
@@ -1025,12 +1024,8 @@ function DriverOrderProgress({ navigation, route }) {
                                                 )}
                                             />
                                             <Price
-                                                // price={numberWithComma(
-                                                //     order.tax
-                                                //         )}
-                                                //구구팩 비용때문에 수정
                                                 price={numberWithComma(
-                                                    GetTax(order.orderPrice)
+                                                    order.tax
                                                 )}
                                             />
 
@@ -1059,9 +1054,8 @@ function DriverOrderProgress({ navigation, route }) {
                                             }}
                                         >
                                             {numberWithComma(
-                                                Math.floor(
-                                                    order.finalPrice * 0.02
-                                                )
+                                                order.finalPrice *
+                                                    order.cardCommission
                                             )}
                                             <BoldText
                                                 style={{

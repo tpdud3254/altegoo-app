@@ -477,8 +477,18 @@ export const GetOrderOption = (registInfo) => {
 };
 
 export const GetEmergencyPrice = (price) => price * 0.25;
-export const GetSavePoint = (price) => price * 0.15;
-export const GetTax = (price) => price * 0.1;
+export const GetRegistPoint = (price, commissionList) => {
+    const result = commissionList.filter(
+        (value) => value.name === "registPoint"
+    );
+
+    return result[0].commission * price;
+};
+export const GetTax = (price, commissionList) => {
+    const result = commissionList.filter((value) => value.name === "tax");
+
+    return result[0].commission * price;
+};
 
 export const CheckLoading = (data) => {
     let result = [];
