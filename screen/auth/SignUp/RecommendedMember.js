@@ -68,6 +68,7 @@ function RecommendedMember() {
     const [userName, setUserName] = useState(null);
     const [userPhone, setUserPhone] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
+    const [searching, setSearching] = useState(false);
 
     //NEXT: [추천할 회원이 없어요.] 를 체크한 뒤, 연락처를 수정할 경우 check
     useEffect(() => {
@@ -101,7 +102,19 @@ function RecommendedMember() {
         }
     }, [watch("recommendedMember")]);
 
+    useEffect(() => {
+        const recommendedMember = getValues("recommendedMember");
+
+        if (!recommendedMember || recommendedMember.length <= 0) return;
+
+        const regex = /[^0-9]/g;
+        const result = recommendedMember.replace(regex, "");
+
+        setValue("recommendedMember", result);
+    }, [watch("recommendedMember")]);
+
     const checkRecommnedUser = async (phone) => {
+        setSearching(true);
         try {
             const response = await axios.get(SERVER + "/users/search", {
                 params: {
@@ -133,6 +146,8 @@ function RecommendedMember() {
         } catch (error) {
             console.log(error);
             showError(error);
+        } finally {
+            setSearching(false);
         }
     };
 
@@ -197,7 +212,15 @@ function RecommendedMember() {
                         숫자만 입력하세요.
                     </RegularText>
                 </Wrapper>
-                {show ? (
+                {searching ? (
+                    <SelectPopup style={shadowProps}>
+                        <RegularText
+                            style={{ width: "100%", textAlign: "center" }}
+                        >
+                            검색 중
+                        </RegularText>
+                    </SelectPopup>
+                ) : show ? (
                     <SelectPopup style={shadowProps}>
                         {userId === 0 ? (
                             <RegularText

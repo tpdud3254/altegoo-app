@@ -186,6 +186,17 @@ function AddOtherData({ navigation }) {
         }
     }, [watch("driver")]);
 
+    useEffect(() => {
+        const driver = getValues("driver");
+
+        if (!driver || driver.length <= 0) return;
+
+        const regex = /[^0-9]/g;
+        const result = driver.replace(regex, "");
+
+        setValue("driver", result);
+    }, [watch("driver")]);
+
     const checkDriver = async (phone) => {
         try {
             const response = await axios.get(SERVER + "/users/search", {
