@@ -43,10 +43,6 @@ const Item = styled.View`
     border-radius: 11px;
 `;
 
-const Wrapper = styled.View`
-    margin-bottom: 25px;
-`;
-
 const COMPANY_LIST = [
     "홍길동",
     "홍길동",
@@ -225,7 +221,28 @@ function RecommandedUser({ route, navigation }) {
                               ))
                             : companyList.map((value, index) => (
                                   <View key={index}>
-                                      <RegularText>{value.name}</RegularText>
+                                      {value.gugupack ? (
+                                          <Row>
+                                              <RegularText
+                                                  style={{ marginRight: 5 }}
+                                              >
+                                                  {value.name}
+                                              </RegularText>
+                                              <Image
+                                                  style={{
+                                                      width: 25,
+                                                      height: 25,
+                                                      marginBottom: 2,
+                                                  }}
+                                                  resizeMode="contain"
+                                                  source={require(`../../../assets/images/icons/gugu_badge.png`)}
+                                              />
+                                          </Row>
+                                      ) : (
+                                          <RegularText>
+                                              {value.name}
+                                          </RegularText>
+                                      )}
                                       <Line />
                                   </View>
                               ))}
