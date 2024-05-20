@@ -41,6 +41,7 @@ import * as Linking from "expo-linking";
 import { Support } from "../../../component/icon/Support";
 import { EventPopup } from "../../../component/popup/EventPopup";
 import { Insurance } from "../../../component/icon/Insurance";
+import useInterval from "../../../hooks/useInterval";
 
 const Item = styled.View`
     width: 100%;
@@ -449,6 +450,24 @@ function Home({ navigation, route }) {
             />
         </TouchableOpacity>
     );
+
+    const autoBannerScroll = () => {
+        bannerRef.current?.scrollToOffset({
+            animated: true,
+            offset: (width - LAYOUT_PADDING_X * 2) * (bannerIndex + 1),
+        });
+
+        if (bannerIndex === 2) {
+            setBannerIndex(0);
+            bannerRef.current?.scrollToOffset({
+                animated: true,
+                offset: 0,
+            });
+        } else setBannerIndex((prev) => prev + 1);
+    };
+
+    useInterval(autoBannerScroll, 5000);
+
     return (
         <>
             {loading ? (
