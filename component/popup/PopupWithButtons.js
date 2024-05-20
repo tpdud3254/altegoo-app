@@ -18,6 +18,7 @@ export const PopupWithButtons = ({
     onTouchOutside,
     onClick,
     negativeButtonLabel,
+    hideNegativeButton = false,
 }) => {
     return (
         <Dialog
@@ -27,22 +28,29 @@ export const PopupWithButtons = ({
             overlayBackgroundColor="#000000cc"
             footer={
                 <DialogFooter bordered={false}>
-                    <DialogButton
-                        text={
-                            negativeButtonLabel ? negativeButtonLabel : "닫기"
-                        }
-                        onPress={onTouchOutside}
-                        style={{
-                            backgroundColor: color["image-area-background"],
-                            marginTop: 1,
-                        }}
-                        textStyle={{
-                            fontSize: 20 + FONT_OFFSET,
-                            fontFamily: "SpoqaHanSansNeo-Bold",
-                            color: color["page-black-text"],
-                        }}
-                        bordered={false}
-                    />
+                    {hideNegativeButton ? (
+                        <></>
+                    ) : (
+                        <DialogButton
+                            text={
+                                negativeButtonLabel
+                                    ? negativeButtonLabel
+                                    : "닫기"
+                            }
+                            onPress={onTouchOutside}
+                            style={{
+                                backgroundColor: color["image-area-background"],
+                                marginTop: 1,
+                            }}
+                            textStyle={{
+                                fontSize: 20 + FONT_OFFSET,
+                                fontFamily: "SpoqaHanSansNeo-Bold",
+                                color: color["page-black-text"],
+                            }}
+                            bordered={false}
+                        />
+                    )}
+
                     <DialogButton
                         text="확인"
                         onPress={onClick}

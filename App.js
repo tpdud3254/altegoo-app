@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { AppState, Image, View } from "react-native";
+import { AppState, BackHandler, Image, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import Toast from "react-native-toast-message";
@@ -18,6 +18,10 @@ import * as Notifications from "expo-notifications";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import { WSS_SERVER } from "./constant";
+import VersionCheck from "react-native-version-check-expo";
+import * as Linking from "expo-linking";
+import { PopupWithButtons } from "./component/popup/PopupWithButtons";
+import RegularText from "./component/text/RegularText";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -131,9 +135,42 @@ export default function App() {
     const [pushGranted, setPushGranted] = useState(false);
     const [locationGranted, setLocationGranted] = useState(false);
 
-    //NEXT: 플레이스토어와 앱 버전 다를 시 팝업 추가
+    const [isUpdatePopupShown, setIsUpdatePopupShown] = useState(false);
+
     useEffect(() => {
-        console.log("fontError : ", fontError);
+        const appVersion = VersionCheck.getCurrentVersion();
+        console.log("current appVersion : ", appVersion);
+
+        VersionCheck.getLatestVersion({
+            provider: "playStore",
+        }).then((latestVersion) => {
+            console.log("latestVersion : ", latestVersion);
+
+            if (
+                appVersion &&
+                appVersion.length > 0 &&
+                latestVersion &&
+                latestVersion.length > 0
+            ) {
+                const curAppVersion = appVersion.split(".");
+                const storeAppVersion = latestVersion.split(".");
+
+                console.log("curAppVersion : ", curAppVersion);
+                console.log("storeAppVersion : ", storeAppVersion);
+
+                //Major version check
+                if (Number(curAppVersion[0]) < Number(storeAppVersion[0])) {
+                    //업데이트
+                    showUpdatePopup();
+                } else {
+                    if (Number(curAppVersion[1]) < Number(storeAppVersion[1])) {
+                        //업데이트
+                        showUpdatePopup();
+                    }
+                }
+            }
+        });
+
         async function prepare() {
             try {
                 // const imageAssets = cacheImages([
@@ -188,6 +225,15 @@ export default function App() {
             if (ws) ws.close(1000, "terminated");
         };
     }, []);
+
+    const showUpdatePopup = () => {
+        setIsUpdatePopupShown(true);
+    };
+
+    const hideUpdatePopup = () => {
+        // setIsUpdatePopupShown(false);
+        BackHandler.exitApp();
+    };
 
     // useEffect(() => {
     //     if (
@@ -286,15 +332,46 @@ export default function App() {
 
     return (
         <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-            <LoginProvider>
-                <UserProvider>
-                    <RegistProvider>
-                        <RootNavigator />
-                    </RegistProvider>
-                </UserProvider>
-            </LoginProvider>
-            <StatusBar style="dark" />
-            <Toast position="bottom" bottomOffset="100" config={toastConfig} />
+            {isUpdatePopupShown ? (
+                <PopupWithButtons
+                    visible={isUpdatePopupShown}
+                    onTouchOutside={hideUpdatePopup}
+                    onClick={() => {
+                        hideUpdatePopup();
+                        Linking.openURL(
+                            "https://play.google.com/store/apps/details?id=com.atg.altegoo&pli=1"
+                        );
+                    }}
+                    negativeButtonLabel={"취소"}
+                >
+                    <RegularText
+                        style={{
+                            textAlign: "center",
+                            fontSize: 22,
+                            lineHeight: 28,
+                        }}
+                    >
+                        새로운 앱 버전이 있습니다.{"\n"}
+                        확인을 누르면 플레이 스토어로 이동합니다.
+                    </RegularText>
+                </PopupWithButtons>
+            ) : (
+                <>
+                    <LoginProvider>
+                        <UserProvider>
+                            <RegistProvider>
+                                <RootNavigator />
+                            </RegistProvider>
+                        </UserProvider>
+                    </LoginProvider>
+                    <StatusBar style="dark" />
+                    <Toast
+                        position="bottom"
+                        bottomOffset="100"
+                        config={toastConfig}
+                    />
+                </>
+            )}
         </View>
     );
 }
