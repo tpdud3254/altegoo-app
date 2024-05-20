@@ -74,7 +74,7 @@ function RecommandedUser({ route, navigation }) {
     const [menu, setMenu] = useState(1);
 
     const [driverList, setDriverList] = useState(-1);
-    const [companyList, setCompanuList] = useState(-1);
+    const [companyList, setCompanyList] = useState(-1);
     const [myRecommendUser, setMyRecommendUser] = useState(-1);
 
     useEffect(() => {
@@ -143,7 +143,7 @@ function RecommandedUser({ route, navigation }) {
     const classifyByUserType = (list) => {
         if (list.length === 0) {
             setDriverList([]);
-            setCompanuList([]);
+            setCompanyList([]);
         }
 
         const driverList = [];
@@ -158,7 +158,7 @@ function RecommandedUser({ route, navigation }) {
         console.log("companyList : ", companyList);
 
         setDriverList(driverList);
-        setCompanuList(companyList);
+        setCompanyList(companyList);
     };
 
     const TabTitle = ({ title, num }) => (
@@ -225,9 +225,7 @@ function RecommandedUser({ route, navigation }) {
                               ))
                             : companyList.map((value, index) => (
                                   <View key={index}>
-                                      <RegularText>
-                                          {value.companyName}
-                                      </RegularText>
+                                      <RegularText>{value.name}</RegularText>
                                       <Line />
                                   </View>
                               ))}
