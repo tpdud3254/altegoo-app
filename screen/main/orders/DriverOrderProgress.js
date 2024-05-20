@@ -965,6 +965,11 @@ function DriverOrderProgress({ navigation, route }) {
                                                 )
                                             }
                                         />
+                                        <Item
+                                            title="이름"
+                                            value={order.registUser.name}
+                                            center={true}
+                                        />
                                     </Row>
                                     <Line />
                                     <Row around={true}>
