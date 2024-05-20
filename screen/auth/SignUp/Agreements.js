@@ -10,6 +10,7 @@ import MediumText from "../../../component/text/MediumText";
 import { Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import HorizontalDivider from "../../../component/divider/HorizontalDivider";
 import { LAYOUT_PADDING_X } from "../../../component/layout/Layout";
+import * as Linking from "expo-linking";
 
 const termsTexts = [
     "만 14세 이상입니다.",
@@ -123,11 +124,27 @@ function Agreements() {
     };
 
     const ShowDetailTerms = (index) => {
-        navigation.navigate("AgreementDetail", {
-            index,
-            title: termsTexts[index],
-            type: info.userType,
-        });
+        const LINK_OBJ = {
+            COMPANY: [
+                "https://www.notion.so/altegoo/1775434cff7b419c8b2515f585979d77?pvs=4",
+                "https://www.notion.so/altegoo/6efa041354b049e3baa3691867035f0f?pvs=4",
+                "https://www.notion.so/altegoo/c2a40ed9e0ec4887b4989d286d227c88?pvs=4",
+            ],
+            DRIVER: [
+                "https://www.notion.so/altegoo/0dd456801e3f4bafbba12587b6290efb?pvs=4",
+                "https://www.notion.so/altegoo/90f624334f1841a8b6d54dbfb8c14767?pvs=4",
+                "https://www.notion.so/altegoo/7626645174754d7f9316f6dde30ef844?pvs=4",
+            ],
+            NORMAL: [
+                "https://www.notion.so/altegoo/34a75fcc5b324e02aed7e623f42926b5?pvs=4",
+                "https://www.notion.so/altegoo/42dda75d5a36475bb7cc0afcb16dad8d?pvs=4",
+                "https://www.notion.so/altegoo/b40777eb34d7459f94d0389a0dfdb13f?pvs=4",
+            ],
+        };
+
+        const type = info.userType;
+
+        Linking.openURL(LINK_OBJ[type][index - 1]);
     };
 
     const onNext = () => {
