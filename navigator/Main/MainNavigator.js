@@ -171,10 +171,30 @@ export default function MainNavigator() {
         if (Platform.OS === "android") {
             Notifications.setNotificationChannelAsync("default", {
                 name: "default",
-                importance: Notifications.AndroidImportance.MAX,
+                importance: Notifications.AndroidImportance.HIGH,
                 vibrationPattern: [0, 250, 250, 250],
                 lightColor: color.main,
                 lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
+            });
+
+            Notifications.setNotificationChannelAsync("sky_push", {
+                name: "sky_push",
+                importance: Notifications.AndroidImportance.HIGH,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: color.main,
+                lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
+                sound: "sky_push.wav",
+                enableVibrate: true,
+            });
+
+            Notifications.setNotificationChannelAsync("ladder_push", {
+                name: "ladder_push",
+                importance: Notifications.AndroidImportance.HIGH,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: color.main,
+                lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
+                sound: "ladder_push.wav",
+                enableVibrate: true,
             });
         }
 
@@ -184,11 +204,7 @@ export default function MainNavigator() {
             Constants?.expoConfig?.extra?.eas?.projectId ??
             Constants?.easConfig?.projectId;
         if (Device.isDevice) {
-            token = (
-                await Notifications.getExpoPushTokenAsync({
-                    projectId,
-                })
-            ).data;
+            token = (await Notifications.getDevicePushTokenAsync()).data;
             console.log("push token : ", token);
         } else {
             alert("Must use physical device for Push Notifications");

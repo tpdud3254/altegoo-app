@@ -2,7 +2,7 @@ export default {
     expo: {
         name: "altegoo-app",
         slug: "altegoo-app",
-        version: "1.0.0",
+        version: "1.3.0",
         orientation: "portrait",
         icon: "./assets/app_icon.png",
         userInterfaceStyle: "light",
@@ -65,6 +65,15 @@ export default {
                         "./assets/fonts/SpoqaHanSansNeo-Medium.otf",
                         "./assets/fonts/SpoqaHanSansNeo-Regular.otf",
                         "./assets/fonts/SpoqaHanSansNeo-Thin.otf",
+                    ],
+                },
+            ],
+            [
+                "expo-notifications",
+                {
+                    sounds: [
+                        "./assets/sounds/ladder_push.wav",
+                        "./assets/sounds/sky_push.wav",
                     ],
                 },
             ],
