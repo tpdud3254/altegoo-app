@@ -3,6 +3,7 @@ import {
     Image,
     Keyboard,
     TextInput as RNTextInput,
+    ScrollView,
     TouchableOpacity,
     View,
     useWindowDimensions,
@@ -18,7 +19,9 @@ import {
     GetDayOfWeek,
     GetPhoneNumberWithDash,
     GetTime,
+    getAsyncStorageToken,
     numberWithComma,
+    numberWithZero,
     showMessage,
 } from "../../../utils";
 import { useForm } from "react-hook-form";
@@ -36,6 +39,7 @@ import { PopupWithButtons } from "../../../component/popup/PopupWithButtons";
 import TextInput from "../../../component/input/TextInput";
 import axios from "axios";
 import { shadowProps } from "../../../component/Shadow";
+import { RowEvenly } from "../../../component/Row";
 
 const Row = styled.View`
     flex-direction: row;
@@ -134,6 +138,7 @@ function AddOtherData({ navigation }) {
     const [userName, setUserName] = useState(null);
     const [userPhone, setUserPhone] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
+    const [driverList, setDriverList] = useState([]);
 
     const { setValue, register, handleSubmit, watch, getValues } = useForm();
 
@@ -254,8 +259,51 @@ function AddOtherData({ navigation }) {
         setSearching(false);
     };
 
-    const showPopup = () => {
-        setIsPopupShown(true);
+    const showPopup = async () => {
+        try {
+            const response = await axios.get(SERVER + "/users/user/recommend", {
+                headers: {
+                    auth: await getAsyncStorageToken(),
+                },
+            });
+
+            const {
+                data: { result },
+            } = response;
+
+            if (result === VALID) {
+                const {
+                    data: {
+                        data: { list },
+                    },
+                } = response;
+
+                console.log("getRecommendUser : ", list);
+
+                if (list.length === 0) {
+                    setDriverList([]);
+                }
+
+                const driverList = [];
+
+                list.map((value) => {
+                    if (value.userTypeId === 2) {
+                        const vehicleType = value.vehicle[0].type.type + "차";
+                        if (vehicleType === registInfo.vehicleType) {
+                            driverList.push(value);
+                        }
+                    }
+                });
+
+                console.log("driverList : ", driverList);
+
+                setDriverList(driverList);
+            }
+        } catch (error) {
+            setDriverList([]);
+        } finally {
+            setIsPopupShown(true);
+        }
     };
 
     const hidePopup = () => {
@@ -291,6 +339,19 @@ function AddOtherData({ navigation }) {
 
         if (!isDesignation) navigation.navigate(REGIST_NAV[4]);
         else showPopup();
+    };
+
+    const onPressDriver = (driver) => {
+        const prevInfo = registInfo;
+
+        const sendData = {
+            driverId: Number(driver.id),
+        };
+
+        setRegistInfo({ ...prevInfo, ...sendData });
+
+        hidePopup();
+        navigation.navigate(REGIST_NAV[4]);
     };
 
     const onSelectDriver = () => {
@@ -335,17 +396,6 @@ function AddOtherData({ navigation }) {
         );
     };
 
-    const Line = () => {
-        return (
-            <View
-                style={{
-                    height: 2,
-                    backgroundColor: color["input-border"],
-                    marginTop: 10,
-                }}
-            ></View>
-        );
-    };
     const BottomButton = () => {
         return (
             <BottomButtonContainer>
@@ -384,6 +434,20 @@ function AddOtherData({ navigation }) {
             </BottomButtonContainer>
         );
     };
+
+    const Line = () => {
+        return (
+            <View
+                style={{
+                    height: 1,
+                    backgroundColor: color["image-area-background"],
+                    marginTop: 17,
+                    marginBottom: 17,
+                }}
+            ></View>
+        );
+    };
+
     return (
         <Layout
             bottomButtonProps={{
@@ -687,6 +751,58 @@ function AddOtherData({ navigation }) {
                     >
                         숫자만 입력하세요.
                     </RegularText>
+                    <View
+                        style={{
+                            height: 200,
+                            marginTop: 15,
+                            borderWidth: 1,
+                            borderColor: color["image-area-background"],
+                            borderRadius: 10,
+                            padding: 10,
+                        }}
+                    >
+                        <RegularText
+                            style={{
+                                width: "100%",
+                                textAlign: "center",
+                                color: color["page-grey-text"],
+                                marginBottom: 20,
+                                marginTop: 10,
+                            }}
+                        >
+                            나의 추천 기사
+                        </RegularText>
+                        <ScrollView>
+                            {driverList.map((driver, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => onPressDriver(driver)}
+                                >
+                                    <RowEvenly>
+                                        <RegularText>{driver.name}</RegularText>
+                                        <RegularText>
+                                            {GetPhoneNumberWithDash(
+                                                driver.phone
+                                            )}
+                                        </RegularText>
+                                        <RegularText>
+                                            {numberWithZero(driver.orderCount)}
+                                            건
+                                        </RegularText>
+                                    </RowEvenly>
+                                    <View
+                                        style={{
+                                            height: 1,
+                                            backgroundColor:
+                                                color["image-area-background"],
+                                            marginTop: 17,
+                                            marginBottom: 17,
+                                        }}
+                                    ></View>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
                 </PopupWrapper>
                 {show ? (
                     <SelectPopup style={shadowProps}>
