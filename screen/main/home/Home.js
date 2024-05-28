@@ -391,8 +391,40 @@ function Home({ navigation, route }) {
         navigation.navigate("SettingNavigator", { screen: "ChargePoint" });
     };
 
-    const goToJoinGugupack = () => {
-        navigation.navigate("JoinGugupack");
+    const goToJoinGugupack = async () => {
+        try {
+            const response = await axios.get(
+                SERVER + "/users/gugupack/waiting",
+                {
+                    headers: {
+                        auth: await getAsyncStorageToken(),
+                    },
+                }
+            );
+
+            const {
+                data: {
+                    result,
+                    data: { isExist },
+                },
+            } = response;
+
+            console.log("gugupack isExist :  ", isExist);
+            if (result === VALID) {
+                if (isExist) {
+                    showMessage("구구팩 승인 대기중입니다.");
+                } else {
+                    navigation.navigate("JoinGugupack");
+                }
+            } else
+                showMessage(
+                    "구구팩 신청에 실패하였습니다.\n고객센터로 문의해주세요."
+                );
+        } catch (error) {
+            showMessage(
+                "구구팩 신청에 실패하였습니다.\n고객센터로 문의해주세요."
+            );
+        }
     };
 
     const goToKakaoChat = async () => {
