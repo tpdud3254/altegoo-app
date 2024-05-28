@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components/native";
 import UserContext from "../../../context/UserContext";
 import Layout, { LAYOUT_PADDING_X } from "../../../component/layout/Layout";
-import { Row, RowBetween } from "../../../component/Row";
+import { Row, RowEvenly } from "../../../component/Row";
 import MediumText from "../../../component/text/MediumText";
 import { color } from "../../../styles";
 import { shadowProps } from "../../../component/Shadow";
@@ -12,7 +12,9 @@ import { SERVER, VALID } from "../../../constant";
 import axios from "axios";
 import {
     CheckLoading,
+    GetPhoneNumberWithDash,
     getAsyncStorageToken,
+    numberWithZero,
     showErrorMessage,
 } from "../../../utils";
 import LoadingLayout from "../../../component/layout/LoadingLayout";
@@ -43,27 +45,6 @@ const Item = styled.View`
     border-radius: 11px;
 `;
 
-const COMPANY_LIST = [
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-];
-
-const DRIVER_LIST = [
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-    "홍길동",
-];
 function RecommandedUser({ route, navigation }) {
     const { info } = useContext(UserContext);
     const [loading, setLoading] = useState(true);
@@ -127,6 +108,8 @@ function RecommandedUser({ route, navigation }) {
                         data: { list },
                     },
                 } = response;
+
+                console.log("getRecommendUser : ", list);
 
                 classifyByUserType(list);
             }
@@ -215,34 +198,113 @@ function RecommandedUser({ route, navigation }) {
                         {menu === 1
                             ? driverList.map((value, index) => (
                                   <View key={index}>
-                                      <RegularText>{value.name}</RegularText>
+                                      <View
+                                          style={{
+                                              width: "100%",
+                                              justifyContent: "center",
+                                              alignItems: "center",
+                                              marginBottom: 7,
+                                          }}
+                                      >
+                                          <Row>
+                                              <BoldText>{value.name}</BoldText>
+                                              {value.membership ? (
+                                                  <Image
+                                                      style={{
+                                                          marginLeft: 2,
+                                                          width: 20,
+                                                          height: 20,
+                                                          marginBottom: 2,
+                                                      }}
+                                                      resizeMode="contain"
+                                                      source={require(`../../../assets/images/icons/membership.png`)}
+                                                  />
+                                              ) : null}
+                                          </Row>
+                                      </View>
+                                      <RowEvenly>
+                                          <RegularText
+                                              style={{
+                                                  color: color[
+                                                      "page-grey-text"
+                                                  ],
+                                              }}
+                                          >
+                                              {value.vehicle[0].type.type}
+                                          </RegularText>
+                                          <RegularText>
+                                              {GetPhoneNumberWithDash(
+                                                  value.phone
+                                              )}
+                                          </RegularText>
+                                          <RegularText
+                                              style={{
+                                                  color: color[
+                                                      "page-grey-text"
+                                                  ],
+                                              }}
+                                          >
+                                              {numberWithZero(value.orderCount)}
+                                              건
+                                          </RegularText>
+                                      </RowEvenly>
+
                                       <Line />
                                   </View>
                               ))
                             : companyList.map((value, index) => (
                                   <View key={index}>
-                                      {value.gugupack ? (
+                                      <View
+                                          style={{
+                                              width: "100%",
+                                              justifyContent: "center",
+                                              alignItems: "center",
+                                              marginBottom: 7,
+                                          }}
+                                      >
                                           <Row>
-                                              <RegularText
-                                                  style={{ marginRight: 5 }}
-                                              >
-                                                  {value.name}
-                                              </RegularText>
-                                              <Image
-                                                  style={{
-                                                      width: 25,
-                                                      height: 25,
-                                                      marginBottom: 2,
-                                                  }}
-                                                  resizeMode="contain"
-                                                  source={require(`../../../assets/images/icons/gugu_badge.png`)}
-                                              />
+                                              <BoldText>{value.name}</BoldText>
+                                              {value.gugupack ? (
+                                                  <Image
+                                                      style={{
+                                                          marginLeft: 2,
+                                                          width: 21,
+                                                          height: 21,
+                                                          marginBottom: 2,
+                                                      }}
+                                                      resizeMode="contain"
+                                                      source={require(`../../../assets/images/icons/gugu_badge.png`)}
+                                                  />
+                                              ) : null}
                                           </Row>
-                                      ) : (
-                                          <RegularText>
-                                              {value.name}
+                                      </View>
+                                      <RowEvenly>
+                                          <RegularText
+                                              style={{
+                                                  color: color[
+                                                      "page-grey-text"
+                                                  ],
+                                              }}
+                                          >
+                                              {value.workCategory.name}
                                           </RegularText>
-                                      )}
+
+                                          <RegularText>
+                                              {GetPhoneNumberWithDash(
+                                                  value.phone
+                                              )}
+                                          </RegularText>
+                                          <RegularText
+                                              style={{
+                                                  color: color[
+                                                      "page-grey-text"
+                                                  ],
+                                              }}
+                                          >
+                                              {numberWithZero(value.orderCount)}
+                                              건
+                                          </RegularText>
+                                      </RowEvenly>
                                       <Line />
                                   </View>
                               ))}
