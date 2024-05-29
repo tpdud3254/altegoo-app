@@ -210,7 +210,9 @@ export const Order = {
 
             if (
                 info.userType === DRIVER &&
-                (!info.vehicle || !info.vehiclePermission)
+                (!info.vehicle ||
+                    !info.vehiclePermission ||
+                    info.vehicle?.length === 0)
             ) {
                 showMessage("내 정보 > 회원정보에서 차량 정보를 등록해주세요.");
                 return;

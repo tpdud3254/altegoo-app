@@ -221,23 +221,27 @@ function AddOtherData({ navigation }) {
                     data: { data },
                 } = response;
 
-                const userVehicleType = data.vehicle[0].type.type;
-
-                const registVehicleType = registInfo.vehicleType;
-
-                if (
-                    data.userTypeId === 2 &&
-                    ((userVehicleType.search("사다리") > -1 &&
-                        registVehicleType.search("사다리") > -1) ||
-                        (userVehicleType.search("스카이") > -1 &&
-                            registVehicleType.search("스카이") > -1))
-                ) {
-                    setUserId(data.userId);
-                    setUserName(data.name);
-                    setUserPhone(data.phone);
-                    Keyboard.dismiss();
-                } else {
+                if (!data.vehicle || data.vehicle.length === 0) {
                     setUserId(0);
+                } else {
+                    const userVehicleType = data.vehicle[0].type.type;
+
+                    const registVehicleType = registInfo.vehicleType;
+
+                    if (
+                        data.userTypeId === 2 &&
+                        ((userVehicleType.search("사다리") > -1 &&
+                            registVehicleType.search("사다리") > -1) ||
+                            (userVehicleType.search("스카이") > -1 &&
+                                registVehicleType.search("스카이") > -1))
+                    ) {
+                        setUserId(data.userId);
+                        setUserName(data.name);
+                        setUserPhone(data.phone);
+                        Keyboard.dismiss();
+                    } else {
+                        setUserId(0);
+                    }
                 }
             } else {
                 setUserId(0);
@@ -288,6 +292,9 @@ function AddOtherData({ navigation }) {
 
                 list.map((value) => {
                     if (value.userTypeId === 2) {
+                        if (!value.vehicle || value.vehicle.length === 0)
+                            return;
+
                         const vehicleType = value.vehicle[0].type.type + "차";
                         if (vehicleType === registInfo.vehicleType) {
                             driverList.push(value);

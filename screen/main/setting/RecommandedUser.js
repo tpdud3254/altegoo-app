@@ -230,7 +230,9 @@ function RecommandedUser({ route, navigation }) {
                                                   ],
                                               }}
                                           >
-                                              {value.vehicle[0].type.type}
+                                              {value.vehicle?.length > 0
+                                                  ? value.vehicle[0].type.type
+                                                  : ""}
                                           </RegularText>
                                           <RegularText>
                                               {GetPhoneNumberWithDash(
