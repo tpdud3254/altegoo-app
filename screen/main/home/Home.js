@@ -510,7 +510,7 @@ function Home({ navigation, route }) {
                     registBtnShown={true}
                     touchableElement={() => (
                         <>
-                            <ItemRow>
+                            <ItemRow style={{ alignItems: "flex-start" }}>
                                 <BoldText
                                     style={{
                                         fontSize: 23,
