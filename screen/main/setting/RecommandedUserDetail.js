@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import UserContext from "../../../context/UserContext";
 import Layout, { LAYOUT_PADDING_X } from "../../../component/layout/Layout";
 import { Row, RowEvenly } from "../../../component/Row";
 import MediumText from "../../../component/text/MediumText";
@@ -13,7 +12,6 @@ import axios from "axios";
 import {
     CheckLoading,
     GetPhoneNumberWithDash,
-    getAsyncStorageToken,
     numberWithZero,
     showErrorMessage,
 } from "../../../utils";
@@ -45,63 +43,39 @@ const Item = styled.View`
     border-radius: 11px;
 `;
 
-function RecommandedUser({ route, navigation }) {
-    const { info } = useContext(UserContext);
+function RecommandedUserDetail({ route, navigation }) {
     const [loading, setLoading] = useState(true);
     const [menu, setMenu] = useState(1);
 
     const [driverList, setDriverList] = useState(-1);
     const [companyList, setCompanyList] = useState(-1);
-    const [myRecommendUser, setMyRecommendUser] = useState(-1);
 
     useEffect(() => {
-        getRecommendUser();
-        if (info.recommendUserId !== 1) getMyRecommendUser();
-        else setMyRecommendUser("altegoo");
+        navigation.setOptions({
+            title: route?.params?.username + "님의 추천인",
+        });
+
+        getRecommendUser(route?.params?.userId);
     }, []);
 
     useEffect(() => {
-        if (CheckLoading({ driverList, companyList, myRecommendUser })) {
+        if (CheckLoading({ driverList, companyList })) {
             setLoading(false);
         }
-    }, [driverList, companyList, myRecommendUser]);
+    }, [driverList, companyList]);
 
-    const getMyRecommendUser = async () => {
+    const getRecommendUser = async (userId) => {
         try {
-            const response = await axios.get(SERVER + "/users/user", {
-                params: { id: info.recommendUserId },
-            });
+            const response = await axios.get(
+                SERVER + "/users/user/search/recommend",
+                { params: { id: userId } }
+            );
 
             const {
                 data: { result },
             } = response;
 
-            if (result === VALID) {
-                const {
-                    data: {
-                        data: { user },
-                    },
-                } = response;
-                setMyRecommendUser(user);
-            }
-        } catch (e) {
-            console.log(e);
-            showErrorMessage("추천인 조회에 실패하였습니다.");
-        }
-    };
-
-    const getRecommendUser = async () => {
-        try {
-            const response = await axios.get(SERVER + "/users/user/recommend", {
-                headers: {
-                    auth: await getAsyncStorageToken(),
-                },
-            });
-
-            const {
-                data: { result },
-            } = response;
-
+            console.log(response);
             if (result === VALID) {
                 const {
                     data: {
@@ -109,7 +83,7 @@ function RecommandedUser({ route, navigation }) {
                     },
                 } = response;
 
-                console.log("getRecommendUser : ", list);
+                console.log("getRecommend User : ", list);
 
                 classifyByUserType(list);
             }
@@ -174,10 +148,6 @@ function RecommandedUser({ route, navigation }) {
         </TouchableOpacity>
     );
 
-    const onPress = (userId, username) => {
-        navigation.navigate("RecommandedUserDetail", { userId, username });
-    };
-
     return (
         <>
             {loading ? (
@@ -201,12 +171,7 @@ function RecommandedUser({ route, navigation }) {
                     <Item style={shadowProps}>
                         {menu === 1
                             ? driverList.map((value, index) => (
-                                  <TouchableOpacity
-                                      key={index}
-                                      onPress={() =>
-                                          onPress(value.id, value.name)
-                                      }
-                                  >
+                                  <View key={index}>
                                       <View
                                           style={{
                                               width: "100%",
@@ -261,15 +226,10 @@ function RecommandedUser({ route, navigation }) {
                                       </RowEvenly>
 
                                       <Line />
-                                  </TouchableOpacity>
+                                  </View>
                               ))
                             : companyList.map((value, index) => (
-                                  <TouchableOpacity
-                                      key={index}
-                                      onPress={() =>
-                                          onPress(value.id, value.name)
-                                      }
-                                  >
+                                  <View key={index}>
                                       <View
                                           style={{
                                               width: "100%",
@@ -322,7 +282,7 @@ function RecommandedUser({ route, navigation }) {
                                           </RegularText>
                                       </RowEvenly>
                                       <Line />
-                                  </TouchableOpacity>
+                                  </View>
                               ))}
                         {/* {false ? (
                             <More />
@@ -338,27 +298,11 @@ function RecommandedUser({ route, navigation }) {
                             </RegularText>
                         )} */}
                     </Item>
-                    <Item style={shadowProps}>
-                        <View style={{ alignItems: "center" }}>
-                            <RegularText style={{ marginBottom: 15 }}>
-                                알테구 추천인 정보
-                            </RegularText>
-                            {info.recommendUserId === 1 ? (
-                                <BoldText>주식회사지앤지195</BoldText>
-                            ) : myRecommendUser.userTypeId !== 3 ? (
-                                <BoldText>{myRecommendUser.name}</BoldText>
-                            ) : (
-                                <BoldText>
-                                    {myRecommendUser.companyName}
-                                </BoldText>
-                            )}
-                        </View>
-                    </Item>
                 </Layout>
             )}
         </>
     );
 }
 
-RecommandedUser.propTypes = {};
-export default RecommandedUser;
+RecommandedUserDetail.propTypes = {};
+export default RecommandedUserDetail;

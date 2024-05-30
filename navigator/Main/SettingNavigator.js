@@ -15,6 +15,7 @@ import PaymentDetails from "../../screen/main/setting/PaymentDetails";
 import TakePhoto from "../../screen/TakePhoto";
 import RegisterVehicle from "../../screen/auth/SignUp/RegisterVehicle";
 import WorkingArea from "../../screen/auth/SignUp/WorkingArea";
+import RecommandedUserDetail from "../../screen/main/setting/RecommandedUserDetail";
 
 const Stack = createStackNavigator();
 
@@ -81,6 +82,10 @@ export default function SettingNavigator() {
                 name="RecommandedUser"
                 component={RecommandedUser}
                 options={{ title: "추천인" }}
+            />
+            <Stack.Screen
+                name="RecommandedUserDetail"
+                component={RecommandedUserDetail}
             />
             <Stack.Screen
                 name="ChangePassword"
