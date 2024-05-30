@@ -517,7 +517,7 @@ function Home({ navigation, route }) {
                                         maxWidth: "60%",
                                     }}
                                 >
-                                    안녕하세요!{" "}
+                                    안녕하세요!{"\n"}
                                     {info.nickname ? info.nickname : info.name}
                                     님.
                                 </BoldText>
