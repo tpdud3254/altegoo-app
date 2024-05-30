@@ -517,7 +517,9 @@ function Home({ navigation, route }) {
                                         maxWidth: "60%",
                                     }}
                                 >
-                                    안녕하세요! {info.name}님.
+                                    안녕하세요!{" "}
+                                    {info.nickname ? info.nickname : info.name}
+                                    님.
                                 </BoldText>
                                 <View
                                     style={{
