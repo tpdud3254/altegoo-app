@@ -302,9 +302,10 @@ function SelectDateTime({ navigation }) {
                             </MediumText>
                         </View>
                     )}
-                    renderArrow={(direction) =>
-                        direction === "left" ? <LeftArrow /> : <RightArrow />
-                    }
+                    // renderArrow={(direction) =>
+                    //     direction === "left" ? <LeftArrow /> : <RightArrow />
+                    // }
+
                     dayComponent={({ date, state }) => (
                         <TouchableOpacity
                             style={{
@@ -316,8 +317,10 @@ function SelectDateTime({ navigation }) {
                                     ? "aliceblue"
                                     : "white",
                                 borderRadius: 25,
-                                width: 30,
-                                height: 30,
+                                // width: 30,
+                                // height: 30,
+                                minWidth: 30,
+                                minHeight: 30,
                                 justifyContent: "center",
                                 alignItems: "center",
                             }}
