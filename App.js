@@ -116,7 +116,7 @@ const initBackgroundFetch = async (taskName, taskFn, interval = 60 * 15) => {
     }
 };
 
-initBackgroundFetch(WEB_SOCKET_TASK, createSocketOnBackground, 5);
+// initBackgroundFetch(WEB_SOCKET_TASK, createSocketOnBackground, 5);
 // initBackgroundFetch(LOCATION_TASK, getCurrentLocation, 5);
 
 export default function App() {
@@ -217,7 +217,7 @@ export default function App() {
             }
         });
 
-        if (ws === null) createSocket();
+        // if (ws === null) createSocket();
 
         prepare();
 
