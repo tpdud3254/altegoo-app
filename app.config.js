@@ -2,7 +2,7 @@ export default {
     expo: {
         name: "altegoo-app",
         slug: "altegoo-app",
-        version: "1.5.0",
+        version: "1.6.0",
         orientation: "portrait",
         icon: "./assets/app_icon.png",
         userInterfaceStyle: "light",
@@ -27,7 +27,7 @@ export default {
         android: {
             package: "com.atg.altegoo",
             googleServicesFile: "./google-services.json",
-            versionCode: 7,
+            versionCode: 8,
             config: {
                 googleSignIn: {
                     apiKey: "AIzaSyBQ3Cu1W2RAYuFXogaGR3cIR849LbqbO5g",
