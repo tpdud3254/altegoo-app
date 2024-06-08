@@ -785,16 +785,22 @@ function AddOtherData({ navigation }) {
                                     key={index}
                                     onPress={() => onPressDriver(driver)}
                                 >
+                                    <RowEvenly style={{ marginBottom: 5 }}>
+                                        <RegularText
+                                            style={{
+                                                color: color["page-grey-text"],
+                                            }}
+                                        >
+                                            <BoldText>{driver.name}</BoldText> (
+                                            {numberWithZero(driver.orderCount)}
+                                            건)
+                                        </RegularText>
+                                    </RowEvenly>
                                     <RowEvenly>
-                                        <RegularText>{driver.name}</RegularText>
                                         <RegularText>
                                             {GetPhoneNumberWithDash(
                                                 driver.phone
                                             )}
-                                        </RegularText>
-                                        <RegularText>
-                                            {numberWithZero(driver.orderCount)}
-                                            건
                                         </RegularText>
                                     </RowEvenly>
                                     <View
