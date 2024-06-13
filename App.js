@@ -246,15 +246,15 @@ export default function App() {
     //     }
     // }, [foreground, background]);
 
-    function cacheImages(images) {
-        return images.map((image) => {
-            if (typeof image === "string") {
-                return Image.prefetch(image);
-            } else {
-                return Asset.fromModule(image).downloadAsync();
-            }
-        });
-    }
+    // function cacheImages(images) {
+    //     return images.map((image) => {
+    //         if (typeof image === "string") {
+    //             return Image.prefetch(image);
+    //         } else {
+    //             return Asset.fromModule(image).downloadAsync();
+    //         }
+    //     });
+    // }
 
     // const requestPermissions = async () => {
     //     if (locationGranted && !pushGranted) {
