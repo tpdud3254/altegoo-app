@@ -280,68 +280,78 @@ function TakePhoto({ navigation, route }) {
                 <LoadingLayout />
             ) : (
                 <>
-                    {granted && isFocusd ? (
-                        takenPhoto === "" ? (
-                            <>
-                                <CameraView
-                                    style={{ flex: 1 }}
-                                    // type={cameraType}
-                                    ref={camera}
-                                    onCameraReady={onCameraReady}
-                                    // autoFocus="on"
-                                >
-                                    <CloseBtn onPress={goBack}>
-                                        <Ionicons
-                                            name="close"
-                                            color="white"
-                                            size={40}
+                    {isFocusd ? (
+                        granted ? (
+                            takenPhoto === "" ? (
+                                <>
+                                    <CameraView
+                                        style={{ flex: 1 }}
+                                        // type={cameraType}
+                                        ref={camera}
+                                        onCameraReady={onCameraReady}
+                                        // autoFocus="on"
+                                    >
+                                        <CloseBtn onPress={goBack}>
+                                            <Ionicons
+                                                name="close"
+                                                color="white"
+                                                size={40}
+                                            />
+                                        </CloseBtn>
+                                    </CameraView>
+                                    <Actions>
+                                        <TakePhotoBtn onPress={takePhoto}>
+                                            <Ionicons
+                                                name="camera"
+                                                size={50}
+                                                color={color.main}
+                                            />
+                                        </TakePhotoBtn>
+                                    </Actions>
+                                </>
+                            ) : (
+                                <>
+                                    <Image
+                                        source={{ uri: takenPhoto }}
+                                        style={{ flex: 1 }}
+                                    />
+                                    <PhotoActions>
+                                        <Button
+                                            onPress={onDismiss}
+                                            style={{
+                                                width: windowWidth * 0.35,
+                                            }}
+                                            text="재촬영"
                                         />
-                                    </CloseBtn>
-                                </CameraView>
-                                <Actions>
-                                    <TakePhotoBtn onPress={takePhoto}>
-                                        <Ionicons
-                                            name="camera"
-                                            size={50}
-                                            color={color.main}
+                                        <Button
+                                            onPress={
+                                                settingMode
+                                                    ? registLicense
+                                                    : onUpload
+                                            }
+                                            type="accent"
+                                            style={{
+                                                width: windowWidth * 0.35,
+                                            }}
+                                            text={
+                                                settingMode
+                                                    ? "등록하기"
+                                                    : "저장"
+                                            }
                                         />
-                                    </TakePhotoBtn>
-                                </Actions>
-                            </>
+                                    </PhotoActions>
+                                </>
+                            )
                         ) : (
-                            <>
-                                <Image
-                                    source={{ uri: takenPhoto }}
-                                    style={{ flex: 1 }}
-                                />
-                                <PhotoActions>
-                                    <Button
-                                        onPress={onDismiss}
-                                        style={{ width: windowWidth * 0.35 }}
-                                        text="재촬영"
-                                    />
-                                    <Button
-                                        onPress={
-                                            settingMode
-                                                ? registLicense
-                                                : onUpload
-                                        }
-                                        type="accent"
-                                        style={{ width: windowWidth * 0.35 }}
-                                        text={settingMode ? "등록하기" : "저장"}
-                                    />
-                                </PhotoActions>
-                            </>
+                            <NoPermission>
+                                <RegularText style={{ textAlign: "center" }}>
+                                    '설정 {">"} 애플리케이션 {">"} 알테구 {">"}{" "}
+                                    권한'
+                                    {"\n"}카메라 권한을 허용해주세요.
+                                </RegularText>
+                            </NoPermission>
                         )
-                    ) : (
-                        <NoPermission>
-                            <RegularText style={{ textAlign: "center" }}>
-                                '설정 {">"} 애플리케이션 {">"} 알테구 {">"}{" "}
-                                권한'
-                                {"\n"}카메라 권한을 허용해주세요.
-                            </RegularText>
-                        </NoPermission>
-                    )}
+                    ) : null}
 
                     {/* {!isFocusd ? (
                         <Popup
