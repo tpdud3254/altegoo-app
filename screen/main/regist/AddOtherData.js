@@ -792,7 +792,14 @@ function AddOtherData({ navigation }) {
                                             }}
                                         >
                                             <BoldText>{driver.name}</BoldText> (
-                                            {numberWithZero(driver.orderCount)}
+                                            {(driver.vehicle[0].type.id === 1
+                                                ? driver.vehicle[0].floor.floor
+                                                : driver.vehicle[0].weight
+                                                      .weight) +
+                                                " / " +
+                                                numberWithZero(
+                                                    driver.orderCount
+                                                )}
                                             건)
                                         </RegularText>
                                     </RowEvenly>

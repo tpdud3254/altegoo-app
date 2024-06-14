@@ -237,10 +237,19 @@ function RecommandedUser({ route, navigation }) {
                                                   color: color[
                                                       "page-grey-text"
                                                   ],
+                                                  textAlign: "center",
                                               }}
                                           >
                                               {value.vehicle?.length > 0
-                                                  ? value.vehicle[0].type.type
+                                                  ? value.vehicle[0].type.type +
+                                                    "\n(" +
+                                                    (value.vehicle[0].type
+                                                        .id === 1
+                                                        ? value.vehicle[0].floor
+                                                              .floor
+                                                        : value.vehicle[0]
+                                                              .weight.weight) +
+                                                    ")"
                                                   : ""}
                                           </RegularText>
                                           <RegularText>
