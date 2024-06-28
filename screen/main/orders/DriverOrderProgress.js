@@ -1050,7 +1050,7 @@ function DriverOrderProgress({ navigation, route }) {
                                                 color: color["page-grey-text"],
                                             }}
                                         >
-                                            결제대행 수수료
+                                            대행 수수료
                                         </RegularText>
                                         <BoldText
                                             style={{
