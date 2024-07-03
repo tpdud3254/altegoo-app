@@ -66,7 +66,7 @@ export const FONTS = {
 export const VEHICLE = ["사다리차", "스카이차"];
 export const DIRECTION = ["내림", "올림", "양사"];
 export const VOLUME = ["물량", "시간"];
-
+export const CRANE_TYPE = ["카고크레인", "크레인", "대형크레인"];
 export const CALENDAR_LOCALES = {
     monthNames: [
         "1월",
