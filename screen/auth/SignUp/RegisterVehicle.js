@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import UserContext from "../../../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 import { color } from "../../../styles";
-import { SERVER, SIGNUP_NAV, VALID } from "../../../constant";
+import { CRANE_TYPE, SERVER, SIGNUP_NAV, VALID } from "../../../constant";
 import AuthLayout from "../../../component/layout/AuthLayout";
 import RegularText from "../../../component/text/RegularText";
 import { Radio } from "../../../component/radio/Radio";
@@ -45,7 +45,7 @@ const PopupContainer = styled.View`
     justify-content: center;
 `;
 
-const vehicleType = ["사다리차", "스카이차"];
+const vehicleType = ["사다리차", "스카이차", "크레인"];
 
 function RegisterVehicle({ route }) {
     const navigation = useNavigation();
@@ -55,6 +55,7 @@ function RegisterVehicle({ route }) {
 
     const [floor, setFloor] = useState(-1);
     const [weight, setWeight] = useState(-1);
+    const [craneWeight, setCraneWeight] = useState(-1);
 
     const [loading, setLoading] = useState(true);
     const [validation, setValidation] = useState(false);
@@ -68,12 +69,15 @@ function RegisterVehicle({ route }) {
         register("vehicleType");
         register("vehicleNumber");
         register("option");
+        register("craneType");
 
         setValue("vehicleType", 1);
         setValue("option", 1);
+        setValue("craneType", 1);
 
         getVehicleFloor();
         getVehicleWeight();
+        getVehicleCraneWeight();
     }, []);
 
     useEffect(() => {
@@ -81,11 +85,12 @@ function RegisterVehicle({ route }) {
             CheckLoading({
                 floor,
                 weight,
+                craneWeight,
             })
         ) {
             setLoading(false);
         }
-    }, [floor, weight]);
+    }, [floor, weight, craneWeight]);
 
     useEffect(() => {
         if (CheckValidation(getValues())) {
@@ -163,8 +168,55 @@ function RegisterVehicle({ route }) {
             console.log(error);
         }
     };
+
+    const getVehicleCraneWeight = async () => {
+        try {
+            const response = await axios.get(SERVER + "/admin/vehicle/crane");
+
+            const {
+                data: {
+                    data: { vehicleWeight },
+                },
+            } = response;
+            console.log("getvehicle crane weight : ", vehicleWeight);
+
+            if (vehicleWeight.length === 0) {
+                setCraneWeight([
+                    "10t",
+                    "13t",
+                    "16t",
+                    "25t",
+                    "35t",
+                    "50t",
+                    "60t",
+                    "80t",
+                ]);
+            } else {
+                const weightData = [];
+
+                const weight1 = [];
+                const weight2 = [];
+                const weight3 = [];
+
+                vehicleWeight.map((value, index) => {
+                    if (value.craneTypeId === 1) weight1.push(value.weight);
+                    else if (value.craneTypeId === 2)
+                        weight2.push(value.weight);
+                    else weight3.push(value.weight);
+                });
+
+                weightData.push(weight1);
+                weightData.push(weight2);
+                weightData.push(weight3);
+
+                setCraneWeight(weightData);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     const onNext = (data) => {
-        const { vehicleType, vehicleNumber, option } = data;
+        const { vehicleType, vehicleNumber, option, craneType } = data;
 
         let vehicle = {};
 
@@ -173,12 +225,26 @@ function RegisterVehicle({ route }) {
         } else {
             vehicle.type = vehicleType;
             vehicle.number = vehicleNumber;
+
+            vehicle.floor = null;
+            vehicle.weight = null;
+            vehicle.craneType = null;
+            vehicle.vehicleCraneWeight = null;
+
             if (vehicleType === 1) {
                 vehicle.floor = option;
-                vehicle.weight = null;
             } else {
-                vehicle.floor = null;
-                vehicle.weight = option;
+                if (vehicleType === 3) {
+                    vehicle.craneType = craneType;
+                    vehicle.vehicleCraneWeight =
+                        craneType === 2
+                            ? option + 4
+                            : craneType === 3
+                            ? option + 12
+                            : option;
+                } else {
+                    vehicle.weight = option;
+                }
             }
         }
 
@@ -194,18 +260,32 @@ function RegisterVehicle({ route }) {
     const registVehicle = async (data) => {
         console.log(data);
 
-        const { vehicleType, vehicleNumber, option } = data;
+        const { vehicleType, vehicleNumber, option, craneType } = data;
 
         let vehicle = {};
 
         vehicle.type = vehicleType;
         vehicle.number = vehicleNumber;
+
+        vehicle.floor = null;
+        vehicle.weight = null;
+        vehicle.craneType = null;
+        vehicle.vehicleCraneWeight = null;
+
         if (vehicleType === 1) {
             vehicle.floor = option;
-            vehicle.weight = null;
         } else {
-            vehicle.floor = null;
-            vehicle.weight = option;
+            if (vehicleType === 3) {
+                vehicle.craneType = craneType;
+                vehicle.vehicleCraneWeight =
+                    craneType === 2
+                        ? option + 4
+                        : craneType === 3
+                        ? option + 12
+                        : option;
+            } else {
+                vehicle.weight = option;
+            }
         }
 
         try {
@@ -289,29 +369,7 @@ function RegisterVehicle({ route }) {
                                     ))}
                                 </RadioContainer>
                             </Item>
-                            {watch("vehicleType") !== 1 ? (
-                                <Item>
-                                    <Title>차량 옵션</Title>
-                                    <RadioContainer>
-                                        {weight.map((value, index) => (
-                                            <Radio
-                                                key={index}
-                                                value={value}
-                                                selected={
-                                                    watch("option") ===
-                                                    index + 1
-                                                }
-                                                onSelect={() =>
-                                                    setValue(
-                                                        "option",
-                                                        index + 1
-                                                    )
-                                                }
-                                            />
-                                        ))}
-                                    </RadioContainer>
-                                </Item>
-                            ) : (
+                            {watch("vehicleType") === 1 ? (
                                 <Item>
                                     <Title>최대 작업 층수</Title>
                                     <RadioContainer>
@@ -333,8 +391,78 @@ function RegisterVehicle({ route }) {
                                         ))}
                                     </RadioContainer>
                                 </Item>
-                            )}
-
+                            ) : null}
+                            {watch("vehicleType") === 2 ? (
+                                <Item>
+                                    <Title>차량 옵션</Title>
+                                    <RadioContainer>
+                                        {weight.map((value, index) => (
+                                            <Radio
+                                                key={index}
+                                                value={value}
+                                                selected={
+                                                    watch("option") ===
+                                                    index + 1
+                                                }
+                                                onSelect={() =>
+                                                    setValue(
+                                                        "option",
+                                                        index + 1
+                                                    )
+                                                }
+                                            />
+                                        ))}
+                                    </RadioContainer>
+                                </Item>
+                            ) : null}
+                            {watch("vehicleType") === 3 ? (
+                                <>
+                                    <Item>
+                                        <Title>차량 구분</Title>
+                                        <RadioContainer>
+                                            {CRANE_TYPE.map((value, index) => (
+                                                <Radio
+                                                    key={index}
+                                                    value={value}
+                                                    selected={
+                                                        watch("craneType") ===
+                                                        index + 1
+                                                    }
+                                                    onSelect={() =>
+                                                        setValue(
+                                                            "craneType",
+                                                            index + 1
+                                                        )
+                                                    }
+                                                />
+                                            ))}
+                                        </RadioContainer>
+                                    </Item>
+                                    <Item>
+                                        <Title>차량 옵션</Title>
+                                        <RadioContainer>
+                                            {craneWeight[
+                                                Number(watch("craneType")) - 1
+                                            ].map((value, index) => (
+                                                <Radio
+                                                    key={index}
+                                                    value={value}
+                                                    selected={
+                                                        watch("option") ===
+                                                        index + 1
+                                                    }
+                                                    onSelect={() =>
+                                                        setValue(
+                                                            "option",
+                                                            index + 1
+                                                        )
+                                                    }
+                                                />
+                                            ))}
+                                        </RadioContainer>
+                                    </Item>
+                                </>
+                            ) : null}
                             <Item>
                                 <Title>차량번호</Title>
                                 <TextInput

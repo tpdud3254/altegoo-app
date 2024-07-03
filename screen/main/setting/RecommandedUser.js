@@ -247,8 +247,13 @@ function RecommandedUser({ route, navigation }) {
                                                         .id === 1
                                                         ? value.vehicle[0].floor
                                                               .floor
+                                                        : value.vehicle[0].type
+                                                              .id === 2
+                                                        ? value.vehicle[0]
+                                                              .weight.weight
                                                         : value.vehicle[0]
-                                                              .weight.weight) +
+                                                              .vehicleCraneWeight
+                                                              .weight) +
                                                     ")"
                                                   : ""}
                                           </RegularText>

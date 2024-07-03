@@ -233,7 +233,9 @@ function AddOtherData({ navigation }) {
                         ((userVehicleType.search("사다리") > -1 &&
                             registVehicleType.search("사다리") > -1) ||
                             (userVehicleType.search("스카이") > -1 &&
-                                registVehicleType.search("스카이") > -1))
+                                registVehicleType.search("스카이") > -1) ||
+                            (userVehicleType.search("크레인") > -1 &&
+                                registVehicleType.search("크레인") > -1))
                     ) {
                         setUserId(data.userId);
                         setUserName(data.name);
@@ -295,7 +297,10 @@ function AddOtherData({ navigation }) {
                         if (!value.vehicle || value.vehicle.length === 0)
                             return;
 
-                        const vehicleType = value.vehicle[0].type.type + "차";
+                        const vehicleType =
+                            value.vehicle[0].type.type === "크레인"
+                                ? "크레인"
+                                : value.vehicle[0].type.type + "차";
                         if (vehicleType === registInfo.vehicleType) {
                             driverList.push(value);
                         }
@@ -794,7 +799,12 @@ function AddOtherData({ navigation }) {
                                             <BoldText>{driver.name}</BoldText> (
                                             {(driver.vehicle[0].type.id === 1
                                                 ? driver.vehicle[0].floor.floor
-                                                : driver.vehicle[0].weight
+                                                : driver.vehicle[0].type.id ===
+                                                  2
+                                                ? driver.vehicle[0].weight
+                                                      .weight
+                                                : driver.vehicle[0]
+                                                      .vehicleCraneWeight
                                                       .weight) +
                                                 " / " +
                                                 numberWithZero(

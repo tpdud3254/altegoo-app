@@ -252,7 +252,11 @@ function MemberInformation({ navigation }) {
                                     <>
                                         <Item title="차량 종류">
                                             <MediumText>
-                                                {info.vehicle[0].type.type}차
+                                                {info.vehicle[0].type.type ===
+                                                "크레인"
+                                                    ? "크레인"
+                                                    : info.vehicle[0].type
+                                                          .type + "차"}
                                             </MediumText>
                                         </Item>
                                         {info.vehicle[0].type.type ===
@@ -265,11 +269,22 @@ function MemberInformation({ navigation }) {
                                                     }
                                                 </MediumText>
                                             </Item>
-                                        ) : (
+                                        ) : info.vehicle[0].type.type ===
+                                          "스카이" ? (
                                             <Item title="최대 물량">
                                                 <MediumText>
                                                     {
                                                         info.vehicle[0].weight
+                                                            .weight
+                                                    }
+                                                </MediumText>
+                                            </Item>
+                                        ) : (
+                                            <Item title="최대 물량">
+                                                <MediumText>
+                                                    {
+                                                        info.vehicle[0]
+                                                            .vehicleCraneWeight
                                                             .weight
                                                     }
                                                 </MediumText>

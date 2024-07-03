@@ -631,6 +631,7 @@ function OrderProgress({ navigation, route }) {
                                 />
                             </Row>
                             <Line />
+                            {/* TODO: vehicleType 나중에 수정해야될수도 */}
                             {order.direction !== "양사" ||
                             order.vehicleType === "스카이차" ? (
                                 <Row>
