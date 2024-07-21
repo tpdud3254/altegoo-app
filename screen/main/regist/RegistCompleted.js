@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { color } from "../../../styles";
 import MediumText from "../../../component/text/MediumText";
@@ -11,6 +11,8 @@ import Layout from "../../../component/layout/Layout";
 import BoldText from "../../../component/text/BoldText";
 import RegularText from "../../../component/text/RegularText";
 import { CommonActions } from "@react-navigation/native";
+import RegistContext from "../../../context/RegistContext";
+import UserContext from "../../../context/UserContext";
 
 const Container = styled.View`
     flex: 1;
@@ -48,8 +50,17 @@ function RegistCompleted({ navigation, route }) {
     const { width: windowWidth } = useWindowDimensions();
     const [userCount, setUserCount] = useState(0);
     const [dateTime, setDateTime] = useState("");
-
+    const { registInfo } = useContext(RegistContext);
+    const { info } = useContext(UserContext);
     useEffect(() => {
+        console.log(
+            "route?.params?.data?.paymentType: ",
+            route?.params?.data?.paymentType
+        );
+        if (route?.params?.data?.paymentType === "postpaid") {
+            registWork();
+        }
+
         BackHandler.addEventListener("hardwareBackPress", () => goToHome());
 
         const orderDateTime = new Date(route?.params?.dateTime);
@@ -64,6 +75,91 @@ function RegistCompleted({ navigation, route }) {
             BackHandler.removeEventListener("hardwareBackPress");
         };
     }, []);
+
+    const registWork = async () => {
+        // console.log("parsed payment data : ", data);
+
+        console.log("registInfo: ", registInfo);
+        const sendingData = {
+            vehicleType: registInfo.vehicleType || null,
+            direction: registInfo.direction || null,
+            floor: registInfo.floor || null,
+            downFloor: registInfo.downFloor || null,
+            upFloor: registInfo.upFloor || null,
+            volume: registInfo.volume || null,
+            time: registInfo.time || null,
+            quantity: registInfo.quantity || null,
+            dateTime: registInfo.dateTime || null,
+            address1: registInfo.address1 || null,
+            address2: registInfo.address2 || null,
+            detailAddress1: registInfo.detailAddress1 || null,
+            detailAddress2: registInfo.detailAddress2 || null,
+            simpleAddress1: registInfo.simpleAddress1 || null,
+            simpleAddress2: registInfo.simpleAddress2 || null,
+            region: registInfo.region || null,
+            latitude: registInfo.latitude.toString() || "0",
+            longitude: registInfo.longitude.toString() || "0",
+            phone: info.phone || null,
+            directPhone: registInfo.directPhone || null,
+            emergency: registInfo.emergency || false,
+            memo: registInfo.memo || null,
+            price: registInfo.price || 0,
+            emergencyPrice: registInfo.emergencyPrice || 0,
+            usePoint: registInfo.usePoint || 0,
+            orderPrice: registInfo.orderPrice || 0,
+            totalPrice: registInfo.totalPrice || 0,
+            tax: registInfo.tax || 0,
+            finalPrice: registInfo.finalPrice || 0,
+            registPoint: registInfo.registPoint || 0,
+            gugupackPrice: registInfo.gugupackPrice || 0,
+            isDesignation: registInfo.isDesignation || false,
+            driverId: registInfo.driverId || null,
+            method: "postpaid",
+            paymentType: 1,
+        };
+
+        try {
+            const response = await axios.post(
+                SERVER + "/works/upload",
+                { ...sendingData },
+                {
+                    headers: {
+                        auth: await getAsyncStorageToken(),
+                    },
+                }
+            );
+
+            console.log(response);
+
+            const {
+                data: { result },
+            } = response;
+
+            if (result === VALID) {
+                const {
+                    data: {
+                        data: { order },
+                    },
+                } = response;
+
+                navigation.navigate(REGIST_NAV[6], {
+                    orderId: order.id,
+                    dateTime: order.dateTime,
+                    isDesignation: registInfo.isDesignation || false,
+                });
+
+                return;
+            } else {
+                const {
+                    data: { msg },
+                } = response;
+
+                console.log(msg);
+            }
+        } catch (error) {
+            console.log("error : ", error);
+        }
+    };
 
     const getDriverCount = async () => {
         try {

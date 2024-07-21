@@ -337,6 +337,11 @@ const CheckOrderPrice = ({ navigation }) => {
             navigation.navigate(REGIST_NAV[5], {
                 data: { ...paymentData, paymentType: "keyedin" },
             });
+        } else {
+            //후불결제
+            navigation.navigate(REGIST_NAV[6], {
+                data: { paymentType: "postpaid" },
+            });
         }
     };
 
@@ -714,6 +719,42 @@ const CheckOrderPrice = ({ navigation }) => {
                             </View>
                             <PayButtonText>
                                 <RegularText>카드번호 직접 입력</RegularText>
+                            </PayButtonText>
+                        </PayButton>
+                        <View
+                            style={{
+                                width: "92%",
+                                backgroundColor: "grey",
+                                height: 0.5,
+                                opacity: 0.5,
+                                marginTop: 20,
+                                marginBottom: 20,
+                            }}
+                        ></View>
+                        <PayButton
+                            onPress={handleSubmit((data) =>
+                                onNextStep({ ...data, type: "postpaid" })
+                            )}
+                        >
+                            <View
+                                style={{
+                                    width: "30%",
+                                }}
+                            >
+                                <PayButtonImage
+                                    source={require("../../../assets/images/icons/pay_keyedin.png")}
+                                    style={{
+                                        width: 85,
+                                        height: 75,
+                                        marginLeft: -13,
+                                        marginTop: -5,
+                                        opacity: 0.9,
+                                    }}
+                                    resizeMode="contain"
+                                />
+                            </View>
+                            <PayButtonText>
+                                <RegularText>후불결제</RegularText>
                             </PayButtonText>
                         </PayButton>
                     </PopupWrapper>
