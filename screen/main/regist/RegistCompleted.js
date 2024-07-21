@@ -108,7 +108,7 @@ function RegistCompleted({ navigation, route }) {
             usePoint: registInfo.usePoint || 0,
             orderPrice: registInfo.orderPrice || 0,
             totalPrice: registInfo.totalPrice || 0,
-            tax: registInfo.tax || 0,
+            tax: 0, //후불결제는 부가세 0
             finalPrice: registInfo.finalPrice || 0,
             registPoint: registInfo.registPoint || 0,
             gugupackPrice: registInfo.gugupackPrice || 0,
