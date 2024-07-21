@@ -27,11 +27,13 @@ const Button = styled.TouchableOpacity`
 `;
 const WithdrawalButton = styled.TouchableOpacity`
     align-items: center;
-    background-color: white;
-    border: 1px solid ${color.main};
+    background-color: ${color.btnDefault};
     border-radius: 10px;
-    padding: 15px;
+    padding: 18px;
+    width: 48.5%;
 `;
+
+const RemitButton = styled(WithdrawalButton)``;
 
 const Dot = styled.View`
     width: 8px;
@@ -240,11 +242,14 @@ function PointMain({ navigation }) {
                     </Button> */}
                 </RowAround>
             </Box>
-            <WithdrawalButton onPress={() => goToPage("WithdrawalPoint")}>
-                <BoldText style={{ color: color.main }}>
-                    포인트 출금하기
-                </BoldText>
-            </WithdrawalButton>
+            <RowBetween>
+                <RemitButton onPress={() => goToPage("RemitPoint")}>
+                    <RegularText>포인트 송금하기</RegularText>
+                </RemitButton>
+                <WithdrawalButton onPress={() => goToPage("WithdrawalPoint")}>
+                    <RegularText>포인트 출금하기</RegularText>
+                </WithdrawalButton>
+            </RowBetween>
             {/* NEXT: 기사일경우 차트*/}
             {/* NEXT: 쿠폰기능 추가 */}
             {/* <BoldText style={{ marginTop: 30, marginBottom: 10 }}>
