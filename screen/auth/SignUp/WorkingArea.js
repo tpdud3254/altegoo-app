@@ -55,7 +55,7 @@ const AreaButton = styled.TouchableOpacity`
     padding-right: 5px;
 `;
 const areaObj = {
-    서울: ["서울 전체"],
+    서울: ["서울 전체", "서울 북구", "서울 남구"],
     경기: [
         "경기 전체",
         "경기 북서부",
@@ -63,16 +63,39 @@ const areaObj = {
         "경기 남서부",
         "경기 남동부",
     ],
-    인천: ["인천 전체"],
-    기타: ["그 외 지역\n충청도/강원도/경상도/전라도/제주도"],
+    인천: ["인천광역시"],
+    대전: ["대전광역시"],
+    울산: ["울산광역시"],
+    광주: ["광주광역시"],
+    부산: ["부산광역시"],
+    강원도: ["강원도"],
+    경상: ["경상남북도"],
+    충청: ["충청남북도"],
+    전라: ["전라남북도"],
+    세종: ["세종특별자치시"],
+    제주: ["제주특별자치도"],
 };
 
 const areaDetailObj = {
+    서울: [
+        "",
+        "은평구 / 도봉구 / 강북구 /\n노원구 / 성북구 / 중랑구 /\n동대문구 / 종로구 / 서대문구 /\n마포구 / 용산구 / 중구 /\n성동구 / 광진구",
+        "강서구 / 양천구 / 구로구 /\n영등포구 / 금천구 / 동작구 /\n관악구 / 서초구 / 강남구 /\n송파구 / 강동구",
+    ],
     경기: [
+        "",
         "김포시 / 부천시 / 파주시 /\n고양시 / 동두천시 / 연천군",
         "의정부시 / 양주시 / 구리시 /\n남양주시 / 포천시 / 가평군",
-        "광명시 / 시흥시 / 안산시 / 안양시 /\n과천시 / 의왕시 / 군포시 / 수원시 /\n오산시 / 화성시 / 평택시",
-        "성남시 / 하남시 / 광주시 / 용인시 /\n안성시 / 이천시 / 여주시 / 양평군",
+        "광명시 / 시흥시 / 안산시 /\n안양시 / 과천시 / 의왕시 /\n군포시 / 수원시 / 오산시 /\n화성시 / 평택시",
+        "성남시 / 하남시 / 광주시 /\n용인시 / 안성시 / 이천시 /\n여주시 / 양평군",
+    ],
+    인천: ["", "미추홀구 / 동구 / 연수구 /\n남동구 / 부평구 / 계양구 /\n서구"],
+    대전: ["유성구 / 대덕구 / 서구 /\n중구 / 동구"],
+    대구: ["달성군 / 달서구 / 수성구 /\n북구 / 동구 / 서구 / 중구/ 남구"],
+    울산: ["남구 / 동구 / 북구 /\n중구 / 울주군"],
+    광주: ["광산구 / 서구 / 북구 /\n동구 / 남구"],
+    부산: [
+        "영도구 / 부산진구 / 동래구 /\n남구 / 북구 / 해운대구 /\n사하구 / 금정구 / 강서구 /\n연제구 / 수영구 / 사상구 /\n기장군",
     ],
 };
 
@@ -265,7 +288,9 @@ function WorkingArea({ route }) {
                                     Object.keys(areaObj).length - 1
                                 }
                             >
-                                <RegularText>{area}</RegularText>
+                                <RegularText style={{ textAlign: "center" }}>
+                                    {area}
+                                </RegularText>
                             </Area>
                             <Space />
                             <AreaDetail
@@ -305,27 +330,31 @@ function WorkingArea({ route }) {
                                                     {detail}
                                                 </RegularText>
                                                 {areaDetailObj[area] &&
-                                                detailIndex > 0 ? (
-                                                    <RegularText
-                                                        style={{
-                                                            color: isExist([
-                                                                areaIndex,
-                                                                detailIndex,
-                                                            ])
-                                                                ? color[
-                                                                      "page-black-text"
-                                                                  ]
-                                                                : color[
-                                                                      "page-grey-text"
-                                                                  ],
-                                                        }}
-                                                    >
-                                                        {
-                                                            areaDetailObj[area][
-                                                                detailIndex - 1
-                                                            ]
-                                                        }
-                                                    </RegularText>
+                                                detailIndex >= 0 ? (
+                                                    areaDetailObj[area][
+                                                        detailIndex
+                                                    ].length > 0 ? (
+                                                        <RegularText
+                                                            style={{
+                                                                color: isExist([
+                                                                    areaIndex,
+                                                                    detailIndex,
+                                                                ])
+                                                                    ? color[
+                                                                          "page-black-text"
+                                                                      ]
+                                                                    : color[
+                                                                          "page-grey-text"
+                                                                      ],
+                                                            }}
+                                                        >
+                                                            {
+                                                                areaDetailObj[
+                                                                    area
+                                                                ][detailIndex]
+                                                            }
+                                                        </RegularText>
+                                                    ) : null
                                                 ) : null}
                                             </View>
                                             <Image
