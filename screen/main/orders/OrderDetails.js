@@ -146,7 +146,8 @@ function OrderDetails({ navigation, route }) {
             if (order.acceptUser === info.id) {
                 setButtonText("예약 취소하기");
             } else {
-                setButtonText("예약 중");
+                setButtonText("예약 완료");
+                //예약중에서 예약완료로 텍스트 수정
                 //NEXT: 예약대기 우선 삭제
                 // if (order.orderReservation.length === 0) {
                 //     setButtonText("예약대기 하기");
@@ -487,7 +488,8 @@ function OrderDetails({ navigation, route }) {
                             ) : buttonType === 5 ? (
                                 <BottomButtonContainer>
                                     <MediumText style={{ color: "white" }}>
-                                        예약 중
+                                        예약 완료
+                                        {/* //예약중에서 예약완료로 텍스트 수정 */}
                                     </MediumText>
                                 </BottomButtonContainer>
                             ) : null,

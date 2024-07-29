@@ -161,7 +161,8 @@ export const Order = {
                 if (order.acceptUser === info.id) {
                     return "예약\n취소";
                 } else {
-                    return "예약중";
+                    return "예약 완료";
+                    //예약중에서 예약완료로 텍스트 수정
                     //NEXT: 예약대기 우선 삭제
                     // if (order.orderReservation.length === 0) {
                     //     return "예약대기 하기";
