@@ -109,7 +109,7 @@ function RegistCompleted({ navigation, route }) {
             orderPrice: registInfo.orderPrice || 0,
             totalPrice: registInfo.totalPrice || 0,
             tax: 0, //후불결제는 부가세 0
-            finalPrice: registInfo.finalPrice || 0,
+            finalPrice: registInfo.totalPrice || 0, //후불결제는 부가세 0
             registPoint: registInfo.registPoint || 0,
             gugupackPrice: registInfo.gugupackPrice || 0,
             isDesignation: registInfo.isDesignation || false,
