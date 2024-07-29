@@ -7,7 +7,11 @@ import { SERVER, SIGNUP_NAV, VALID } from "../../../constant";
 import AuthLayout from "../../../component/layout/AuthLayout";
 import RegularText from "../../../component/text/RegularText";
 import { Image, View } from "react-native";
-import { getAsyncStorageToken, showErrorMessage } from "../../../utils";
+import {
+    getAsyncStorageToken,
+    showErrorMessage,
+    showMessage,
+} from "../../../utils";
 import axios from "axios";
 
 const Container = styled.View``;
@@ -55,16 +59,11 @@ const AreaButton = styled.TouchableOpacity`
     padding-right: 5px;
 `;
 const areaObj = {
-    서울: ["서울 전체", "서울 북구", "서울 남구"],
-    경기: [
-        "경기 전체",
-        "경기 북서부",
-        "경기 북동부",
-        "경기 남서부",
-        "경기 남동부",
-    ],
+    서울: ["서울 북구", "서울 남구"],
+    경기: ["경기 북서부", "경기 북동부", "경기 남서부", "경기 남동부"],
     인천: ["인천광역시"],
     대전: ["대전광역시"],
+    대구: ["대구광역시"],
     울산: ["울산광역시"],
     광주: ["광주광역시"],
     부산: ["부산광역시"],
@@ -78,12 +77,12 @@ const areaObj = {
 
 const areaDetailObj = {
     서울: [
-        "",
+        // "",
         "은평구 / 도봉구 / 강북구 /\n노원구 / 성북구 / 중랑구 /\n동대문구 / 종로구 / 서대문구 /\n마포구 / 용산구 / 중구 /\n성동구 / 광진구",
         "강서구 / 양천구 / 구로구 /\n영등포구 / 금천구 / 동작구 /\n관악구 / 서초구 / 강남구 /\n송파구 / 강동구",
     ],
     경기: [
-        "",
+        // "",
         "김포시 / 부천시 / 파주시 /\n고양시 / 동두천시 / 연천군",
         "의정부시 / 양주시 / 구리시 /\n남양주시 / 포천시 / 가평군",
         "광명시 / 시흥시 / 안산시 /\n안양시 / 과천시 / 의왕시 /\n군포시 / 수원시 / 오산시 /\n화성시 / 평택시",
@@ -117,30 +116,41 @@ function WorkingArea({ route }) {
             return;
         }
         /* 
-        서울시 => 1 => [0, 0]
-        인천시 => 2 => [2, 0]
-        경기 북서부 => 3 => [1, 1]
-        경기 북동부 => 4 => [1, 2]
-        경기 남서부 => 5 => [1, 3]
-        경기 남동부 => 6 => [1, 4]
-        그 외 지역 => 7 => [3, 0]
+        서울 북구 => 1 => [0, 0] 1씩 더해서 곱하기
+        서울 남구 => 2 => [0, 1]
+
+        경기 북서부 => 3 => [1, 0] 1씩 더해서 곱한다음에 1더하기
+        경기 북동부 => 4 => [1, 1]
+        경기 남서부 => 5 => [1, 2]
+        경기 남동부 => 6 => [1, 3]
+
+        인천시 => 7 => [2, 0]
+
+        대전광역시 => 8 => [3, 0]
+        대구광역시 => 9 => [4, 0]
+        울산광역시 => 10 => [5, 0]
+        광주광역시 => 11 => [6, 0]
+        부산광역시 => 12 => [7, 0]
+        강원도 => 13 => [8, 0]
+        경상남북도 => 14 => [9, 0]
+        충청남북도 => 15 => [10, 0]
+        전라남북도 => 16 => [11, 0]
+        세종특별자치시 => 17 => [12, 0]
+        제주특별자치도 => 18 => [13, 0]
         */
 
         const workRegion = [];
 
         selected.map((element) => {
-            if (element[0] === 0 && element[1] === 0) {
-                workRegion.push(1);
+            if (element[0] === 0) {
+                //서울시
+                workRegion.push(element[1] + 1);
             } else if (element[0] === 1) {
-                if (element[1] === 0) {
-                    workRegion.push(3, 4, 5, 6);
-                } else {
-                    workRegion.push(element[1] + 2);
-                }
-            } else if (element[0] === 2 && element[1] === 0) {
-                workRegion.push(2);
-            } else if (element[0] === 3 && element[1] === 0) {
-                workRegion.push(7);
+                //경기
+                workRegion.push(element[1] + 3);
+            } else {
+                //그 외 지역들
+                workRegion.push(element[0] + 5);
             }
         });
 
@@ -200,29 +210,29 @@ function WorkingArea({ route }) {
             );
 
             //경기 전체 > 리스트에서 없앨 경우 나머지 경기 지역들 없애기
-            if (areaIndex === 1 && detailIndex === 0) {
-                const result = remove.filter(
-                    (element) =>
-                        !(
-                            element[0] === areaIndex &&
-                            (element[1] === 1 ||
-                                element[1] === 2 ||
-                                element[1] === 3 ||
-                                element[1] === 4)
-                        )
-                );
-                setSelected(result);
-                return;
-            }
+            // if (areaIndex === 1 && detailIndex === 0) {
+            //     const result = remove.filter(
+            //         (element) =>
+            //             !(
+            //                 element[0] === areaIndex &&
+            //                 (element[1] === 1 ||
+            //                     element[1] === 2 ||
+            //                     element[1] === 3 ||
+            //                     element[1] === 4)
+            //             )
+            //     );
+            //     setSelected(result);
+            //     return;
+            // }
 
             //경기 전체 선택 상황에서 나머지 경기 지역을 리스트에서 없앨 경우 경제 전체 체크 해제
-            if (areaIndex === 1 && detailIndex !== 0) {
-                const result = remove.filter(
-                    (element) => !(element[0] === 1 && element[1] === 0)
-                );
-                setSelected(result);
-                return;
-            }
+            // if (areaIndex === 1 && detailIndex !== 0) {
+            //     const result = remove.filter(
+            //         (element) => !(element[0] === 1 && element[1] === 0)
+            //     );
+            //     setSelected(result);
+            //     return;
+            // }
 
             setSelected(remove);
             return;
@@ -230,40 +240,44 @@ function WorkingArea({ route }) {
 
         const prev = selected;
 
-        //경기 전체 > 리스트에서 추가할 경우 나머지 경기 지역들 추가하기
-        if (areaIndex === 1 && detailIndex === 0) {
-            const result = [
-                [1, 1],
-                [1, 2],
-                [1, 3],
-                [1, 4],
-            ];
-            setSelected([...prev, cur, ...result]);
+        if (prev.length >= 2) {
+            showMessage("작업 지역은 최대 2개까지 선택 가능합니다.");
             return;
         }
+        //경기 전체 > 리스트에서 추가할 경우 나머지 경기 지역들 추가하기
+        // if (areaIndex === 1 && detailIndex === 0) {
+        //     const result = [
+        //         [1, 1],
+        //         [1, 2],
+        //         [1, 3],
+        //         [1, 4],
+        //     ];
+        //     setSelected([...prev, cur, ...result]);
+        //     return;
+        // }
 
         //경기 지역들 모두 선택 시 경기 전체도 추가하기
-        if (areaIndex === 1 && detailIndex !== 0) {
-            const tempSelected = [...prev, cur];
-            const check = [];
-            tempSelected.map((element) => {
-                if (
-                    element[0] === 1 &&
-                    (element[1] === 1 ||
-                        element[1] === 2 ||
-                        element[1] === 3 ||
-                        element[1] === 4)
-                )
-                    check.push(true);
-            });
+        // if (areaIndex === 1 && detailIndex !== 0) {
+        //     const tempSelected = [...prev, cur];
+        //     const check = [];
+        //     tempSelected.map((element) => {
+        //         if (
+        //             element[0] === 1 &&
+        //             (element[1] === 1 ||
+        //                 element[1] === 2 ||
+        //                 element[1] === 3 ||
+        //                 element[1] === 4)
+        //         )
+        //             check.push(true);
+        //     });
 
-            if (check.length === 4) {
-                const result = [1, 0];
+        //     if (check.length === 4) {
+        //         const result = [1, 0];
 
-                setSelected([...tempSelected, result]);
-                return;
-            }
-        }
+        //         setSelected([...tempSelected, result]);
+        //         return;
+        //     }
+        // }
 
         setSelected([...prev, cur]);
     };
