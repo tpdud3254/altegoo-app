@@ -341,6 +341,9 @@ const CheckOrderPrice = ({ navigation }) => {
             //후불결제
             navigation.navigate(REGIST_NAV[6], {
                 data: { paymentType: "postpaid" },
+                orderId: registInfo.id,
+                dateTime: registInfo.dateTime,
+                isDesignation: registInfo.isDesignation || false,
             });
         }
     };
