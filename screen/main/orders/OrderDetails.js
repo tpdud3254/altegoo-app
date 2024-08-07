@@ -549,11 +549,65 @@ function OrderDetails({ navigation, route }) {
                                 order.dateTime
                             )}`}
                         />
-                        {order.vehicleType === "사다리차" &&
-                        order.direction === "양사" ? (
-                            <>
+                        {order.acceptUser === info.id ||
+                        order.orderStatusId === 1 ? (
+                            order.vehicleType === "사다리차" &&
+                            order.direction === "양사" ? (
+                                <>
+                                    <Item
+                                        title="내림 주소"
+                                        value={
+                                            order.address1 +
+                                            " " +
+                                            order.detailAddress1
+                                        }
+                                        button={
+                                            <ItemButton
+                                                onPress={() =>
+                                                    GoToKakaoNavi(
+                                                        order.address1
+                                                    )
+                                                }
+                                            >
+                                                <Image
+                                                    source={require(`../../../assets/images/icons/icon_location.png`)}
+                                                    style={{
+                                                        width: 26,
+                                                        height: 26,
+                                                    }}
+                                                />
+                                            </ItemButton>
+                                        }
+                                    />
+                                    <Item
+                                        title="올림 주소"
+                                        value={
+                                            order.address2 +
+                                            " " +
+                                            order.detailAddress2
+                                        }
+                                        button={
+                                            <ItemButton
+                                                onPress={() =>
+                                                    GoToKakaoNavi(
+                                                        order.address2
+                                                    )
+                                                }
+                                            >
+                                                <Image
+                                                    source={require(`../../../assets/images/icons/icon_location.png`)}
+                                                    style={{
+                                                        width: 26,
+                                                        height: 26,
+                                                    }}
+                                                />
+                                            </ItemButton>
+                                        }
+                                    />
+                                </>
+                            ) : (
                                 <Item
-                                    title="내림 주소"
+                                    title="주소"
                                     value={
                                         order.address1 +
                                         " " +
@@ -575,50 +629,8 @@ function OrderDetails({ navigation, route }) {
                                         </ItemButton>
                                     }
                                 />
-                                <Item
-                                    title="올림 주소"
-                                    value={
-                                        order.address2 +
-                                        " " +
-                                        order.detailAddress2
-                                    }
-                                    button={
-                                        <ItemButton
-                                            onPress={() =>
-                                                GoToKakaoNavi(order.address2)
-                                            }
-                                        >
-                                            <Image
-                                                source={require(`../../../assets/images/icons/icon_location.png`)}
-                                                style={{
-                                                    width: 26,
-                                                    height: 26,
-                                                }}
-                                            />
-                                        </ItemButton>
-                                    }
-                                />
-                            </>
-                        ) : (
-                            <Item
-                                title="주소"
-                                value={
-                                    order.address1 + " " + order.detailAddress1
-                                }
-                                button={
-                                    <ItemButton
-                                        onPress={() =>
-                                            GoToKakaoNavi(order.address1)
-                                        }
-                                    >
-                                        <Image
-                                            source={require(`../../../assets/images/icons/icon_location.png`)}
-                                            style={{ width: 26, height: 26 }}
-                                        />
-                                    </ItemButton>
-                                }
-                            />
-                        )}
+                            )
+                        ) : null}
                         {order.orderStatusId === 1 ||
                         order.acceptUser !== info.id ? null : (
                             <>
