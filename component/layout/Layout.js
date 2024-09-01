@@ -6,12 +6,13 @@ import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimen
 import RegistButton from "../button/RegistButton";
 import MediumText from "../text/MediumText";
 import KakaoButton from "../button/KakaoButton";
+import { IsIOS } from "../../utils";
 
 export const LAYOUT_PADDING_X = 16;
 const Container = styled.View`
     flex: 1;
     background-color: ${color["page-background"]};
-    padding-top: ${(props) => (props.headerShown ? 0 : 40)}px;
+    padding-top: ${(props) => (props.headerShown ? 0 : props.ios ? 50 : 40)}px;
 `;
 const Wrapper = styled.View`
     flex: 1;
@@ -44,7 +45,7 @@ export default function Layout({
 }) {
     const { height } = useWindowDimensions();
     return (
-        <Container headerShown={headerShown}>
+        <Container headerShown={headerShown} ios={IsIOS()}>
             {scroll ? (
                 <ScrollView>
                     {touchableElement ? (

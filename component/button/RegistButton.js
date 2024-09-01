@@ -52,13 +52,13 @@ function RegistButton() {
     };
 
     return (
-        <View style={{ height: height, position: "absolute", width: "100%" }}>
+        <>
             <Container
                 onPress={goToRegist}
                 style={{
                     width: 170,
                     height: 80,
-                    bottom: 70,
+                    bottom: 10,
                 }}
             >
                 <Image
@@ -70,29 +70,40 @@ function RegistButton() {
                     source={require(`../../assets/images/icons/btn_upload_work.png`)}
                 />
             </Container>
-            <PopupWithButtons
-                visible={isPopupShown}
-                onTouchOutside={hidePopup}
-                onClick={goToRegistLicense}
-                negativeButtonLabel="취소"
-                width={windowWidth * 0.8}
+            <View
+                style={
+                    isPopupShown && {
+                        height: height,
+                        position: "absolute",
+                        width: "100%",
+                        marginLeft: 16,
+                    }
+                }
             >
-                <RegularText
-                    style={{
-                        fontSize: 22,
-                        textAlign: "center",
-                        lineHeight: 33,
-                        paddingTop: 15,
-                        paddingLeft: 20,
-                        paddingRight: 20,
-                        paddingBottom: 15,
-                    }}
+                <PopupWithButtons
+                    visible={isPopupShown}
+                    onTouchOutside={hidePopup}
+                    onClick={goToRegistLicense}
+                    negativeButtonLabel="취소"
+                    width={windowWidth * 0.8}
                 >
-                    필요한 서류가 등록되지 않았습니다.{"\n"}
-                    등록하시겠습니까?
-                </RegularText>
-            </PopupWithButtons>
-        </View>
+                    <RegularText
+                        style={{
+                            fontSize: 22,
+                            textAlign: "center",
+                            lineHeight: 33,
+                            paddingTop: 15,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                            paddingBottom: 15,
+                        }}
+                    >
+                        필요한 서류가{"\n"}등록되지 않았습니다.{"\n"}
+                        등록하시겠습니까?
+                    </RegularText>
+                </PopupWithButtons>
+            </View>
+        </>
     );
 }
 

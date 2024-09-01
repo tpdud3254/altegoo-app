@@ -14,6 +14,7 @@ import {
     CheckLoading,
     Filter,
     GoToOrderPage,
+    IsIOS,
     getAsyncStorageToken,
     showError,
     showMessage,
@@ -26,8 +27,7 @@ import { Support } from "../../../component/icon/Support";
 
 const HeaderContainer = styled.View`
     background-color: white;
-    padding-top: 48px;
-
+    padding-top: ${(props) => (props.ios ? 58 : 48)}px;
     padding-left: 15px;
     padding-right: 15px;
     border-bottom-color: ${color["image-area-background"]};
@@ -264,7 +264,7 @@ function DriverOrderList({ navigation }) {
 
     const Header = () => {
         return (
-            <HeaderContainer>
+            <HeaderContainer ios={IsIOS()}>
                 <HeaderWrapper>
                     <HeaderItem>
                         <Image

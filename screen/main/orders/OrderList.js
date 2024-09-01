@@ -14,6 +14,7 @@ import {
     CheckLoading,
     Filter,
     GoToOrderPage,
+    IsIOS,
     getAsyncStorageToken,
     showMessage,
 } from "../../../utils";
@@ -28,7 +29,7 @@ const HeaderContainer = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-top: 48px;
+    padding-top: ${(props) => (props.ios ? 58 : 48)}px;
     padding-bottom: 15px;
     padding-left: 15px;
     padding-right: 15px;
@@ -173,7 +174,7 @@ function OrderList({ navigation }) {
 
     const Header = () => {
         return (
-            <HeaderContainer>
+            <HeaderContainer ios={IsIOS()}>
                 <HaederWrapper>
                     <Image
                         source={require("../../../assets/images/icons/bullet_tri.png")}

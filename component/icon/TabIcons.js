@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { color } from "../../styles";
 import { Image } from "react-native";
 import MediumText from "../text/MediumText";
+import { IsIOS } from "../../utils";
 
 export default function TabIcon({ tabName, focused, iconText }) {
     const focusImage =
@@ -26,7 +27,7 @@ export default function TabIcon({ tabName, focused, iconText }) {
         <>
             <Image
                 source={focused ? focusImage : blurImage}
-                style={{ width: 27, height: 27 }}
+                style={{ width: 27, height: 27, marginTop: IsIOS() ? 15 : 0 }}
                 resizeMode="contain"
             />
             <MediumText

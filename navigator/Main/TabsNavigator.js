@@ -8,6 +8,7 @@ import OrderList from "../../screen/main/orders/OrderList";
 import RealTimeOrder from "../../screen/main/orders/RealTimeOrder";
 import DriverOrderList from "../../screen/main/orders/DriverOrderList";
 import Menus from "../../screen/main/setting/Menus";
+import { IsIOS } from "../../utils";
 
 const Tabs = createBottomTabNavigator();
 
@@ -21,7 +22,7 @@ export default function TabsNavigator() {
                 tabBarShowLabel: false,
                 tabBarStyle: {
                     paddingTop: 0,
-                    height: 74,
+                    height: IsIOS() ? 90 : 74,
                 },
                 unmountOnBlur: true,
                 presentation: "transparentModal",
