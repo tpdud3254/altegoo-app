@@ -19,6 +19,7 @@ import {
     GetDayOfWeek,
     GetPhoneNumberWithDash,
     GetTime,
+    IsIOS,
     getAsyncStorageToken,
     numberWithComma,
     numberWithZero,
@@ -87,7 +88,8 @@ const NormalButton = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     width: 50%;
-    height: 60px;
+    height: ${(props) => (props.ios ? 70 : 60)}px;
+    padding-bottom: ${(props) => (props.ios ? 10 : 0)}px;
 `;
 
 const PopupWrapper = styled.View`
@@ -437,6 +439,7 @@ function AddOtherData({ navigation }) {
 
                 <NormalButton
                     style={{ width: "100%" }}
+                    ios={IsIOS()}
                     onPress={handleSubmit((data) =>
                         onNextStep({ ...data, emergency: false })
                     )}

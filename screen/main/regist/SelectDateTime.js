@@ -383,7 +383,7 @@ function SelectDateTime({ navigation }) {
                 <RNDateTimePicker
                     mode="time"
                     value={new Date()}
-                    display="clock"
+                    display={"spinner"}
                     onChange={onSelectTime}
                 />
             ) : (

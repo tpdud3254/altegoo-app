@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
 import { color } from "../../styles";
-import { ScrollView, TouchableWithoutFeedback, View } from "react-native";
+import {
+    KeyboardAvoidingView,
+    ScrollView,
+    TouchableWithoutFeedback,
+    View,
+} from "react-native";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 import RegistButton from "../button/RegistButton";
 import MediumText from "../text/MediumText";
@@ -24,7 +29,8 @@ const Wrapper = styled.View`
 const BottomButton = styled.TouchableOpacity`
     background-color: ${(props) =>
         props.disabled ? color.btnDisable : color.btnAccent};
-    height: 60px;
+    height: ${(props) => (props.ios ? "70" : "60")}px;
+    padding-bottom: ${(props) => (props.ios ? "10" : "0")}px;
     align-items: center;
     justify-content: center;
 `;
@@ -47,27 +53,35 @@ export default function Layout({
     return (
         <Container headerShown={headerShown} ios={IsIOS()}>
             {scroll ? (
-                <ScrollView>
-                    {touchableElement ? (
-                        <View
-                            style={{
-                                paddingLeft: LAYOUT_PADDING_X,
-                                paddingRight: LAYOUT_PADDING_X,
-                                paddingTop: 8,
-                            }}
-                        >
-                            {touchableElement()}
-                        </View>
-                    ) : null}
-                    <TouchableWithoutFeedback>
-                        <Wrapper
-                            windowHeight={height}
-                            touchableElement={touchableElement}
-                        >
-                            {children}
-                        </Wrapper>
-                    </TouchableWithoutFeedback>
-                </ScrollView>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    enabled={IsIOS()}
+                    behavior={IsIOS() ? "padding" : undefined}
+                    keyboardVerticalOffset={150}
+                >
+                    <ScrollView>
+                        {touchableElement ? (
+                            <View
+                                style={{
+                                    paddingLeft: LAYOUT_PADDING_X,
+                                    paddingRight: LAYOUT_PADDING_X,
+                                    paddingTop: 8,
+                                }}
+                            >
+                                {touchableElement()}
+                            </View>
+                        ) : null}
+                        <TouchableWithoutFeedback>
+                            <Wrapper
+                                windowHeight={height}
+                                touchableElement={touchableElement}
+                                style={IsIOS() && { marginBottom: 50 }}
+                            >
+                                {children}
+                            </Wrapper>
+                        </TouchableWithoutFeedback>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             ) : (
                 <Wrapper windowHeight={height}>{children}</Wrapper>
             )}
@@ -80,6 +94,7 @@ export default function Layout({
                     </CustomButton>
                 ) : (
                     <BottomButton
+                        ios={IsIOS()}
                         onPress={bottomButtonProps.onPress}
                         disabled={bottomButtonProps.disabled}
                     >

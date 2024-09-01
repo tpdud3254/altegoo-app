@@ -42,25 +42,23 @@ function KakaoButton() {
     };
 
     return (
-        <View style={{ height: height, position: "absolute", width: "100%" }}>
-            <Container
-                onPress={goToKakaoChat}
+        <Container
+            onPress={goToKakaoChat}
+            style={{
+                width: 170,
+                height: 80,
+                bottom: 60,
+            }}
+        >
+            <Image
                 style={{
+                    resizeMode: "contain",
                     width: 170,
                     height: 80,
-                    bottom: 120,
                 }}
-            >
-                <Image
-                    style={{
-                        resizeMode: "contain",
-                        width: 170,
-                        height: 80,
-                    }}
-                    source={require(`../../assets/images/icons/btn_kakao_help.png`)}
-                />
-            </Container>
-        </View>
+                source={require(`../../assets/images/icons/btn_kakao_help.png`)}
+            />
+        </Container>
     );
 }
 
