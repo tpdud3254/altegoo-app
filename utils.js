@@ -14,6 +14,7 @@ import {
 import * as Speech from "expo-speech";
 import axios from "axios";
 import * as Linking from "expo-linking";
+import { Platform } from "react-native";
 
 export const reset = (setValue, value) => {
     setValue(value, "");
@@ -661,4 +662,8 @@ export const GetKrDateTime = (datetime) => {
 
 export const IsGugupackMember = (info) => {
     return info.userType === COMPANY && info.gugupack;
+};
+
+export const IsIOS = () => {
+    return Platform.OS === "ios";
 };

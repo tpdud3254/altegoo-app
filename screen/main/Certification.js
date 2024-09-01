@@ -110,9 +110,9 @@ function Certification({ navigation }) {
                 flex: 1,
                 alignItems: "center",
                 justifyContent: "center",
-
                 marginLeft: -LAYOUT_PADDING_X,
                 marginRight: -LAYOUT_PADDING_X,
+                backgroundColor: "white",
             }}
         >
             <SafeAreaView style={{ flex: 1 }}>

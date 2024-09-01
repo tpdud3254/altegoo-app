@@ -10,7 +10,7 @@ import WebView from "react-native-webview";
 
 function Identification({ navigation }) {
     const webViewRef = useRef();
-    const { width } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const [progress, setProgress] = useState(0.0);
 
     const { info, setInfo } = useContext(UserContext);
@@ -115,39 +115,6 @@ function Identification({ navigation }) {
     };
 
     return (
-        // <AuthLayout>
-        //     <InputContainer>
-        //         <InputWrapper>
-        //             <TextInput
-        //                 title="이름"
-        //                 placeholder="실명입력"
-        //                 returnKeyType="next"
-        //                 value={watch("name")}
-        //                 onChangeText={(text) => setValue("name", text)}
-        //                 onReset={() => setValue("name", "")}
-        //                 onSubmitEditing={() => phoneRef.current.setFocus()}
-        //             />
-        //         </InputWrapper>
-        //         <InputWrapper>
-        //             <TextInput
-        //                 ref={phoneRef}
-        //                 title="휴대폰 번호"
-        //                 placeholder="- 없이 숫자만 입력해주세요."
-        //                 keyboardType="number-pad"
-        //                 returnKeyType="done"
-        //                 value={watch("phone")}
-        //                 onChangeText={(text) => setValue("phone", text)}
-        //                 onReset={() => setValue("phone", "")}
-        //             />
-        //         </InputWrapper>
-        //     </InputContainer>
-        //     <Button
-        //         onPress={handleSubmit(authenticating)}
-        //         type="accent"
-        //         text="본인 인증하기"
-        //         disabled={!validation}
-        //     />
-        // </AuthLayout>
         <View
             style={{
                 flex: 1,
@@ -155,18 +122,23 @@ function Identification({ navigation }) {
                 justifyContent: "center",
                 marginLeft: -LAYOUT_PADDING_X,
                 marginRight: -LAYOUT_PADDING_X,
+                backgroundColor: "white",
             }}
         >
             <SafeAreaView style={{ flex: 1 }}>
                 <View
                     style={{
-                        height: 700,
                         flex: 1,
                     }}
                 >
                     <WebView
                         ref={webViewRef}
-                        style={{ width: width, height: 700, flex: 1 }}
+                        originWhitelist={[
+                            "http://*",
+                            "https://*",
+                            "intent://*",
+                        ]}
+                        style={{ width: width, flex: 1 }}
                         source={{
                             uri: "https://master.d1p7wg3e032x9j.amplifyapp.com/certification",
                         }}
@@ -175,6 +147,61 @@ function Identification({ navigation }) {
                         onMessage={receiveMessage}
                         onLoadProgress={(event) => {
                             setProgress(event.nativeEvent.progress);
+                        }}
+                        onShouldStartLoadWithRequest={(event) => {
+                            console.log("onShouldstart");
+                            console.log(event);
+                            if (
+                                event.url.startsWith("http://") ||
+                                event.url.startsWith("https://") ||
+                                event.url.startsWith("about:blank")
+                            ) {
+                                return true;
+                            }
+                            if (
+                                Platform.OS === "android" &&
+                                event.url.startsWith("intent")
+                            ) {
+                                let newUrl = "";
+                                if (event.url.includes("tauthlink")) {
+                                    newUrl = `tauthlink${event.url.substring(
+                                        6,
+                                        event.url.length + 1
+                                    )}`;
+                                    console.log(newUrl);
+                                }
+                                if (event.url.includes("ktauthexternalcall")) {
+                                    newUrl = `ktauthexternalcall${event.url.substring(
+                                        6,
+                                        event.url.length + 1
+                                    )}`;
+                                    console.log(newUrl);
+                                }
+                                if (event.url.includes("upluscorporation")) {
+                                    newUrl = `upluscorporation${event.url.substring(
+                                        6,
+                                        event.url.length + 1
+                                    )}`;
+                                    console.log(newUrl);
+                                }
+                                SendIntentAndroid.openAppWithUri(newUrl)
+                                    .then((isOpened) => {
+                                        if (!isOpened) {
+                                            showMessage(
+                                                "앱 실행에 실패했습니다"
+                                            );
+                                        }
+                                        return false;
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                                return false;
+                            }
+                            if (Platform.OS === "ios") {
+                                return true;
+                            }
+                            return true;
                         }}
                     />
                 </View>

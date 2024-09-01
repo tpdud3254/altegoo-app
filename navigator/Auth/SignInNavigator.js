@@ -6,6 +6,7 @@ import { FONTS, FONT_OFFSET } from "../../constant";
 import { Image } from "react-native";
 import { color } from "../../styles";
 import Certification from "../../screen/main/Certification";
+import { IsIOS } from "../../utils";
 
 const Stack = createStackNavigator();
 
@@ -55,7 +56,8 @@ export default function SignInNavigator() {
                 name="Certification"
                 component={Certification}
                 options={{
-                    headerShown: false,
+                    headerShown: IsIOS() ? true : false,
+                    title: "휴대폰 본인인증",
                 }}
             />
         </Stack.Navigator>

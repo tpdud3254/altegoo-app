@@ -3,12 +3,16 @@ import React from "react";
 import Intro from "../../screen/Intro";
 import SignInNavigator from "./SignInNavigator";
 import SignUpNavigator from "./SignUpNavigator";
+import { IsIOS } from "../../utils";
 
 const Stack = createStackNavigator();
 
 export default function IntroNavigator() {
     return (
-        <Stack.Navigator screenOptions={{ presentation: "modal" }}>
+        <Stack.Navigator
+            screenOptions={{ presentation: "modal" }}
+            style={{ marginBottom: IsIOS ? 10 : 0 }}
+        >
             <Stack.Screen
                 name="Intro"
                 component={Intro}
@@ -22,7 +26,6 @@ export default function IntroNavigator() {
                     headerShown: false,
                 }}
             />
-
             <Stack.Screen
                 name="SignUpNavigator"
                 component={SignUpNavigator}

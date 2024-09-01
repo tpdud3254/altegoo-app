@@ -17,6 +17,7 @@ import VehicleLicense from "../../screen/auth/SignUp/VehicleLicense";
 import WorkingArea from "../../screen/auth/SignUp/WorkingArea";
 import RecommendedMember from "../../screen/auth/SignUp/RecommendedMember";
 import SignUpComplete from "../../screen/auth/SignUp/SignUpComplete";
+import { IsIOS } from "../../utils";
 
 const Stack = createStackNavigator();
 
@@ -72,7 +73,8 @@ export default function SignUpNavigator() {
                 name="Identification"
                 component={Identification}
                 options={{
-                    headerShown: false,
+                    headerShown: IsIOS() ? true : false,
+                    title: "휴대폰 본인인증",
                 }}
             />
             <Stack.Screen
